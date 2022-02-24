@@ -1,0 +1,16 @@
+{
+	"name": "MeteoR",
+	"short_name": "MeteoR",
+	"background_color": "#010101",
+	"theme_color": "#010101",
+	"orientation": "portrait",
+	"icons": [
+		{
+		"src": "img/meteor_favicon.webp",
+		"sizes": "512x512",
+		"type": "image/webp"
+		}
+	],
+	"start_url": "index.php",
+	"display": "standalone"
+}

@@ -3,7 +3,7 @@
 	font-family: "Open Sans";
 	font-display: swap;
 	src: url("polices/open-sans-600.woff2") format("woff2"),
-	     url("polices/open-sans-600.woff") format("woff");
+		 url("polices/open-sans-600.woff") format("woff");
 }
 
 *:focus,

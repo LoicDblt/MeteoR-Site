@@ -3,29 +3,24 @@
 	font-family: "Open Sans";
 	font-display: swap;
 	src: url("polices/open-sans-600.woff2") format("woff2"),
-		 url("polices/open-sans-600.woff") format("woff");
+			url("polices/open-sans-600.woff") format("woff");
 }
-
 *:focus,
 *:active{
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
-
 *{
 	scrollbar-color: #CDCDCD #F0F0F0;
 	scroll-behavior: smooth;
 	scrollbar-width: thin;
 }
-
 ::-webkit-scrollbar {
 	width: 8px;
 }
-
 ::-webkit-scrollbar-thumb {
 	background: #CDCDCD;
 }
-
 body{
 	display: flex;
 	flex-direction: column;
@@ -50,7 +45,6 @@ nav{
 	justify-content: center;
 	width: 27.5%;
 }
-
 a{
 	color: #000000;
 	font-size: 20px;
@@ -60,11 +54,9 @@ a{
 	outline: none;
 	padding: 5px;
 }
-
 a:hover{
 	color: #646464;
 }
-
 a:active{
 	color: #838383;
 }
@@ -75,7 +67,6 @@ header > div:nth-child(2){
 	justify-content: center;
 	width: 45%;
 }
-
 header > div:nth-child(2) > img{
 	width: 390px;
 	height: 98px;
@@ -91,41 +82,34 @@ header > div:last-child{
 	justify-content: center;
 	cursor: pointer;
 }
-
 header > div:last-child > div{
 	display: flex;
 	width: 100%;
 }
-
 header > div:last-child > div:first-child > img{
 	display: block;
 	margin: auto;
 	width: 64px;
 	height: 64px
 }
-
 header > div:last-child > div:last-child{
 	display: none;
 	height: 35px;
 }
-
 header > div:last-child > div:last-child > p{
 	width: 100%;
 	margin: 0;
 	font-size: 32px;
 	text-align: center;
 }
-
 header > div:last-child > div:last-child > p:first-child{
 	color: #F9700E;
 }
-
 header > div:last-child > div:last-child > p:last-child{
 	color: #09A4DD;
 }
 
 /* Corps */
-
 	/* Element parent */
 h1{
 	width: 70%;
@@ -139,13 +123,11 @@ h1{
 	border-width: 0 0 4px 0;
 	border-image: radial-gradient(#000000, #FFFFFF) 1;
 }
-
 section{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
-
 section > section{
 	display: flex;
 	flex-direction: column;
@@ -157,7 +139,6 @@ section > section{
 	border-radius: 10px;
 	box-shadow: 0 15px 20px -15px #CECECE;
 }
-
 section > div:last-child{
 	display: flex;
 	align-items: center;
@@ -168,259 +149,152 @@ section > div:last-child{
 section > section:first-child{
 	margin-top: 20px;
 }
-
 section > section:first-child > p{
 	font-size: 44px;
 	margin: 0;
 }
 
 	/* Section graphique */
+.user-select-none.svg-container{
+	position: unset !important;
+}
 section > section:last-child > div:last-child{
 	position: relative;
 	width: 100%;
-	/* (hauteur / largeur * taille voulue en %) de l'image */
-	padding-top: calc(1102 / 1551 * 80%);
 }
 
-section > section:last-child > div:last-child > img{
-	display: none;
-	position: absolute;
-	top: 0;
-	width: 80%;
-}
-
-section > section:last-child > div:last-child > img:nth-child(2){
-	display: block;
-}
-
-	/* Boutons */
-section > section:last-child > div:nth-child(2){
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	margin-bottom: 10px;
-}
-
-button{
-	flex: 1;
-	width: 100%;
-	height: 40px;
-	background-color: #F0F0F0;
-	color: #333333;
-	border: hidden;
-	font-family: "Open Sans", Arial, sans-serif;
-	font-size: 14px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: 0.6s;
-}
-
-button:hover{
-	background-color: #E6E6E6;
-	transition: 0.3s;
-}
-
-button:active{
-	background-color: #DFDFDF;
-	transition: 0.3s;
-}
-
-button:hover,
-button:focus{
-	outline: none;
-}
-
-#actif{
-	background-color: #DBDBDB;
-}
-
-/* VERSION ORDINATEUR PORTABLE */
+/* Version ordinateur portable */
 @media screen and (min-width: 770px) and (max-width: 1370px){
-/* Header */
+	/* Header */
+		/* Box centrale */
+	header > div:nth-child(2) > img{
+		width: 350px;
+		height: 88px;
+	}
 
-	/* Box centrale */
-header > div:nth-child(2) > img{
-	width: 350px;
-	height: 88px;
+		/* Box droite */
+	header > div:last-child > div:first-child > img{
+		width: 56px;
+		height: 56px;
+	}
+
+	/* Corps */
+		/* Element parent */
+	section > section{
+		width: 70vw;
+	}
 }
 
-	/* Box droite */
-header > div:last-child > div:first-child > img{
-	width: 56px;
-	height: 56px;
-}
-
-/* Corps */
-
-	/* Element parent */
-section > section{
-	width: 70vw;
-}
-}
-
-/* VERSION MOBILE */
+/* Version mobile */
 @media screen and (max-width: 769px){
-/* Header */
-header{
-	flex-wrap: wrap;
-	padding-bottom: 10px;
-}
+	/* Header */
+	header{
+		flex-wrap: wrap;
+		padding-bottom: 10px;
+	}
 
-	/* Box gauche */
-nav{
-	width: 45%;
-	order: 2;
-}
+		/* Box gauche */
+	nav{
+		width: 45%;
+		order: 2;
+	}
+	a{
+		transition: 0.1s;
+		display: block;
+		padding: 20px 10px;
+	}
 
-a{
-	transition: 0.1s;
-	display: block;
-	padding: 20px 10px;
-}
+		/* Box centrale */
+	header > div:nth-child(2){
+		width: 100%;
+		order: 1;
+	}
+	header > div:nth-child(2) > img{
+		width: 320px;
+		height: 80px;
+		padding: 15px 0 13px;
+	}
 
-	/* Box centrale */
-header > div:nth-child(2){
-	width: 100%;
-	order: 1;
-}
+		/* Box droite */
+	header > div:last-child{
+		width: 55%;
+		height: 79px;
+		order: 3;
+		cursor: default;
+	}
+	header > div:last-child > div:first-child > img{
+		width: 44px;
+		height: 44px;
+	}
+	header > div:last-child > div:last-child > p{
+		font-size: 24px;
+	}
 
-header > div:nth-child(2) > img{
-	width: 320px;
-	height: 80px;
-	padding: 15px 0 13px;
-}
+	/* Corps */
+		/* Element parent */
+	h1{
+		width: 80%;
+		border-width: 0 0 3px 0;
+	}
+	section > section{
+		width: 98vw;
+		margin-bottom: 15px;
+	}
 
-	/* Box droite */
-header > div:last-child{
-	width: 55%;
-	height: 79px;
-	order: 3;
-	cursor: default;
-}
+		/* Section donnée actuelle */
+	section > section:first-child{
+		margin-top: 15px;
+	}
 
-header > div:last-child > div:first-child > img{
-	width: 44px;
-	height: 44px;
-}
-
-header > div:last-child > div:last-child > p{
-	font-size: 24px;
-}
-
-/* Corps */
-
-	/* Element parent */
-h1{
-	width: 80%;
-	border-width: 0 0 3px 0;
-}
-
-section > section{
-	width: 98vw;
-	margin-bottom: 15px;
-}
-
-	/* Section donnée actuelle */
-section > section:first-child{
-	margin-top: 15px;
-}
-
-section > section:first-child > p{
-	font-size: 44px;
-}
-
-	/* Section graphique */
-section > section:last-child > div:last-child{
-	/* (hauteur / largeur * taille voulue en %) de l'image */
-	padding-top: calc(1102 / 1551 * 110%);
-	overflow: hidden;
-}
-
-section > section:last-child > div:last-child > img{
-	left: -12px;
-	width: 110%;
-}
-
-	/* Boutons */
-section > section:last-child > div:nth-child(2){
-	margin-bottom: 15px;
-}
+	section > section:first-child > p{
+		font-size: 44px;
+	}
 }
 
 
 @media (prefers-color-scheme: dark){
-/* Général */
-*{
-	scrollbar-color: #1A1A1A #333333;
-}
+	/* Général */
+	*{
+		scrollbar-color: #1A1A1A #333333;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #1A1A1A;
+	}
+	body{
+		background-color: #333333;
+		color: #BFBFBF;
+	}
 
-::-webkit-scrollbar-thumb {
-	background: #1A1A1A;
-}
+	/* Header */
+	header{
+		background-color: #010101;
+		z-index: 1;
+		box-shadow: 0 15px 20px -15px #131313;
+	}
 
-body{
-	background-color: #333333;
-	color: #BFBFBF;
-}
+		/* Box gauche */
+	a{
+		color: #BFBFBF;
+	}
+	a:hover{
+		color: #8B8B8B;
+	}
+	a:active{
+		color: #727272;
+	}
 
-/* Header */
-header{
-	background-color: #010101;
-	z-index: 1;
-	box-shadow: 0 15px 20px -15px #131313;
-}
+	/* Corps */
+		/* Element parent */
+	h1{
+		border-image: radial-gradient(#ECECEC, #232224) 1;
+	}
+	section{
+		background-color: #333333;
+	}
 
-	/* Box gauche */
-a{
-	color: #BFBFBF;
-}
-
-a:hover{
-	color: #8B8B8B;
-}
-
-a:active{
-	color: #727272;
-}
-
-/* Corps */
-
-	/* Element parent */
-h1{
-	border-image: radial-gradient(#ECECEC, #232224) 1;
-}
-
-section{
-	background-color: #333333;
-}
-
-	/* Section donnée actuelle */
-section > section{
-	background-color: #232224;
-	box-shadow: 0 15px 20px -15px #131313;
-}
-
-	/* Section graphique */
-section > section:last-child > div:last-child > img{
-	filter: grayscale(1) invert(0.8);
-}
-
-	/* Boutons */
-button{
-	background-color: #111111;
-	color: #B5B5B5;
-}
-
-button:hover{
-	background-color: #0C0C0C;
-	transition: 0.3s;
-}
-
-button:active{
-	background-color: #010101;
-}
-
-#actif{
-	background-color: #010101;
-}
+		/* Section donnée actuelle */
+	section > section{
+		background-color: #232224;
+		box-shadow: 0 15px 20px -15px #131313;
+	}
 }

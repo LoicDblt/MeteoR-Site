@@ -1,22 +1,24 @@
 <?php
 // Sécurité
 header("X-Frame-Options: DENY");
-header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com ajax.cloudflare.com");
+header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com ajax.cloudflare.com cdn.plot.ly");
 
 // Accès à la base de données
-include_once "classe/BaseDeDonnees.php";
-$bdd = new BaseDeDonnees();
+include_once "classe/BddDonnees.php";
+include_once "classe/BddGraphes.php";
+$bddD = new BddDonnees();
+$bddG = new BddGraphes();
 $valeurs = Array();
 
 if (!$_GET){
 	include_once "assets/temp.php";
-	array_push($valeurs, array($bdd->maxMin("MAX", "max_temp")["date"], $bdd->maxMin("MAX", "max_temp")["max_temp"]));
-	array_push($valeurs, array($bdd->maxMin("MIN", "min_temp")["date"], $bdd->maxMin("MIN", "min_temp")["min_temp"]));
+	array_push($valeurs, array($bddD->maxMin("MAX", "max_temp")["date"], $bddD->maxMin("MAX", "max_temp")["max_temp"]));
+	array_push($valeurs, array($bddD->maxMin("MIN", "min_temp")["date"], $bddD->maxMin("MIN", "min_temp")["min_temp"]));
 }
 elseif (isset($_GET["humi"])){
 	include_once "assets/humi.php";
-	array_push($valeurs, array($bdd->maxMin("MIN", "min_humi")["date"], $bdd->maxMin("MIN", "min_humi")["min_humi"]));
-	array_push($valeurs, array($bdd->maxMin("MAX", "max_humi")["date"], $bdd->maxMin("MAX", "max_humi")["max_humi"]));
+	array_push($valeurs, array($bddD->maxMin("MIN", "min_humi")["date"], $bddD->maxMin("MIN", "min_humi")["min_humi"]));
+	array_push($valeurs, array($bddD->maxMin("MAX", "max_humi")["date"], $bddD->maxMin("MAX", "max_humi")["max_humi"]));
 }
 else{
 	header("location: erreur_404");
@@ -35,6 +37,8 @@ else{
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
 	<link rel="stylesheet" type="text/css" href="style/style.css"/>
+	<script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
+	<script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script>
 </head>
 <body>
 <header>
@@ -63,24 +67,143 @@ else{
 	<section>
 		<h1><?=$page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo $bdd->actu($page["sectionActu"]["tempHumi"]) . $page["commun"]["type"]?>
+			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"]?>
 		</p>
 	</section>
 	<section>
 		<h1>Évolution dans le temps</h1>
-		<div>
-			<button onclick="change_graph('<?=$page['sectionGraphs']['buttonSrc']?>_24', this.id)">24 heures</button>
-			<button id="actif" onclick="change_graph('<?=$page['sectionGraphs']['buttonSrc']?>_72', this.id)">3 jours</button>
-			<button onclick="change_graph('<?=$page['sectionGraphs']['buttonSrc']?>_168', this.id)">1 semaine</button>
-		</div>
-		<div>
-			<?php echo "<img src=\"img/graphs/graph_" . $page['sectionGraphs']['buttonSrc'] . "_24.webp?hash=" . filemtime("img/graphs/graph_" . $page['sectionGraphs']['buttonSrc'] . "_24.webp") . "\" alt=\"Evolution " . $page['sectionGraphs']['alt'] . " sur 24 heures\"/>\n"?>
-			<?php echo "<img id=\"afficher\" src=\"img/graphs/graph_" . $page['sectionGraphs']['buttonSrc'] . "_72.webp?hash=" . filemtime("img/graphs/graph_" . $page['sectionGraphs']['buttonSrc'] . "_72.webp") . "\" alt=\"Evolution " . $page['sectionGraphs']['alt'] . " sur 3 jours\"/>\n"?>
-			<?php echo "<img src=\"img/graphs/graph_" . $page['sectionGraphs']['buttonSrc'] . "_168.webp?hash=" . filemtime("img/graphs/graph_" . $page['sectionGraphs']['buttonSrc'] . "_168.webp") . "\" alt=\"Evolution " . $page['sectionGraphs']['alt'] . " sur 7 jours\"/>\n"?>
+		<div id="graph">
 		</div>
 	</section>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="javascript/images.js"></script>
+<script>
+let x = <?php echo $bddG->graphX()?>;
+let tabX = new Array();
+x.forEach(element =>
+	tabX.push(Object.values(element)[0])
+)
+
+let y = <?php echo $bddG->graphY($page["actu"]["tempHumi"])?>;
+let tabY = new Array();
+y.forEach(element =>
+	tabY.push(Object.values(element)[0])
+)
+
+var data = [{
+	x: tabX,
+	y: tabY,
+	type: "scatter"
+}];
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	var layout = {
+		showlegend: false,
+		margin: {
+			t: 15,
+			r: 15,
+			b: 50,
+			l: 50,
+			pad: 4
+		},
+		font: {
+			family: "Open Sans",
+			size: 15,
+			color: "#BFBFBF"
+		},
+		plot_bgcolor:"#232224",
+		paper_bgcolor:"#232224",
+		xaxis: {
+			showgrid: false,
+		},
+		yaxis: {
+			gridcolor: "#4a484c",
+			gridcolorwidth: 1
+		}
+	};
+}
+else{
+	var layout = {
+		showlegend: false,
+		margin: {
+			t: 15,
+			r: 15,
+			b: 50,
+			l: 50,
+			pad: 4
+		},
+		font: {
+			family: "Open Sans",
+			size: 15,
+			color: "#000000"
+		},
+		xaxis: {
+			showgrid: false,
+		}
+	};
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+	var colorScheme = event.matches ? "dark" : "light";
+	if (colorScheme == "dark"){
+		var layout = {
+			showlegend: false,
+			margin: {
+				t: 15,
+				r: 15,
+				b: 50,
+				l: 50,
+				pad: 4
+			},
+			font: {
+				family: "Open Sans",
+				size: 15,
+				color: "#BFBFBF"
+			},
+			plot_bgcolor:"#232224",
+			paper_bgcolor:"#232224",
+			xaxis: {
+				showgrid: false,
+			},
+			yaxis: {
+				gridcolor: "#4a484c",
+				gridcolorwidth: 1
+			}
+		};
+		Plotly.newPlot("myDiv", data, layout, config);
+	}
+	else{
+		var layout = {
+			showlegend: false,
+			margin: {
+				t: 15,
+				r: 15,
+				b: 50,
+				l: 50,
+				pad: 4
+			},
+			font: {
+				family: "Open Sans",
+				size: 15,
+				color: "#000000"
+			},
+			xaxis: {
+				showgrid: false,
+			}
+		};
+		Plotly.newPlot("myDiv", data, layout, config);
+	}
+});
+
+var config = {
+	locale: "fr",
+	displayModeBar: false,
+	responsive: true
+};
+Plotly.newPlot("graph", data, layout, config);
+
+function affiche_min_max(){
+	$(document.querySelector("header > div:last-child > div:last-child")).slideToggle(400).css("display", "flex");
+}
+</script>
 </body>
 </html>

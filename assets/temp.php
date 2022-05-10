@@ -24,11 +24,7 @@ $page = [
 			]
 		]
 	],
-	"sectionActu" => [
+	"actu" => [
 		"tempHumi" => "temperature_ambiante"
-	],
-	"sectionGraphs" => [
-		"buttonSrc" => "temperature",
-		"alt" => "de la température"
 	]
 ];

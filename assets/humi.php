@@ -24,11 +24,7 @@ $page = [
 			]
 		]
 	],
-	"sectionActu" => [
+	"actu" => [
 		"tempHumi" => "humidite_ambiante"
-	],
-	"sectionGraphs" => [
-		"buttonSrc" => "humidite",
-		"alt" => "du taux d'humidité"
 	]
 ];

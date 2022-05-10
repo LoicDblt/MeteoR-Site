@@ -1,6 +1,6 @@
 <?php
 
-class BaseDeDonnees{
+class BddDonnees{
 	public function __construct(){
 		try{
 			$this->pdo = new PDO("sqlite:bdd/donnees.db");

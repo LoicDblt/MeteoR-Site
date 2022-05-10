@@ -101,7 +101,7 @@ var data = [{
 		shape: "spline"
 	},
 	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.1f}<?=$page["commun"]["type"]?>" +
-					"<br><b>Date :</b> %{x|%a%e %B à %Hh%M}" +
+					"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
 					"<extra></extra>",
 	hoverlabel: {
 		align: "left",
@@ -133,7 +133,7 @@ if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").match
 		plot_bgcolor:"#232224",
 		paper_bgcolor:"#232224",
 		xaxis: {
-			showgrid: false,
+			showgrid: false
 		},
 		yaxis: {
 			gridcolor: "#4a484c",
@@ -187,7 +187,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 			plot_bgcolor:"#232224",
 			paper_bgcolor:"#232224",
 			xaxis: {
-				showgrid: false,
+				showgrid: false
 			},
 			yaxis: {
 				gridcolor: "#4a484c",
@@ -213,7 +213,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 				color: "#000000"
 			},
 			xaxis: {
-				showgrid: false,
+				showgrid: false
 			},
 			yaxis: {
 				fixedrange: true

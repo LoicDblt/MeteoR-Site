@@ -2,7 +2,7 @@
 $page = [
 	"commun" => [
 		"nom" => "Température",
-		"type" => " °C\n"
+		"type" => "°C"
 	],
 	"head" => [
 		"desc" => "Données de température"

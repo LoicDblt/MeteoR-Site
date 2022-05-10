@@ -2,7 +2,7 @@
 $page = [
 	"commun" => [
 		"nom" => "Humidité",
-		"type" => " %\n"
+		"type" => "%"
 	],
 	"head" => [
 		"desc" => "Données d'humidité"

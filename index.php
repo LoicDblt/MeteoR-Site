@@ -37,8 +37,6 @@ else{
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
 	<link rel="stylesheet" type="text/css" href="style/style.css"/>
-	<script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
-	<script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script>
 </head>
 <body>
 <header>
@@ -77,25 +75,47 @@ else{
 	</section>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script>
 <script>
+// Récupération des données dans le backend
 let x = <?php echo $bddG->graphX()?>;
-let tabX = new Array();
+let tabX = new Array()
 x.forEach(element =>
 	tabX.push(Object.values(element)[0])
 )
-
 let y = <?php echo $bddG->graphY($page["actu"]["tempHumi"])?>;
-let tabY = new Array();
+let tabY = new Array()
 y.forEach(element =>
 	tabY.push(Object.values(element)[0])
 )
 
+// Paramétrage des données
 var data = [{
 	x: tabX,
 	y: tabY,
-	type: "scatter"
-}];
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	type: "scatter",
+	line: {
+		color: "#32a6f5",
+		width: 2,
+		shape: "spline"
+	},
+	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.2f}<?=$page["commun"]["type"]?>" +
+					"<br><b>Date :</b> %{x|%a%e %B à %Hh%M}" +
+					"<extra></extra>",
+	hoverlabel: {
+		align: "left",
+		bordercolor: "#32a6f5",
+		font: {
+			family: "Open Sans",
+			color: "#ffffff"
+		}
+	},
+	showlegend: false
+}]
+
+// Paramétrage du graphique
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
 	var layout = {
 		showlegend: false,
 		margin: {
@@ -117,9 +137,10 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 		},
 		yaxis: {
 			gridcolor: "#4a484c",
-			gridcolorwidth: 1
+			gridcolorwidth: 1,
+			fixedrange: true
 		}
-	};
+	}
 }
 else{
 	var layout = {
@@ -137,13 +158,17 @@ else{
 			color: "#000000"
 		},
 		xaxis: {
-			showgrid: false,
+			showgrid: false
+		},
+		yaxis: {
+			fixedrange: true
 		}
-	};
+	}
 }
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-	var colorScheme = event.matches ? "dark" : "light";
+// Détection changement de thème
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
+	var colorScheme = event.matches ? "dark" : "light"
 	if (colorScheme == "dark"){
 		var layout = {
 			showlegend: false,
@@ -166,10 +191,11 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', eve
 			},
 			yaxis: {
 				gridcolor: "#4a484c",
-				gridcolorwidth: 1
+				gridcolorwidth: 1,
+				fixedrange: true
 			}
-		};
-		Plotly.newPlot("myDiv", data, layout, config);
+		}
+		Plotly.newPlot("graph", data, layout, config)
 	}
 	else{
 		var layout = {
@@ -188,21 +214,26 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', eve
 			},
 			xaxis: {
 				showgrid: false,
+			},
+			yaxis: {
+				fixedrange: true
 			}
-		};
-		Plotly.newPlot("myDiv", data, layout, config);
+		}
+		Plotly.newPlot("graph", data, layout, config)
 	}
-});
+})
 
+// Configuration générale du graphique
 var config = {
 	locale: "fr",
 	displayModeBar: false,
 	responsive: true
-};
-Plotly.newPlot("graph", data, layout, config);
+}
+Plotly.newPlot("graph", data, layout, config)
 
+// Fonction d'affichage/masquage des min et max
 function affiche_min_max(){
-	$(document.querySelector("header > div:last-child > div:last-child")).slideToggle(400).css("display", "flex");
+	$(document.querySelector("header > div:last-child > div:last-child")).slideToggle(400).css("display", "flex")
 }
 </script>
 </body>

@@ -100,7 +100,7 @@ var data = [{
 		width: 2,
 		shape: "spline"
 	},
-	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.2f}<?=$page["commun"]["type"]?>" +
+	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.1f}<?=$page["commun"]["type"]?>" +
 					"<br><b>Date :</b> %{x|%a%e %B à %Hh%M}" +
 					"<extra></extra>",
 	hoverlabel: {

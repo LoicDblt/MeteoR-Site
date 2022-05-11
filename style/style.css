@@ -161,6 +161,7 @@ section > section:first-child > p{
 section > section:last-child > div:last-child{
 	position: relative;
 	width: 100%;
+	height: 450px;
 }
 *:not(h1):not(a):not(p){
 	font-size: 14px !important;

@@ -78,23 +78,11 @@ else{
 <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script>
 <script>
-// Récupération des données dans le backend
-let x = <?php echo $bddG->graphX()?>;
-let tabX = new Array()
-x.forEach(element =>
-	tabX.push(Object.values(element)[0])
-)
-let y = <?php echo $bddG->graphY($page["actu"]["tempHumi"])?>;
-let tabY = new Array()
-y.forEach(element =>
-	tabY.push(Object.values(element)[0])
-)
-
 // Paramétrage des données
 var data =
 [{
-	x: tabX,
-	y: tabY,
+	x: <?php echo $bddG->graphX()?>,
+	y: <?php echo $bddG->graphY($page["actu"]["tempHumi"])?>,
 	type: "scatter",
 	line:
 	{
@@ -118,38 +106,48 @@ var data =
 	showlegend: false
 }]
 
+// Configuration du graphique
+var config =
+{
+	locale: "fr",
+	displayModeBar: false,
+	responsive: true,
+	showAxisDragHandles: false
+}
 // Paramétrage du graphique
 var t = 10
+var r = 10
 var b = 50
 var l = 55
-var plot_bgcolor = "unset"
-var paper_bgcolor = "unset"
+var bgcolor = "unset"
 var gridcolor = "unset"
 var color = "unset"
 
-	// Version mobile
-if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
+// Version mobile
+if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches)
+{
 	t = 0
+	r = 5
 	b = 35
 	l = 40
 }
 
-	// Version sombre (première génération)
+// Version sombre (première génération)
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
 {
-	plot_bgcolor = "#232224"
-	paper_bgcolor = "#232224"
+	bgcolor = "#232224"
 	gridcolor = "#4a484c"
 	color = "#BFBFBF"
 }
 
+// Version générale
 var layout =
 {
 	showlegend: false,
 	margin:
 	{
 		t: t,
-		r: 15,
+		r: r,
 		b: b,
 		l: l,
 		pad: 4
@@ -159,8 +157,8 @@ var layout =
 		family: "Open Sans",
 		color: color
 	},
-	plot_bgcolor: plot_bgcolor,
-	paper_bgcolor: paper_bgcolor,
+	plot_bgcolor: bgcolor,
+	paper_bgcolor: bgcolor,
 	xaxis:
 	{
 		showgrid: false
@@ -179,30 +177,21 @@ var layout =
 		?>"
 	}
 }
-
-// Configuration générale du graphique
-var config =
-{
-	locale: "fr",
-	displayModeBar: false,
-	responsive: true
-}
 Plotly.newPlot("graph", data, layout, config)
 
-
-// Détection changement de thème
+// Détection dynamique d'un changement de thème
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event =>
 {
 	var colorScheme = event.matches ? "dark" : "light"
-	if (colorScheme == "dark"){
-		plot_bgcolor = "#232224"
-		paper_bgcolor = "#232224"
+	if (colorScheme == "dark")
+	{
+		bgcolor = "#232224"
 		gridcolor = "#4a484c"
 		color = "#BFBFBF"
 	}
-	else{
-		plot_bgcolor = "unset"
-		paper_bgcolor = "unset"
+	else
+	{
+		bgcolor = "unset"
 		gridcolor = "unset"
 		color = "unset"
 	}
@@ -212,7 +201,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 		margin:
 		{
 			t: t,
-			r: 15,
+			r: r,
 			b: b,
 			l: l,
 			pad: 4
@@ -222,8 +211,8 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 			family: "Open Sans",
 			color: color
 		},
-		plot_bgcolor: plot_bgcolor,
-		paper_bgcolor: paper_bgcolor,
+		plot_bgcolor: bgcolor,
+		paper_bgcolor: bgcolor,
 		xaxis:
 		{
 			showgrid: false

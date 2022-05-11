@@ -10,6 +10,8 @@ $bddD = new BddDonnees();
 $bddG = new BddGraphes();
 $valeurs = Array();
 
+setlocale(LC_ALL, "fr_FR.UTF8");
+
 if (!$_GET){
 	include_once "assets/temp.php";
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_temp")["date"], $bddD->maxMin("MAX", "max_temp")["max_temp"]));
@@ -22,6 +24,10 @@ elseif (isset($_GET["humi"])){
 }
 else{
 	header("location: erreur_404");
+}
+
+function minMaxDate($date){
+	echo ucwords(strftime("%a %-d %b %G à %Hh%m", strtotime($date)));
 }
 ?>
 <!DOCTYPE html>
@@ -46,16 +52,16 @@ else{
 	<div>
 		<img src="img/nav/meteor.webp" alt="Logo du site"/>
 	</div>
-	<div onclick="affiche_min_max()" title="Cliquez pour afficher les extrêmes <?=$page["header"]["minMax"]["title"]?>">
+	<div onclick="afficheMinMax()" title="Afficher les extrêmes <?=$page["header"]["minMax"]["title"]?>">
 		<div>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.webp" alt="<?=$page["header"]["minMax"]["div1"]["alt1"]?>" title="<?=$page["header"]["minMax"]["div1"]["title1"]?> <?php echo $valeurs[0][0]?>"/>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.webp" alt="<?=$page["header"]["minMax"]["div1"]["alt2"]?>" title="<?=$page["header"]["minMax"]["div1"]["title2"]?> <?php echo $valeurs[1][0]?>"/>
+			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.webp" alt="<?=$page["header"]["minMax"]["div1"]["alt1"]?>"/>
+			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.webp" alt="<?=$page["header"]["minMax"]["div1"]["alt2"]?>"/>
 		</div>
 		<div>
-			<p>
+			<p title="<?=$page["header"]["minMax"]["div1"]["title1"]?> <?php minMaxDate($valeurs[0][0])?>">
 				<?php echo $valeurs[0][1] . $page["commun"]["type"]?>
 			</p>
-			<p>
+			<p title="<?=$page["header"]["minMax"]["div1"]["title2"]?> <?php minMaxDate($valeurs[1][0])?>">
 				<?php echo $valeurs[1][1] . $page["commun"]["type"]?>
 			</p>
 		</div>
@@ -91,7 +97,7 @@ var data =
 		shape: "spline"
 	},
 	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.1f}<?=$page["commun"]["type"]?>" +
-					"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
+					"<br><b>Date :</b> %{x|%a %-d %b à %Hh%M}" +
 					"<extra></extra>",
 	hoverlabel:
 	{
@@ -235,9 +241,20 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 })
 
 // Fonction d'affichage/masquage des min et max
-function affiche_min_max()
+function afficheMinMax()
 {
-	$(document.querySelector("header > div:last-child > div:last-child")).slideToggle(400).css("display", "flex")
+	let divMinMax = document.querySelector("header > div:last-child > div:last-child")
+	$(divMinMax).slideToggle(400).css("display", "flex")
+	setTimeout(
+		() =>
+		{
+			let titre = document.querySelector("header > div:last-child")
+			if ($(divMinMax).css("display") === "flex")
+				titre.title = "Masquer les extrêmes <?=$page["header"]["minMax"]["title"]?>"
+			else
+				titre.title = "Afficher les extrêmes <?=$page["header"]["minMax"]["title"]?>"
+		},
+	410)
 }
 </script>
 </body>

@@ -1,5 +1,4 @@
 <?php
-
 class BddGraphes
 {
 	public function __construct()

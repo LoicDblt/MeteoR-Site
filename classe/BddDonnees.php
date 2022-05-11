@@ -1,5 +1,4 @@
 <?php
-
 class BddDonnees
 {
 	public function __construct()
@@ -31,7 +30,7 @@ class BddDonnees
 	{
 		try
 		{
-			$statement = $this->pdo->prepare("SELECT strftime('%d-%m-%Y à %H:%M', date_mesure) AS date, $maxMinOp($maxMinTempHumi) AS $maxMinTempHumi FROM meteor_donnees");
+			$statement = $this->pdo->prepare("SELECT date_mesure AS date, $maxMinOp($maxMinTempHumi) AS $maxMinTempHumi FROM meteor_donnees");
 			$statement->execute();
 			return $statement->fetchAll()[0];
 		}

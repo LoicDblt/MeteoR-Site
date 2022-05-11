@@ -77,6 +77,7 @@ function minMaxDate($date){
 	<section>
 		<h1>Évolution dans le temps</h1>
 		<div id="graph">
+			Chargement du graphique en cours...
 		</div>
 	</section>
 </section>

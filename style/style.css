@@ -162,6 +162,9 @@ section > section:last-child > div:last-child{
 	position: relative;
 	width: 100%;
 }
+*:not(h1):not(a):not(p){
+	font-size: 14px !important;
+}
 
 /* Version ordinateur portable */
 @media screen and (min-width: 770px) and (max-width: 1370px){
@@ -245,9 +248,13 @@ section > section:last-child > div:last-child{
 	section > section:first-child{
 		margin-top: 15px;
 	}
-
 	section > section:first-child > p{
 		font-size: 44px;
+	}
+
+		/* Section graphique */
+	*:not(h1):not(a):not(p){
+		font-size: 10px !important;
 	}
 }
 

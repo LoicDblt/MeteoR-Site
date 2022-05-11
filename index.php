@@ -91,11 +91,13 @@ y.forEach(element =>
 )
 
 // Paramétrage des données
-var data = [{
+var data =
+[{
 	x: tabX,
 	y: tabY,
 	type: "scatter",
-	line: {
+	line:
+	{
 		color: "#32a6f5",
 		width: 2,
 		shape: "spline"
@@ -103,10 +105,12 @@ var data = [{
 	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.1f}<?=$page["commun"]["type"]?>" +
 					"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
 					"<extra></extra>",
-	hoverlabel: {
+	hoverlabel:
+	{
 		align: "left",
 		bordercolor: "#32a6f5",
-		font: {
+		font:
+		{
 			family: "Open Sans",
 			color: "#ffffff"
 		}
@@ -115,124 +119,135 @@ var data = [{
 }]
 
 // Paramétrage du graphique
-if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-	var layout = {
-		showlegend: false,
-		margin: {
-			t: 15,
-			r: 15,
-			b: 50,
-			l: 50,
-			pad: 4
-		},
-		font: {
-			family: "Open Sans",
-			size: 15,
-			color: "#BFBFBF"
-		},
-		plot_bgcolor:"#232224",
-		paper_bgcolor:"#232224",
-		xaxis: {
-			showgrid: false
-		},
-		yaxis: {
-			gridcolor: "#4a484c",
-			gridcolorwidth: 1,
-			fixedrange: true
-		}
-	}
-}
-else{
-	var layout = {
-		showlegend: false,
-		margin: {
-			t: 15,
-			r: 15,
-			b: 50,
-			l: 50,
-			pad: 4
-		},
-		font: {
-			family: "Open Sans",
-			size: 15,
-			color: "#000000"
-		},
-		xaxis: {
-			showgrid: false
-		},
-		yaxis: {
-			fixedrange: true
-		}
-	}
+var t = 10
+var b = 50
+var l = 55
+var plot_bgcolor = "unset"
+var paper_bgcolor = "unset"
+var gridcolor = "unset"
+var color = "unset"
+
+	// Version mobile
+if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
+	t = 0
+	b = 35
+	l = 40
 }
 
-// Détection changement de thème
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
-	var colorScheme = event.matches ? "dark" : "light"
-	if (colorScheme == "dark"){
-		var layout = {
-			showlegend: false,
-			margin: {
-				t: 15,
-				r: 15,
-				b: 50,
-				l: 50,
-				pad: 4
-			},
-			font: {
-				family: "Open Sans",
-				size: 15,
-				color: "#BFBFBF"
-			},
-			plot_bgcolor:"#232224",
-			paper_bgcolor:"#232224",
-			xaxis: {
-				showgrid: false
-			},
-			yaxis: {
-				gridcolor: "#4a484c",
-				gridcolorwidth: 1,
-				fixedrange: true
-			}
-		}
-		Plotly.newPlot("graph", data, layout, config)
+	// Version sombre (première génération)
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
+{
+	plot_bgcolor = "#232224"
+	paper_bgcolor = "#232224"
+	gridcolor = "#4a484c"
+	color = "#BFBFBF"
+}
+
+var layout =
+{
+	showlegend: false,
+	margin:
+	{
+		t: t,
+		r: 15,
+		b: b,
+		l: l,
+		pad: 4
+	},
+	font:
+	{
+		family: "Open Sans",
+		color: color
+	},
+	plot_bgcolor: plot_bgcolor,
+	paper_bgcolor: paper_bgcolor,
+	xaxis:
+	{
+		showgrid: false
+	},
+	yaxis:
+	{
+		gridcolor: gridcolor,
+		gridcolorwidth: 1,
+		fixedrange: true,
+		tickformat: ".1f",
+		ticksuffix: "<?php
+			if ($page["commun"]["type"] == "%")
+				echo($page["commun"]["type"] . " ");
+			else
+				echo($page["commun"]["type"]);
+		?>"
 	}
-	else{
-		var layout = {
-			showlegend: false,
-			margin: {
-				t: 15,
-				r: 15,
-				b: 50,
-				l: 50,
-				pad: 4
-			},
-			font: {
-				family: "Open Sans",
-				size: 15,
-				color: "#000000"
-			},
-			xaxis: {
-				showgrid: false
-			},
-			yaxis: {
-				fixedrange: true
-			}
-		}
-		Plotly.newPlot("graph", data, layout, config)
-	}
-})
+}
 
 // Configuration générale du graphique
-var config = {
+var config =
+{
 	locale: "fr",
 	displayModeBar: false,
 	responsive: true
 }
 Plotly.newPlot("graph", data, layout, config)
 
+
+// Détection changement de thème
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event =>
+{
+	var colorScheme = event.matches ? "dark" : "light"
+	if (colorScheme == "dark"){
+		plot_bgcolor = "#232224"
+		paper_bgcolor = "#232224"
+		gridcolor = "#4a484c"
+		color = "#BFBFBF"
+	}
+	else{
+		plot_bgcolor = "unset"
+		paper_bgcolor = "unset"
+		gridcolor = "unset"
+		color = "unset"
+	}
+	var layout =
+	{
+		showlegend: false,
+		margin:
+		{
+			t: t,
+			r: 15,
+			b: b,
+			l: l,
+			pad: 4
+		},
+		font:
+		{
+			family: "Open Sans",
+			color: color
+		},
+		plot_bgcolor: plot_bgcolor,
+		paper_bgcolor: paper_bgcolor,
+		xaxis:
+		{
+			showgrid: false
+		},
+		yaxis:
+		{
+			gridcolor: gridcolor,
+			gridcolorwidth: 1,
+			fixedrange: true,
+			tickformat: ".1f",
+			ticksuffix: "<?php
+				if ($page["commun"]["type"] == "%")
+					echo($page["commun"]["type"] . " ");
+				else
+					echo($page["commun"]["type"]);
+			?>"
+		}
+	}
+	Plotly.newPlot("graph", data, layout, config)
+})
+
 // Fonction d'affichage/masquage des min et max
-function affiche_min_max(){
+function affiche_min_max()
+{
 	$(document.querySelector("header > div:last-child > div:last-child")).slideToggle(400).css("display", "flex")
 }
 </script>

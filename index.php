@@ -75,7 +75,7 @@ else{
 	</section>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script>
 <script>
 // Récupération des données dans le backend

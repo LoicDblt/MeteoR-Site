@@ -50,7 +50,7 @@ function minMaxDate($date){
 		<a href="<?=$page["header"]["nav"]["href"]?>"><?=$page["header"]["nav"]["valeur"]?></a>
 	</nav>
 	<div>
-		<img src="img/nav/meteor.png" alt="Logo du site"/>
+		<img src="img/nav/meteor.webp" alt="Logo du site"/>
 	</div>
 	<div onclick="afficheMinMax()" title="Afficher <?=$page["header"]["minMax"]["title"]?>">
 		<div>

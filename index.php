@@ -1,7 +1,7 @@
 <?php
 // Sécurité
 header("X-Frame-Options: DENY");
-header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com ajax.cloudflare.com cdn.plot.ly");
+header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com ajax.cloudflare.com");
 
 // Accès à la base de données
 include_once "classe/BddDonnees.php";
@@ -38,7 +38,7 @@ function minMaxDate($date){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
-	<meta name="theme-color" content="#F9F9FB"/>
+	<meta name="theme-color" content="#f9f9fb"/>
 	<meta name="description" content="<?=$page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
@@ -52,17 +52,17 @@ function minMaxDate($date){
 	<div>
 		<img src="img/nav/meteor.webp" alt="Logo du site"/>
 	</div>
-	<div onclick="afficheMinMax()" title="Afficher les extrêmes <?=$page["header"]["minMax"]["title"]?>">
+	<div onclick="afficheMinMax()" title="Afficher <?=$page["header"]["minMax"]["title"]?>">
 		<div>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.webp" alt="<?=$page["header"]["minMax"]["div1"]["alt1"]?>"/>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.webp" alt="<?=$page["header"]["minMax"]["div1"]["alt2"]?>"/>
+			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.webp" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
+			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.webp" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
 		</div>
 		<div>
-			<p title="<?=$page["header"]["minMax"]["div1"]["title1"]?> <?php minMaxDate($valeurs[0][0])?>">
-				<?php echo $valeurs[0][1] . $page["commun"]["type"]?>
+			<p title="<?php echo $page["header"]["minMax"]["div1"]["title1"] . " "; echo minMaxDate($valeurs[0][0])?>">
+				<?php echo $valeurs[0][1] . $page["commun"]["type"] . "\n"?>
 			</p>
-			<p title="<?=$page["header"]["minMax"]["div1"]["title2"]?> <?php minMaxDate($valeurs[1][0])?>">
-				<?php echo $valeurs[1][1] . $page["commun"]["type"]?>
+			<p title="<?=$page["header"]["minMax"]["div1"]["title2"] . " "; echo minMaxDate($valeurs[1][0])?>">
+				<?php echo $valeurs[1][1] . $page["commun"]["type"] . "\n"?>
 			</p>
 		</div>
 	</div>
@@ -71,7 +71,7 @@ function minMaxDate($date){
 	<section>
 		<h1><?=$page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"]?>
+			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"] . "\n"?>
 		</p>
 	</section>
 	<section>
@@ -82,10 +82,11 @@ function minMaxDate($date){
 	</section>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.12.1/plotly-basic.min.js
+"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.12.1/plotly-locale-fr.min.js"></script>
 <script>
-// Paramétrage des données
+// Obtention et paramétrage des données
 var data =
 [{
 	x: <?php echo $bddG->graphX()?>,
@@ -121,7 +122,8 @@ var config =
 	responsive: true,
 	showAxisDragHandles: false
 }
-// Paramétrage du graphique
+
+// Paramétrage des variables du graphique
 var t = 10
 var r = 10
 var b = 50
@@ -130,7 +132,7 @@ var bgcolor = "unset"
 var gridcolor = "unset"
 var color = "unset"
 
-// Version mobile
+// Paramètres de l'affichage mobile
 if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches)
 {
 	t = 0
@@ -139,15 +141,15 @@ if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches)
 	l = 40
 }
 
-// Version sombre (première génération)
+// Paramètres de l'affichage sombre (si actif au chargement de la page)
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
 {
 	bgcolor = "#232224"
 	gridcolor = "#4a484c"
-	color = "#BFBFBF"
+	color = "#bfbfbf"
 }
 
-// Version générale
+// Agencement du graphique
 var layout =
 {
 	showlegend: false,
@@ -194,7 +196,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 	{
 		bgcolor = "#232224"
 		gridcolor = "#4a484c"
-		color = "#BFBFBF"
+		color = "#bfbfbf"
 	}
 	else
 	{
@@ -241,7 +243,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 	Plotly.newPlot("graph", data, layout, config)
 })
 
-// Fonction d'affichage/masquage des min et max
+// Fonction d'affichage/masquage des valeurs min et max
 function afficheMinMax()
 {
 	let divMinMax = document.querySelector("header > div:last-child > div:last-child")
@@ -251,9 +253,9 @@ function afficheMinMax()
 		{
 			let titre = document.querySelector("header > div:last-child")
 			if ($(divMinMax).css("display") === "flex")
-				titre.title = "Masquer les extrêmes <?=$page["header"]["minMax"]["title"]?>"
+				titre.title = "Masquer <?=$page["header"]["minMax"]["title"]?>"
 			else
-				titre.title = "Afficher les extrêmes <?=$page["header"]["minMax"]["title"]?>"
+			titre.title = "Afficher <?=$page["header"]["minMax"]["title"]?>"
 		},
 	410)
 }

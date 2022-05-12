@@ -3,7 +3,7 @@
 	font-family: "Open Sans";
 	font-display: swap;
 	src: url("polices/open-sans-600.woff2") format("woff2"),
-			url("polices/open-sans-600.woff") format("woff");
+		url("polices/open-sans-600.woff") format("woff");
 }
 *:focus,
 *:active{
@@ -11,20 +11,14 @@
 	outline: none;
 }
 *{
-	scrollbar-color: #CDCDCD #F0F0F0;
+	scrollbar-color: #cdcdcd #f0f0f0;
 	scroll-behavior: smooth;
 	scrollbar-width: thin;
-}
-::-webkit-scrollbar {
-	width: 8px;
-}
-::-webkit-scrollbar-thumb {
-	background: #CDCDCD;
 }
 body{
 	display: flex;
 	flex-direction: column;
-	background-color: #F0F0F0;
+	background-color: #f0f0f0;
 	color: #000000;
 	font-family: "Open Sans", Arial, sans-serif;
 	margin: 0;
@@ -33,9 +27,9 @@ body{
 /* Header */
 header{
 	display: flex;
-	background-color: #F9F9FB;
+	background-color: #f9f9fb;
 	border-radius: 0 0 10px 10px;
-	box-shadow: 0px 15px 20px -15px #CECECE;
+	box-shadow: 0px 15px 20px -15px #cecece;
 }
 
 	/* Box gauche */
@@ -103,10 +97,10 @@ header > div:last-child > div:last-child > p{
 	text-align: center;
 }
 header > div:last-child > div:last-child > p:first-child{
-	color: #F9700E;
+	color: #f9700e;
 }
 header > div:last-child > div:last-child > p:last-child{
-	color: #09A4DD;
+	color: #09a4dd;
 }
 
 /* Corps */
@@ -121,7 +115,7 @@ h1{
 	text-align: center;
 	border-style: solid;
 	border-width: 0 0 4px 0;
-	border-image: radial-gradient(#000000, #FFFFFF) 1;
+	border-image: radial-gradient(#000000, #ffffff) 1;
 }
 section{
 	display: flex;
@@ -131,13 +125,13 @@ section{
 section > section{
 	display: flex;
 	flex-direction: column;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	width: 60vw;
 	margin-bottom: 20px;
 	padding: 30px 0;
 	align-items: center;
 	border-radius: 10px;
-	box-shadow: 0 15px 20px -15px #CECECE;
+	box-shadow: 0 15px 20px -15px #cecece;
 }
 section > div:last-child{
 	display: flex;
@@ -265,14 +259,11 @@ div.plotly-notifier{
 @media (prefers-color-scheme: dark){
 	/* Général */
 	*{
-		scrollbar-color: #1A1A1A #333333;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #1A1A1A;
+		scrollbar-color: #1a1a1a #333333;
 	}
 	body{
 		background-color: #333333;
-		color: #BFBFBF;
+		color: #bfbfbf;
 	}
 
 	/* Header */
@@ -284,10 +275,10 @@ div.plotly-notifier{
 
 		/* Box gauche */
 	a{
-		color: #BFBFBF;
+		color: #bfbfbf;
 	}
 	a:hover{
-		color: #8B8B8B;
+		color: #8b8b8b;
 	}
 	a:active{
 		color: #727272;
@@ -296,7 +287,7 @@ div.plotly-notifier{
 	/* Corps */
 		/* Element parent */
 	h1{
-		border-image: radial-gradient(#ECECEC, #232224) 1;
+		border-image: radial-gradient(#ececec, #232224) 1;
 	}
 	section{
 		background-color: #333333;

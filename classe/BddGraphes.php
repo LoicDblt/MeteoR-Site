@@ -9,7 +9,7 @@ class BddGraphes
 		}
 		catch (PDOException $exception)
 		{
-			$this->error = $exception;
+			$this->error = $exception->getMessage();
 		}
 	}
 
@@ -17,7 +17,7 @@ class BddGraphes
 	{
 		try
 		{
-			$statement = $this->pdo->prepare("SELECT date_mesure FROM meteor_graphs WHERE date_mesure >= datetime('now', 'localtime', '-30 days', '-1 hour')");
+			$statement = $this->pdo->prepare("SELECT date_mesure FROM meteor_graphs WHERE date_mesure >= datetime('now', 'localtime', '-29 days')");
 			$statement->execute();
 			$array = array();
 			foreach ($statement as $value)
@@ -28,7 +28,7 @@ class BddGraphes
 		}
 		catch (Exception $exception)
 		{
-			return $exception;
+			return $exception->getMessage();
 		}
 	}
 	public function graphY($tempHumi)
@@ -46,7 +46,7 @@ class BddGraphes
 		}
 		catch (Exception $exception)
 		{
-			return $exception;
+			return $exception->getMessage();
 		}
 	}
 }

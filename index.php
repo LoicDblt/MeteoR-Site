@@ -91,6 +91,7 @@ var data =
 	x: <?php echo $bddG->graphX()?>,
 	y: <?php echo $bddG->graphY($page["actu"]["tempHumi"])?>,
 	type: "scatter",
+	connectgaps: true,
 	line:
 	{
 		color: "#32a6f5",
@@ -247,6 +248,7 @@ function afficheMinMax()
 {
 	let divMinMax = document.querySelector("header > div:last-child > div:last-child")
 	$(divMinMax).slideToggle(400).css("display", "flex")
+	// Attendre que le toggle de l'affichage ait fini
 	setTimeout(
 		() =>
 		{

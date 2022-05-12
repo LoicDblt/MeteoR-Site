@@ -9,7 +9,7 @@ class BddDonnees
 		}
 		catch (PDOException $exception)
 		{
-			$this->error = $exception;
+			$this->error = $exception->getMessage();
 		}
 	}
 
@@ -23,7 +23,7 @@ class BddDonnees
 		}
 		catch (Exception $exception)
 		{
-			return $exception;
+			return $exception->getMessage();
 		}
 	}
 	public function maxMin($maxMinOp, $maxMinTempHumi)
@@ -36,7 +36,7 @@ class BddDonnees
 		}
 		catch (Exception $exception)
 		{
-			return $exception;
+			return $exception->getMessage();
 		}
 	}
 }

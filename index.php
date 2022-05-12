@@ -4,8 +4,8 @@ header("X-Frame-Options: DENY");
 header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
 // Accès à la base de données
-include_once "classe/BddDonnees.php";
-include_once "classe/BddGraphes.php";
+include_once "classes/BddDonnees.php";
+include_once "classes/BddGraphes.php";
 $bddD = new BddDonnees();
 $bddG = new BddGraphes();
 $valeurs = Array();

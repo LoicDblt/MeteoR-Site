@@ -17,7 +17,7 @@ class BddGraphes
 	{
 		try
 		{
-			$statement = $this->pdo->prepare("SELECT date_mesure FROM meteor_graphs WHERE date_mesure >= datetime('now', 'localtime', '-29 days', '-3 minutes')");
+			$statement = $this->pdo->prepare("SELECT date_mesure FROM meteor_graphs WHERE date_mesure >= datetime('now', 'localtime', '-30 days', '-1 hour')");
 			$statement->execute();
 			$array = array();
 			foreach ($statement as $value)

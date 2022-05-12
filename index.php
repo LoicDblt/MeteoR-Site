@@ -50,12 +50,12 @@ function minMaxDate($date){
 		<a href="<?=$page["header"]["nav"]["href"]?>"><?=$page["header"]["nav"]["valeur"]?></a>
 	</nav>
 	<div>
-		<img src="img/nav/meteor.webp" alt="Logo du site"/>
+		<img src="img/nav/meteor.png" alt="Logo du site"/>
 	</div>
 	<div onclick="afficheMinMax()" title="Afficher <?=$page["header"]["minMax"]["title"]?>">
 		<div>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.webp" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.webp" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
+			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.svg" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
+			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.svg" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
 		</div>
 		<div>
 			<p title="<?php echo $page["header"]["minMax"]["div1"]["title1"] . " "; echo minMaxDate($valeurs[0][0])?>">
@@ -188,7 +188,7 @@ var layout =
 }
 Plotly.newPlot("graph", data, layout, config)
 
-// Détection dynamique d'un changement de thème
+// Détection dynamique du passage au thème sombre
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event =>
 {
 	var colorScheme = event.matches ? "dark" : "light"

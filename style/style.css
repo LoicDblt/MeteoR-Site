@@ -84,7 +84,7 @@ header > div:last-child > div:first-child > img{
 	display: block;
 	margin: auto;
 	width: 64px;
-	height: 64px
+	height: 64px;
 }
 header > div:last-child > div:last-child{
 	display: none;

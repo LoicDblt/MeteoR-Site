@@ -1,7 +1,7 @@
 <?php
 // Sécurité
 header("X-Frame-Options: DENY");
-header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com ajax.cloudflare.com");
+header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
 // Accès à la base de données
 include_once "classe/BddDonnees.php";
@@ -10,6 +10,7 @@ $bddD = new BddDonnees();
 $bddG = new BddGraphes();
 $valeurs = Array();
 
+// Pour les dates en français
 setlocale(LC_ALL, "fr_FR.UTF8");
 
 if (!$_GET){
@@ -17,7 +18,7 @@ if (!$_GET){
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_temp")["date"], $bddD->maxMin("MAX", "max_temp")["max_temp"]));
 	array_push($valeurs, array($bddD->maxMin("MIN", "min_temp")["date"], $bddD->maxMin("MIN", "min_temp")["min_temp"]));
 }
-elseif (isset($_GET["humi"])){
+elseif (isset($_GET["humidité"])){
 	include_once "assets/humi.php";
 	array_push($valeurs, array($bddD->maxMin("MIN", "min_humi")["date"], $bddD->maxMin("MIN", "min_humi")["min_humi"]));
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_humi")["date"], $bddD->maxMin("MAX", "max_humi")["max_humi"]));

@@ -9,7 +9,7 @@ $page = [
 	],
 	"header" => [
 		"nav" => [
-			"href" => "?humi",
+			"href" => "?humidité",
 			"valeur" => "Humidité"
 		],
 		"minMax" => [

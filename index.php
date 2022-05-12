@@ -247,18 +247,13 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 function afficheMinMax()
 {
 	let divMinMax = document.querySelector("header > div:last-child > div:last-child")
-	$(divMinMax).slideToggle(400).css("display", "flex")
-	// Attendre que le toggle de l'affichage ait fini
-	setTimeout(
-		() =>
-		{
-			let titre = document.querySelector("header > div:last-child")
-			if ($(divMinMax).css("display") === "flex")
-				titre.title = "Masquer <?=$page["header"]["minMax"]["title"]?>"
-			else
+	let titre = document.querySelector("header > div:last-child")
+	$(divMinMax).slideToggle(400, () => {
+		if ($(divMinMax).css("display") === "flex")
+			titre.title = "Masquer <?=$page["header"]["minMax"]["title"]?>"
+		else
 			titre.title = "Afficher <?=$page["header"]["minMax"]["title"]?>"
-		},
-	410)
+	}).css("display", "flex")
 }
 </script>
 </body>

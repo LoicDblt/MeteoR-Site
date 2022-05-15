@@ -18,7 +18,7 @@ if (!$_GET){
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_temp")["date"], $bddD->maxMin("MAX", "max_temp")["max_temp"]));
 	array_push($valeurs, array($bddD->maxMin("MIN", "min_temp")["date"], $bddD->maxMin("MIN", "min_temp")["min_temp"]));
 }
-elseif (isset($_GET["humidité"])){
+elseif (isset($_GET["humidite"])){
 	include_once "assets/humi.php";
 	array_push($valeurs, array($bddD->maxMin("MIN", "min_humi")["date"], $bddD->maxMin("MIN", "min_humi")["min_humi"]));
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_humi")["date"], $bddD->maxMin("MAX", "max_humi")["max_humi"]));

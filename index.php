@@ -27,6 +27,7 @@ else{
 	header("location: erreur_404");
 }
 
+// Fonction de mise en forme
 function minMaxDate($date){
 	echo ucwords(strftime("%a %-d %b %G à %Hh%m", strtotime($date)));
 }
@@ -43,6 +44,7 @@ function minMaxDate($date){
 	<meta name="description" content="<?=$page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
+	<link rel="apple-touch-icon" href="img/meteor_apple_touch.webp">
 	<link rel="stylesheet" type="text/css" href="style/style.css"/>
 </head>
 <body>

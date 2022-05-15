@@ -126,7 +126,7 @@ section > section{
 	display: flex;
 	flex-direction: column;
 	background-color: #ffffff;
-	width: 60vw;
+	width: 65vw;
 	margin-bottom: 20px;
 	padding: 30px 0;
 	align-items: center;
@@ -149,45 +149,45 @@ section > section:first-child > p{
 }
 
 	/* Section graphique */
-.user-select-none.svg-container{
-	position: unset !important;
-}
 section > section:last-child > div:last-child{
 	position: relative;
 	width: 100%;
 	height: 450px;
 }
-*:not(h1):not(a):not(p){
-	font-size: 14px !important;
-}
 div.plotly-notifier{
 	visibility: hidden;
 }
+*:not(h1):not(a):not(p){
+	font-size: 14px !important;
+}
+.user-select-none.svg-container{
+	position: unset !important;
+}
 
-/* Version ordinateur portable */
-@media screen and (min-width: 770px) and (max-width: 1370px){
+/* Version tablette */
+@media only screen and (min-width: 800px) and (max-width: 1080px){
 	/* Header */
 		/* Box centrale */
-	header > div:nth-child(2) > img{
-		width: 350px;
-		height: 88px;
-	}
-
-		/* Box droite */
-	header > div:last-child > div:first-child > img{
-		width: 56px;
-		height: 56px;
-	}
+		header > div:nth-child(2) > img{
+			width: 350px;
+			height: 88px;
+		}
+	
+			/* Box droite */
+		header > div:last-child > div:first-child > img{
+			width: 56px;
+			height: 56px;
+		}
 
 	/* Corps */
 		/* Element parent */
 	section > section{
-		width: 70vw;
+		width: 90vw;
 	}
 }
 
 /* Version mobile */
-@media screen and (max-width: 769px){
+@media screen and (max-width: 799px){
 	/* Header */
 	header{
 		flex-wrap: wrap;

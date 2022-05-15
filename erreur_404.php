@@ -13,7 +13,7 @@ body{
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-position: center center;
-	}
+}
 	</style>
 </head>
 <body>

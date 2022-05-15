@@ -1,0 +1,51 @@
+RewriteEngine on
+RewriteCond %{SERVER_PORT} 80
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule humidite /?humidite
+<Files .htaccess>
+    order allow,deny
+    deny from all
+</Files>
+Options -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/robots.txt
+RewriteCond %{HTTP_USER_AGENT} ^-?$ [OR] ## ANONYMES
+RewriteCond %{HTTP_USER_AGENT} ^curl|^Fetch\ API\ Request|GT::WWW|^HTTP::Lite|httplib|^Java|^LeechFTP|lwp-trivial|^LWP|libWeb|libwww|^PEAR|PECL::HTTP|PHPCrawl|PycURL|python|^ReGet|Rsync|Snoopy|URI::Fetch|urllib|WebDAV|^Wget [NC]
+RewriteCond %{HTTP_USER_AGENT} ^[bcdfghjklmnpqrstvwxz\ ]{10,}|^[0-9a-z]{15,}|^[0-9A-Za-z]{19,}|^[A-Za-z]{3,}\ [a-z]{4,}\ [a-z]{4,} [OR]
+RewriteRule (.*) [F]
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} (GET|POST) [NC]
+RewriteCond %{QUERY_STRING} ^(.*)(%3C|<)/?script(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)(%3D|=)?javascript(%3A|:)(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)document\.location\.href(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
+RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)(%3D|=)(https?|ftp|mosConfig)(%3A|:)//(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} ^.*(_encode|localhost|loopback).* [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)GLOBALS(=|[|%[0-9A-Z]{0,2})(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^(.*)_REQUEST(=|[|%[0-9A-Z]{0,2})(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^(.*)(SELECT(%20|\+)|UNION(%20|\+)ALL|INSERT(%20|\+)|DELETE(%20|\+)|CHAR\(|UPDATE(%20|\+)|REPLACE(%20|\+)|LIMIT(%20|\+)|CONCAT(%20|\+)|DECLARE(%20|\+))(.*)$ [NC]
+RewriteRule (.*) [F]
+RedirectMatch 403 (\.\./|base64|boot\.ini|eval\(|\(null\)|^[-_a-z0-9/\.]*//.*|/etc/passwd|^/_vti.*|^/MSOffice.*|/fckeditor/|/elfinder/|zoho/|/jquery-file-upload/server/|/assetmanager/|wwwroot|e107\_|netcat)
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]
+RewriteRule ^.* [F]
+RewriteRule "(\.svn|\.git|\.hg|\.bzr|\.cvs|install?|users?|config(ure|uration)?|options?|settings?|functions?|setup|[-_a-z0-9.]*cms[-_a-z0-9.]*|manager|null)/.*" - [F]
+RewriteRule "(readme|README|changelog|CHANGELOG|license|LICENSE|default|xmlrpc|local|errors?|debug|hacke?r?d?|php|shell|ssh|roots?|cmd|null|test|data)\.(p?s?x?htm?l?|txt|md|log|aspx?|cfml?|cgi|pl|php[3-9]{0,1}|jsp?|sql|xml)$" - [F]
+RewriteRule "(login|admin(istrator)?(zone)?)" - [F]
+### MASQUE LE INDEX.PHP DE L'URL
+RewriteEngine On
+RewriteRule ^index\.php$ / [R=301,L]
+RewriteRule ^(.*)/index\.php$ /$1/ [R=301,L]
+### RENVOIE UNE PAGE D'ERREUR
+ErrorDocument 404 /erreur_404.php
+### ENLEVE LE "WWW"
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+### AJOUTE ".php" AUX LIENS POUR NE PAS L'AFFICHER DANS L'URL FINALE
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE "application/atom+xml" "application/javascript" "application/json" "application/ld+json" "application/manifest+json" "application/rdf+xml" "application/rss+xml" "application/schema+json" "application/vnd.geo+json" "application/vnd.ms-fontobject" "application/x-font-ttf" "application/x-javascript" "application/x-web-app-manifest+json" "application/xhtml+xml" "application/xml" "font/eot" "font/opentype" "image/bmp" "image/svg+xml" "image/vnd.microsoft.icon" "image/x-icon" "text/cache-manifest" "text/css" "text/html" "text/javascript" "text/plain" "text/vcard" "text/vnd.rim.location.xloc" "text/vtt" "text/x-component" "text/x-cross-domain-policy" "text/xml"

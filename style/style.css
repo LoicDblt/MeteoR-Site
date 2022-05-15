@@ -126,7 +126,7 @@ section > section{
 	display: flex;
 	flex-direction: column;
 	background-color: #ffffff;
-	width: 65vw;
+	width: 60vw;
 	margin-bottom: 20px;
 	padding: 30px 0;
 	align-items: center;
@@ -162,6 +162,15 @@ div.plotly-notifier{
 }
 .user-select-none.svg-container{
 	position: unset !important;
+}
+
+/* Version ordinateur portable */
+@media only screen and (min-width: 1081px) and (max-width: 1440px){
+	/* Corps */
+		/* Element parent */
+	section > section{
+		width: 65vw;
+	}
 }
 
 /* Version tablette */

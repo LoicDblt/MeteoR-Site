@@ -18,7 +18,7 @@ if (!$_GET){
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_temp")["date"], $bddD->maxMin("MAX", "max_temp")["max_temp"]));
 	array_push($valeurs, array($bddD->maxMin("MIN", "min_temp")["date"], $bddD->maxMin("MIN", "min_temp")["min_temp"]));
 }
-elseif (isset($_GET["humidite"])){
+elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humi.php";
 	array_push($valeurs, array($bddD->maxMin("MIN", "min_humi")["date"], $bddD->maxMin("MIN", "min_humi")["min_humi"]));
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_humi")["date"], $bddD->maxMin("MAX", "max_humi")["max_humi"]));
@@ -40,7 +40,8 @@ function minMaxDate($date){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
-	<meta name="theme-color" content="#f9f9fb"/>
+	<meta name="theme-color" content="#f9f9fb" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#010101" media="(prefers-color-scheme: dark)">
 	<meta name="description" content="<?=$page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>

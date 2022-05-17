@@ -156,6 +156,7 @@ if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").match
 var layout =
 {
 	showlegend: false,
+	separators: ".,",
 	margin:
 	{
 		t: t,
@@ -210,6 +211,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
 	var layout =
 	{
 		showlegend: false,
+		separators: ".,",
 		margin:
 		{
 			t: t,

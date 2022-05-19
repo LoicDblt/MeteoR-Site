@@ -36,13 +36,13 @@ function minMaxDate($date){
 <html lang="fr">
 <head>
 	<meta charset="UTF-8"/>
-	<title>MeteoR - <?=$page["commun"]["nom"]?></title>
+	<title>MeteoR - <?php echo $page["commun"]["nom"]?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
 	<meta name="theme-color" content="#f9f9fb" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#010101" media="(prefers-color-scheme: dark)">
-	<meta name="description" content="<?=$page["head"]["desc"]?>"/>
+	<meta name="description" content="<?php echo $page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
 	<link rel="apple-touch-icon" href="img/meteor_apple_touch.webp">
@@ -51,21 +51,21 @@ function minMaxDate($date){
 <body>
 <header>
 	<nav>
-		<a href="<?=$page["header"]["nav"]["href"]?>"><?=$page["header"]["nav"]["valeur"]?></a>
+		<a href="<?php echo $page["header"]["nav"]["href"] . "\">" . $page["header"]["nav"]["valeur"]?></a>
 	</nav>
 	<div>
 		<img src="img/nav/meteor.webp" alt="Logo du site"/>
 	</div>
-	<div onclick="afficheMinMax()" title="Afficher <?=$page["header"]["minMax"]["title"]?>">
+	<div onclick="afficheMinMax()" title="Afficher <?php echo $page["header"]["minMax"]["title"]?>">
 		<div>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img1"]?>.svg" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
-			<img src="img/nav/<?=$page["header"]["minMax"]["div1"]["img2"]?>.svg" alt="<?=ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
+			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img1"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
+			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img2"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
 		</div>
 		<div>
 			<p title="<?php echo $page["header"]["minMax"]["div1"]["title1"] . " "; echo minMaxDate($valeurs[0][0])?>">
 				<?php echo $valeurs[0][1] . $page["commun"]["type"] . "\n"?>
 			</p>
-			<p title="<?=$page["header"]["minMax"]["div1"]["title2"] . " "; echo minMaxDate($valeurs[1][0])?>">
+			<p title="<?php echo $page["header"]["minMax"]["div1"]["title2"] . " "; echo minMaxDate($valeurs[1][0])?>">
 				<?php echo $valeurs[1][1] . $page["commun"]["type"] . "\n"?>
 			</p>
 		</div>
@@ -73,7 +73,7 @@ function minMaxDate($date){
 </header>
 <section>
 	<section>
-		<h1><?=$page["commun"]["nom"]?></h1>
+		<h1><?php echo $page["commun"]["nom"]?></h1>
 		<p>
 			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"] . "\n"?>
 		</p>
@@ -101,7 +101,10 @@ var data =
 		width: 2,
 		shape: "spline"
 	},
-	hovertemplate: "<b><?=$page["commun"]["nom"]?> :</b> %{y:.1f}<?=$page["commun"]["type"]?>" +
+	hovertemplate: "<b><?php
+						echo $page["commun"]["nom"] . " :</b> %{y:.1f}" .
+						$page["commun"]["type"]
+					?>" +
 					"<br><b>Date :</b> %{x|%a %-d %b à %Hh%M}" +
 					"<extra></extra>",
 	hoverlabel:
@@ -255,9 +258,9 @@ function afficheMinMax()
 	let titre = document.querySelector("header > div:last-child")
 	$(divMinMax).slideToggle(400, () => {
 		if ($(divMinMax).css("display") === "flex")
-			titre.title = "Masquer <?=$page["header"]["minMax"]["title"]?>"
+			titre.title = "Masquer <?php echo $page["header"]["minMax"]["title"]?>"
 		else
-			titre.title = "Afficher <?=$page["header"]["minMax"]["title"]?>"
+			titre.title = "Afficher <?php echo $page["header"]["minMax"]["title"]?>"
 	}).css("display", "flex")
 }
 </script>

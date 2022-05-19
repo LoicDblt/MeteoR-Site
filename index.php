@@ -27,7 +27,7 @@ else{
 	header("location: erreur_404");
 }
 
-// Fonction de mise en forme
+// Fonction de mise en forme de la date
 function minMaxDate($date){
 	echo ucwords(strftime("%a %-d %b %G à %Hh%m", strtotime($date)));
 }
@@ -51,7 +51,7 @@ function minMaxDate($date){
 <body>
 <header>
 	<nav>
-		<a href="<?php echo $page["header"]["nav"]["href"] . "\">" . $page["header"]["nav"]["valeur"]?></a>
+		<a href="<?php echo $page["header"]["nav"]["href"]?>"><?php echo $page["header"]["nav"]["valeur"]?></a>
 	</nav>
 	<div>
 		<img src="img/nav/meteor.webp" alt="Logo du site"/>
@@ -62,11 +62,16 @@ function minMaxDate($date){
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img2"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
 		</div>
 		<div>
-			<p title="<?php echo $page["header"]["minMax"]["div1"]["title1"] . " "; echo minMaxDate($valeurs[0][0])?>">
-				<?php echo $valeurs[0][1] . $page["commun"]["type"] . "\n"?>
+			<p title="<?php
+				echo $page["header"]["minMax"]["div1"]["title1"] . " ";
+				echo minMaxDate($valeurs[0][0])
+				// 2 echo séparés, sinon ordre d'affichage incorrect !?>">
+				<?php echo $valeurs[0][1] . $page["commun"]["type"] . PHP_EOL?>
 			</p>
-			<p title="<?php echo $page["header"]["minMax"]["div1"]["title2"] . " "; echo minMaxDate($valeurs[1][0])?>">
-				<?php echo $valeurs[1][1] . $page["commun"]["type"] . "\n"?>
+			<p title="<?php
+				echo $page["header"]["minMax"]["div1"]["title2"] . " ";
+				echo minMaxDate($valeurs[1][0])?>">
+				<?php echo $valeurs[1][1] . $page["commun"]["type"] . PHP_EOL?>
 			</p>
 		</div>
 	</div>
@@ -75,7 +80,7 @@ function minMaxDate($date){
 	<section>
 		<h1><?php echo $page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"] . "\n"?>
+			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"] . PHP_EOL?>
 		</p>
 	</section>
 	<section>

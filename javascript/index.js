@@ -1,4 +1,4 @@
-// Obtention et paramétrage des données
+// Fonction de paramétrage et d'affichage du graphique
 function graphique(x, y, type, unite)
 {
 	var data =
@@ -13,7 +13,8 @@ function graphique(x, y, type, unite)
 			width: 2,
 			shape: "spline"
 		},
-		hovertemplate: "<b>" + type + " :</b> %{y:.1f}" + unite + "<br><b>Date :</b> %{x|%a %-d %b à %Hh%M}" +
+		hovertemplate: "<b>" + type + " :</b> %{y:.1f}" + unite +
+						"<br><b>Date :</b> %{x|%a %-d %b à %Hh%M}" +
 						"<extra></extra>",
 		hoverlabel:
 		{

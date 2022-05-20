@@ -10,9 +10,6 @@ $bddD = new BddDonnees();
 $bddG = new BddGraphes();
 $valeurs = Array();
 
-// Pour les dates en français
-setlocale(LC_ALL, "fr_FR.UTF8");
-
 if (!$_GET){
 	include_once "assets/temp.php";
 	array_push($valeurs, array($bddD->maxMin("MAX", "max_temp")["date"], $bddD->maxMin("MAX", "max_temp")["max_temp"]));
@@ -27,7 +24,7 @@ else{
 	header("location: erreur_404");
 }
 
-// Fonction de mise en forme de la date
+// Fonction de mise en forme des dates
 function minMaxDate($date){
 	$formatter = new IntlDateFormatter("fr_FR",
 		IntlDateFormatter::FULL,
@@ -37,6 +34,11 @@ function minMaxDate($date){
 		"EE dd MMM y 'à' kk'h'mm");
 	// Capitalise les mots, et supprime les points
 	echo ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
+}
+
+// Fonction de mise en forme des valeurs de température et d'humidité
+function tempHumiValeur($valeur){
+	echo number_format($valeur, 1);
 }
 ?>
 <!DOCTYPE html>
@@ -73,12 +75,12 @@ function minMaxDate($date){
 				echo $page["header"]["minMax"]["div1"]["title1"] . " ";
 				echo minMaxDate($valeurs[0][0])
 				// 2 echo séparés, sinon ordre d'affichage incorrect !?>">
-				<?php echo number_format($valeurs[0][1], 1) . $page["commun"]["type"] . PHP_EOL?>
+				<?php echo tempHumiValeur($valeurs[0][1]) . $page["commun"]["type"] . PHP_EOL?>
 			</p>
 			<p title="<?php
 				echo $page["header"]["minMax"]["div1"]["title2"] . " ";
 				echo minMaxDate($valeurs[1][0])?>">
-				<?php echo number_format($valeurs[1][1], 1) . $page["commun"]["type"] . PHP_EOL?>
+				<?php echo tempHumiValeur($valeurs[1][1]) . $page["commun"]["type"] . PHP_EOL?>
 			</p>
 		</div>
 	</div>
@@ -87,7 +89,7 @@ function minMaxDate($date){
 	<section>
 		<h1><?php echo $page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo $bddD->actu($page["actu"]["tempHumi"]) . $page["commun"]["type"] . PHP_EOL?>
+			<?php echo tempHumiValeur($bddD->actu($page["actu"]["tempHumi"])) . $page["commun"]["type"] . PHP_EOL?>
 		</p>
 	</section>
 	<section>

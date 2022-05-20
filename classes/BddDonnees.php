@@ -26,11 +26,11 @@ class BddDonnees
 			return $exception->getMessage();
 		}
 	}
-	public function maxMin($maxMinOp, $maxMinTempHumi)
+	public function minMax($minMaxOp, $minMaxTempHumi)
 	{
 		try
 		{
-			$statement = $this->pdo->prepare("SELECT date_mesure AS date, $maxMinOp($maxMinTempHumi) AS $maxMinTempHumi FROM meteor_donnees");
+			$statement = $this->pdo->prepare("SELECT date_mesure AS date, $minMaxOp($minMaxTempHumi) AS $minMaxTempHumi FROM meteor_donnees");
 			$statement->execute();
 			return $statement->fetchAll()[0];
 		}

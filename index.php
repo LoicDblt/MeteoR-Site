@@ -46,7 +46,7 @@ function minMaxDate($date){
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
 	<link rel="apple-touch-icon" href="img/meteor_apple_touch.webp">
-	<link rel="stylesheet" type="text/css" href="style/style.css"/>
+	<link rel="stylesheet" type="text/css" href="style/index.css"/>
 </head>
 <body>
 <header>

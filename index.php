@@ -29,7 +29,14 @@ else{
 
 // Fonction de mise en forme de la date
 function minMaxDate($date){
-	echo ucwords(strftime("%a %-d %b %G à %Hh%m", strtotime($date)));
+	$formatter = new IntlDateFormatter("fr_FR",
+		IntlDateFormatter::FULL,
+		IntlDateFormatter::NONE,
+		"Europe/Paris",
+		IntlDateFormatter::GREGORIAN,
+		"EE dd MMM y 'à' kk'h'mm");
+	// Capitalise les mots, et supprime les points
+	echo ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
 }
 ?>
 <!DOCTYPE html>
@@ -66,12 +73,12 @@ function minMaxDate($date){
 				echo $page["header"]["minMax"]["div1"]["title1"] . " ";
 				echo minMaxDate($valeurs[0][0])
 				// 2 echo séparés, sinon ordre d'affichage incorrect !?>">
-				<?php echo $valeurs[0][1] . $page["commun"]["type"] . PHP_EOL?>
+				<?php echo number_format($valeurs[0][1], 1) . $page["commun"]["type"] . PHP_EOL?>
 			</p>
 			<p title="<?php
 				echo $page["header"]["minMax"]["div1"]["title2"] . " ";
 				echo minMaxDate($valeurs[1][0])?>">
-				<?php echo $valeurs[1][1] . $page["commun"]["type"] . PHP_EOL?>
+				<?php echo number_format($valeurs[1][1], 1) . $page["commun"]["type"] . PHP_EOL?>
 			</p>
 		</div>
 	</div>

@@ -5,11 +5,11 @@
 		url("polices/open-sans-600.woff") format("woff");
 }
 body{
-	margin: 0;
-	font-family: "Open Sans", Arial, sans-serif;
 	background: url("../img/erreur_404.jpg");
 	background-size: cover;
 	background-position: center center;
+	font-family: "Open Sans", Arial, sans-serif;
+	margin: 0;
 }
 div{
 	display: flex;

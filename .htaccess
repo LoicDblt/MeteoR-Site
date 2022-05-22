@@ -38,7 +38,7 @@ RewriteEngine On
 RewriteRule ^index\.php$ / [R=301,L]
 RewriteRule ^(.*)/index\.php$ /$1/ [R=301,L]
 ### RENVOIE UNE PAGE D'ERREUR
-ErrorDocument 404 /erreur_404.php
+ErrorDocument 404 /erreur_404.html
 ### ENLEVE LE "WWW"
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]

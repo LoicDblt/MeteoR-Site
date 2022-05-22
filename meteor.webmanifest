@@ -1,16 +1,43 @@
 {
 	"name": "MeteoR",
 	"short_name": "MeteoR",
-	"background_color": "#010101",
-	"theme_color": "#010101",
+	"background_color": "#f9f9fb",
+	"theme_color": "#f9f9fb",
 	"orientation": "portrait",
+	"start_url": "index.php",
+	"display": "standalone",
 	"icons": [
 		{
-		"src": "img/meteor_favicon.webp",
-		"sizes": "512x512",
-		"type": "image/webp"
+			"src": "img/icons/meteor_favicon-192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "img/icons/meteor_favicon-512.png",
+			"sizes": "512*512",
+			"type": "image/png"
 		}
 	],
-	"start_url": "index.php",
-	"display": "standalone"
+	"shortcuts": [
+		{
+			"name": "Température",
+			"short_name": "Température",
+			"description": "Afficher la température",
+			"url": "/",
+			"icons": [{
+				"src": "img/icons/flocon.webp",
+				"sizes": "192x192"
+			}]
+		},
+		{
+			"name": "Humidité",
+			"short_name": "Humidité",
+			"description": "Afficher le taux d'humidité",
+			"url": "/humidite",
+			"icons": [{
+				"src": "img/icons/parapluie.webp",
+				"sizes": "192x192"
+			}]
+		}
+	]
 }

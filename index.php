@@ -20,9 +20,6 @@ elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
 	array_push($valeurs, array($bddD->minMax("MIN", "min_humi")["date"], $bddD->minMax("MIN", "min_humi")["min_humi"]));
 	array_push($valeurs, array($bddD->minMax("MAX", "max_humi")["date"], $bddD->minMax("MAX", "max_humi")["max_humi"]));
 }
-else{
-	header("location: erreur_404");
-}
 
 // Fonction de mise en forme des dates
 function minMaxDate($date){
@@ -53,8 +50,8 @@ function tempHumiValeur($valeur){
 	<meta name="theme-color" content="#010101" media="(prefers-color-scheme: dark)">
 	<meta name="description" content="<?php echo $page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
-	<link rel="icon" type="image/webp" href="img/meteor_favicon.webp"/>
-	<link rel="apple-touch-icon" href="img/meteor_apple_touch.webp">
+	<link rel="icon" type="image/webp" href="img/icons/meteor_favicon.webp"/>
+	<link rel="apple-touch-icon" href="img/icons/meteor_apple_touch.webp">
 	<link rel="stylesheet" type="text/css" href="style/index.css"/>
 </head>
 <body>

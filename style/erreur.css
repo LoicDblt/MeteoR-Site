@@ -4,6 +4,16 @@
 	src: url("polices/open-sans-600.woff2") format("woff2"),
 		url("polices/open-sans-600.woff") format("woff");
 }
+*:focus,
+*:active{
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+*{
+	scrollbar-color: #cdcdcd #f0f0f0;
+	scroll-behavior: smooth;
+	scrollbar-width: thin;
+}
 body{
 	background: url("../img/erreur_404.jpg");
 	background-size: cover;
@@ -15,6 +25,7 @@ div{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-items: center;
 	text-align: center;
 	height: 100vh;
 }
@@ -35,7 +46,7 @@ a{
 	transition: 0.3s;
 	text-decoration: none;
 	outline: none;
-	padding-bottom: 10px;
+	padding: 5px 10px 10px;
 }
 a:hover{
 	color: #8b8b8b;
@@ -61,5 +72,13 @@ a:active{
 	}
 	a{
 		font-size: 14px;
+	}
+}
+
+/* Version sombre */
+@media (prefers-color-scheme: dark){
+	/* Général */
+	*{
+		scrollbar-color: #1a1a1a #333333;
 	}
 }

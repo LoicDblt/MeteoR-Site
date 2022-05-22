@@ -163,3 +163,17 @@ function afficheMinMax(message)
 			titre.title = "Afficher " + message;
 	}).css("display", "flex");
 }
+
+if ("serviceWorker" in navigator)
+{
+	navigator.serviceWorker.register("../service_worker.js")
+		.then({})
+		.catch(function(erreur)
+		{
+			console.log("Service worker - enregistrement echoué : ", erreur);
+		});
+}
+else
+{
+	console.log("Service worker - non disponible");
+}

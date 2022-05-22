@@ -177,16 +177,16 @@ div.plotly-notifier{
 @media only screen and (min-width: 800px) and (max-width: 1080px){
 	/* Header */
 		/* Box centrale */
-		header > div:nth-child(2) > img{
-			width: 350px;
-			height: 88px;
-		}
+	header > div:nth-child(2) > img{
+		width: 350px;
+		height: 88px;
+	}
 
-			/* Box droite */
-		header > div:last-child > div:first-child > img{
-			width: 56px;
-			height: 56px;
-		}
+		/* Box droite */
+	header > div:last-child > div:first-child > img{
+		width: 56px;
+		height: 56px;
+	}
 
 	/* Corps */
 		/* Element parent */

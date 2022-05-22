@@ -9,7 +9,7 @@ class BddGraphes
 		{
 			$this->pdo = new PDO("sqlite:bdd/graphs.db");
 
-			// Génération de de la date pour les graphiques
+			// Génération de la date minimale pour les graphiques
 			date_default_timezone_set("Europe/Paris");
 			$date = new DateTime();
 			$date->modify("last day of previous month");

@@ -13,7 +13,7 @@ $page = [
 			"valeur" => "Température"
 		],
 		"minMax" => [
-			"title" => "le taux d\'humidité maximal et minimal",
+			"title" => "le taux d'humidité minimal et maximal",
 			"div1" => [
 				"img1" => "cactus",
 				"title1" => "Taux d'humidité minimal relevé le",

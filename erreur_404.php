@@ -20,7 +20,7 @@
 			<br>
 			Page introuvable
 		</p>
-		<a href=".">Retour à l'accueil</a>
+		<a href=".">Retourner à l'accueil</a>
 	</div>
 </body>
 </html>

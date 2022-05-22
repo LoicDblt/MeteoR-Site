@@ -65,6 +65,8 @@ header > div:nth-child(2) > img{
 	width: 390px;
 	height: 98px;
 	padding: 10px 0;
+	line-height: 98px;
+	text-align: center;
 }
 
 	/* Box droite */
@@ -85,6 +87,8 @@ header > div:last-child > div:first-child > img{
 	margin: auto;
 	width: 64px;
 	height: 64px;
+	line-height: 64px;
+	text-align: center;
 }
 header > div:last-child > div:last-child{
 	display: none;
@@ -180,12 +184,14 @@ div.plotly-notifier{
 	header > div:nth-child(2) > img{
 		width: 350px;
 		height: 88px;
+		line-height: 88px;
 	}
 
 		/* Box droite */
 	header > div:last-child > div:first-child > img{
 		width: 56px;
 		height: 56px;
+		line-height: 56px;
 	}
 
 	/* Corps */
@@ -222,6 +228,7 @@ div.plotly-notifier{
 	header > div:nth-child(2) > img{
 		width: 320px;
 		height: 80px;
+		line-height: 80px;
 		padding: 15px 0 13px;
 	}
 
@@ -235,6 +242,7 @@ div.plotly-notifier{
 	header > div:last-child > div:first-child > img{
 		width: 44px;
 		height: 44px;
+		line-height: 44px;
 	}
 	header > div:last-child > div:last-child > p{
 		font-size: 24px;

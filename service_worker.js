@@ -2,7 +2,7 @@ const NOM_CACHE = "offline"
 const PAGE = "hors_ligne.html"
 const STYLE = "style/erreur.css"
 const FOND = "img/erreur_404.jpg"
-const FAVICON = "img/meteor_favicon.webp"
+const FAVICON = "img/icons/meteor_favicon.webp"
 
 self.addEventListener("install", (event) =>
 {
@@ -43,7 +43,7 @@ self.addEventListener("fetch", (event) =>
 			{
 				try
 				{
-					const precharger = await event.preloadResponse
+					const precharger = await event.preloadResponse;
 					if (precharger)
 					{
 						return precharger;
@@ -57,7 +57,7 @@ self.addEventListener("fetch", (event) =>
 					fetch(event.request).catch(function()
 					{
 						return caches.match(event.request);
-					})
+					});
 					const cache = await caches.open(NOM_CACHE);
 					const reponseCache = await cache.match(PAGE);
 					return reponseCache;

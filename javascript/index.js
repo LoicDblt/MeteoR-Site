@@ -167,11 +167,11 @@ function afficheMinMax(message)
 if ("serviceWorker" in navigator)
 {
 	navigator.serviceWorker.register("../service_worker.js")
-		.then({})
-		.catch(function(erreur)
-		{
-			console.log("Service worker - enregistrement echoué : ", erreur);
-		});
+	.then({})
+	.catch(function(erreur)
+	{
+		console.log("Service worker - enregistrement echoué :", erreur);
+	})
 }
 else
 {

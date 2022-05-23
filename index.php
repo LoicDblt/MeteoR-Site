@@ -60,12 +60,12 @@ function tempHumiValeur($valeur){
 		<a href="<?php echo $page["header"]["nav"]["href"]?>"><?php echo $page["header"]["nav"]["valeur"]?></a>
 	</nav>
 	<div>
-		<img src="img/nav/meteor.webp" alt=""/>
+		<img src="img/nav/meteor.webp" alt="Logo de MeteoR"/>
 	</div>
 	<div onclick="afficheMinMax(`<?php echo $page["header"]["minMax"]["title"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["title"]?>">
 		<div>
-			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img1"]?>.svg" alt=""/>
-			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img2"]?>.svg" alt=""/>
+			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img1"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
+			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img2"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
 		</div>
 		<div>
 			<p title="<?php

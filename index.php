@@ -62,22 +62,22 @@ function tempHumiValeur($valeur){
 	<div>
 		<img src="img/nav/meteor.webp" alt="Logo de MeteoR"/>
 	</div>
-	<div onclick="afficheMinMax(`<?php echo $page["header"]["minMax"]["title"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["title"]?>">
+	<div onclick="afficheMinMax(`<?php echo $page["header"]["minMax"]["titre"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["titre"]?>">
 		<div>
-			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img1"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img1"])?>"/>
-			<img src="img/nav/<?php echo $page["header"]["minMax"]["div1"]["img2"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["div1"]["img2"])?>"/>
+			<img src="img/nav/<?php echo $page["header"]["minMax"]["divGauche"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divGauche"]["img"])?>"/>
+			<img src="img/nav/<?php echo $page["header"]["minMax"]["divDroite"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divDroite"]["img"])?>"/>
 		</div>
 		<div>
 			<p title="<?php
-				echo $page["header"]["minMax"]["div1"]["title1"] . " ";
+				echo $page["header"]["minMax"]["divGauche"]["titre"] . " ";
 				echo minMaxDate($valeurs[0][0])
 				// 2 echo séparés, sinon ordre d'affichage incorrect !?>">
-				<?php echo tempHumiValeur($valeurs[0][1]) . $page["commun"]["type"] . PHP_EOL?>
+				<?php echo tempHumiValeur($valeurs[0][1]) . $page["commun"]["unite"] . PHP_EOL?>
 			</p>
 			<p title="<?php
-				echo $page["header"]["minMax"]["div1"]["title2"] . " ";
+				echo $page["header"]["minMax"]["divDroite"]["titre"] . " ";
 				echo minMaxDate($valeurs[1][0])?>">
-				<?php echo tempHumiValeur($valeurs[1][1]) . $page["commun"]["type"] . PHP_EOL?>
+				<?php echo tempHumiValeur($valeurs[1][1]) . $page["commun"]["unite"] . PHP_EOL?>
 			</p>
 		</div>
 	</div>
@@ -86,7 +86,7 @@ function tempHumiValeur($valeur){
 	<section>
 		<h1><?php echo $page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo tempHumiValeur($bddD->actu($page["actu"]["tempHumi"])) . $page["commun"]["type"] . PHP_EOL?>
+			<?php echo tempHumiValeur($bddD->actu($page["commun"]["tempHumi"])) . $page["commun"]["unite"] . PHP_EOL?>
 		</p>
 	</section>
 	<section>
@@ -101,8 +101,8 @@ function tempHumiValeur($valeur){
 <script src="javascript/index.js"></script>
 <script>
 let x = <?php echo $bddG->graphX()?>;
-let y = <?php echo $bddG->graphY($page["actu"]["tempHumi"])?>;
-graphique(x, y, "<?php echo $page["commun"]["nom"]?>", "<?php echo $page["commun"]["type"]?>");
+let y = <?php echo $bddG->graphY($page["commun"]["tempHumi"])?>;
+graphique(x, y, "<?php echo $page["commun"]["nom"]?>", "<?php echo $page["commun"]["unite"]?>");
 </script>
 </body>
 </html>

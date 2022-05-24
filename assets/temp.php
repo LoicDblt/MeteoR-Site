@@ -1,28 +1,36 @@
 <?php
-$page = [
-	"commun" => [
+$page =
+[
+	"commun" =>
+	[
 		"nom" => "Température",
-		"type" => "°C"
+		"unite" => "°C",
+		"tempHumi" => "temperature_ambiante"
 	],
-	"head" => [
+	"head" =>
+	[
 		"desc" => "Données de température"
 	],
-	"header" => [
-		"nav" => [
+	"header" =>
+	[
+		"nav" =>
+		[
 			"href" => "humidite",
 			"valeur" => "Humidité"
 		],
-		"minMax" => [
-			"title" => "la température maximale et minimale",
-			"div1" => [
-				"img1" => "feu",
-				"title1" => "Température maximale relevée le",
-				"img2" => "flocon",
-				"title2" => "Température minimale relevée le"
+		"minMax" =>
+		[
+			"titre" => "la température maximale et minimale",
+			"divGauche" =>
+			[
+				"img" => "feu",
+				"titre" => "Température maximale relevée le"
+			],
+			"divDroite" =>
+			[
+				"img" => "flocon",
+				"titre" => "Température minimale relevée le"
 			]
 		]
-	],
-	"actu" => [
-		"tempHumi" => "temperature_ambiante"
 	]
 ];

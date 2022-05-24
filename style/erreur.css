@@ -1,3 +1,4 @@
+/* Général */
 @font-face {
 	font-family: "Open Sans";
 	font-display: swap;
@@ -15,11 +16,17 @@
 	scrollbar-width: thin;
 }
 body{
-	background: url("../img/erreur_404.jpg");
+	background: url("../img/erreur.jpg");
 	background-size: cover;
 	background-position: center center;
 	font-family: "Open Sans", Arial, sans-serif;
 	margin: 0;
+}
+
+/* Corps */
+div::before{
+	content: "";
+	height: calc(28px + 10px);
 }
 div{
 	display: flex;
@@ -33,10 +40,6 @@ p{
 	font-size: 34px;
 	color: #ffffff;
 	margin: 0;
-}
-div::before{
-	content: "";
-	height: calc(28px + 10px);
 }
 a{
 	color: #bfbfbf;
@@ -57,6 +60,7 @@ a:active{
 
 /* Version tablette */
 @media only screen and (min-width: 800px) and (max-width: 1080px){
+	/* Corps */
 	p{
 		font-size: 28px;
 	}
@@ -67,6 +71,7 @@ a:active{
 
 /* Version mobile */
 @media screen and (max-width: 799px){
+	/* Corps */
 	p{
 		font-size: 24px;
 	}

@@ -21,30 +21,11 @@ class BddGraphes
 		}
 	}
 
-	public function graphX()
+	public function getGraph($axe) : string
 	{
 		try
 		{
-			$statement = $this->pdo->prepare("SELECT date_mesure FROM meteor_graphs WHERE date_mesure >= :calcDate");
-			$statement->bindParam(":calcDate", $this->calcDate, PDO::PARAM_STR);
-			$statement->execute();
-			$array = array();
-			foreach ($statement as $value)
-			{
-				array_push($array, $value[0]);
-			}
-			return json_encode($array);
-		}
-		catch (Exception $exception)
-		{
-			return $exception->getMessage();
-		}
-	}
-	public function graphY($tempHumi)
-	{
-		try
-		{
-			$statement = $this->pdo->prepare("SELECT $tempHumi FROM meteor_graphs WHERE date_mesure >= :calcDate");
+			$statement = $this->pdo->prepare("SELECT $axe FROM meteor_graphs WHERE date_mesure >= :calcDate");
 			$statement->bindParam(":calcDate", $this->calcDate, PDO::PARAM_STR);
 			$statement->execute();
 			$array = array();

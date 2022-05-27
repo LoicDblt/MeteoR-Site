@@ -6,35 +6,36 @@ header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inli
 // Accès à la base de données
 include_once "classes/BddDonnees.php";
 include_once "classes/BddGraphes.php";
-$bddD = new BddDonnees();
-$bddG = new BddGraphes();
+$bddDonnees = new BddDonnees();
+$bddGraph = new BddGraphes();
 $valeurs = Array();
 
 if (!$_GET){
 	include_once "assets/temp.php";
-	array_push($valeurs, array($bddD->minMax("MAX", "max_temp")["date"], $bddD->minMax("MAX", "max_temp")["max_temp"]));
-	array_push($valeurs, array($bddD->minMax("MIN", "min_temp")["date"], $bddD->minMax("MIN", "min_temp")["min_temp"]));
+	array_push($valeurs, array($bddDonnees->getMinMax("MAX", "max_temp")["date"], $bddDonnees->getMinMax("MAX", "max_temp")["max_temp"]));
+	array_push($valeurs, array($bddDonnees->getMinMax("MIN", "min_temp")["date"], $bddDonnees->getMinMax("MIN", "min_temp")["min_temp"]));
 }
 elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humi.php";
-	array_push($valeurs, array($bddD->minMax("MIN", "min_humi")["date"], $bddD->minMax("MIN", "min_humi")["min_humi"]));
-	array_push($valeurs, array($bddD->minMax("MAX", "max_humi")["date"], $bddD->minMax("MAX", "max_humi")["max_humi"]));
+	array_push($valeurs, array($bddDonnees->getMinMax("MIN", "min_humi")["date"], $bddDonnees->getMinMax("MIN", "min_humi")["min_humi"]));
+	array_push($valeurs, array($bddDonnees->getMinMax("MAX", "max_humi")["date"], $bddDonnees->getMinMax("MAX", "max_humi")["max_humi"]));
 }
 
 // Fonction de mise en forme des dates
-function minMaxDate($date){
+function formatageDate($date){
 	$formatter = new IntlDateFormatter("fr_FR",
 		IntlDateFormatter::FULL,
 		IntlDateFormatter::NONE,
 		"Europe/Paris",
 		IntlDateFormatter::GREGORIAN,
-		"EE dd MMM y 'à' kk'h'mm");
+		"EE d MMM y 'à' kk'h'mm");
+
 	// Capitalise les mots, et supprime les points
 	echo ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
 }
 
 // Fonction de mise en forme des valeurs de température et d'humidité
-function tempHumiValeur($valeur){
+function formatageValeur($valeur){
 	echo number_format($valeur, 1);
 }
 ?>
@@ -70,14 +71,14 @@ function tempHumiValeur($valeur){
 		<div>
 			<p title="<?php
 				echo $page["header"]["minMax"]["divGauche"]["titre"] . " ";
-				echo minMaxDate($valeurs[0][0])
+				echo formatageDate($valeurs[0][0]);
 				// 2 echo séparés, sinon ordre d'affichage incorrect !?>">
-				<?php echo tempHumiValeur($valeurs[0][1]) . $page["commun"]["unite"] . PHP_EOL?>
+				<?php echo formatageValeur($valeurs[0][1]) . $page["commun"]["unite"] . PHP_EOL?>
 			</p>
 			<p title="<?php
 				echo $page["header"]["minMax"]["divDroite"]["titre"] . " ";
-				echo minMaxDate($valeurs[1][0])?>">
-				<?php echo tempHumiValeur($valeurs[1][1]) . $page["commun"]["unite"] . PHP_EOL?>
+				echo formatageDate($valeurs[1][0])?>">
+				<?php echo formatageValeur($valeurs[1][1]) . $page["commun"]["unite"] . PHP_EOL?>
 			</p>
 		</div>
 	</div>
@@ -86,7 +87,7 @@ function tempHumiValeur($valeur){
 	<section>
 		<h1><?php echo $page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo tempHumiValeur($bddD->actu($page["commun"]["tempHumi"])) . $page["commun"]["unite"] . PHP_EOL?>
+			<?php echo formatageValeur($bddDonnees->getActu($page["commun"]["tempHumi"])) . $page["commun"]["unite"] . PHP_EOL?>
 		</p>
 	</section>
 	<section>
@@ -98,11 +99,11 @@ function tempHumiValeur($valeur){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.12.1/plotly-basic.min.js" integrity="sha512-1xh2+txa3PenvgKmdLkjsGdZ3gX+RmaAfETw+795FKOpW+DEgnL3GeRKeCXLQrbLNEzPWoR+J2jhMVQm9tYQGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.12.1/plotly-locale-fr.min.js" integrity="sha512-8i4gvdC9aB88kXdoZiv8knDmCNyCyOiR5JE9lKcYObBGTAs8qCkajAYSf+GpNVu+8GeEwX4254aQjJ8v0cejsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="javascript/index.js"></script>
+<script src="js/index.js"></script>
 <script>
-let x = <?php echo $bddG->graphX()?>;
-let y = <?php echo $bddG->graphY($page["commun"]["tempHumi"])?>;
-graphique(x, y, "<?php echo $page["commun"]["nom"]?>", "<?php echo $page["commun"]["unite"]?>");
+let x = <?php echo $bddGraph->getGraph("date_mesure")?>;
+let y = <?php echo $bddGraph->getGraph($page["commun"]["tempHumi"])?>;
+generationGraphique(x, y, "<?php echo $page["commun"]["nom"]?>", "<?php echo $page["commun"]["unite"]?>");
 </script>
 </body>
 </html>

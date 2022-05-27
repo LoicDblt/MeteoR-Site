@@ -1,5 +1,5 @@
 // Fonction de paramétrage et d'affichage du graphique
-function graphique(x, y, type, unite)
+function generationGraphique(x, y, type, unite)
 {
 	var data =
 	[{
@@ -164,6 +164,7 @@ function afficheMinMax(message)
 	}).css("display", "flex");
 }
 
+// Lance le service worker, si disponible
 if ("serviceWorker" in navigator)
 {
 	navigator.serviceWorker.register("../service_worker.js")
@@ -172,8 +173,4 @@ if ("serviceWorker" in navigator)
 	{
 		console.log("Service worker - enregistrement echoué :", erreur);
 	})
-}
-else
-{
-	console.log("Service worker - non disponible");
 }

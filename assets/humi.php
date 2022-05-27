@@ -1,5 +1,6 @@
 <?php
-$page = [
+$page =
+[
 	"commun" =>
 	[
 		"nom" => "Humidité",

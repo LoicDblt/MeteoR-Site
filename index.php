@@ -12,13 +12,13 @@ $valeurs = Array();
 
 if (!$_GET){
 	include_once "assets/temp.php";
-	array_push($valeurs, array($bddDonnees->getMinMax("MAX", "max_temp")["date"], $bddDonnees->getMinMax("MAX", "max_temp")["max_temp"]));
-	array_push($valeurs, array($bddDonnees->getMinMax("MIN", "min_temp")["date"], $bddDonnees->getMinMax("MIN", "min_temp")["min_temp"]));
+	array_push($valeurs, array($bddDonnees->getValeurMinMax("MAX", "max_temp")["date"], $bddDonnees->getValeurMinMax("MAX", "max_temp")["max_temp"]));
+	array_push($valeurs, array($bddDonnees->getValeurMinMax("MIN", "min_temp")["date"], $bddDonnees->getValeurMinMax("MIN", "min_temp")["min_temp"]));
 }
 elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humi.php";
-	array_push($valeurs, array($bddDonnees->getMinMax("MIN", "min_humi")["date"], $bddDonnees->getMinMax("MIN", "min_humi")["min_humi"]));
-	array_push($valeurs, array($bddDonnees->getMinMax("MAX", "max_humi")["date"], $bddDonnees->getMinMax("MAX", "max_humi")["max_humi"]));
+	array_push($valeurs, array($bddDonnees->getValeurMinMax("MIN", "min_humi")["date"], $bddDonnees->getValeurMinMax("MIN", "min_humi")["min_humi"]));
+	array_push($valeurs, array($bddDonnees->getValeurMinMax("MAX", "max_humi")["date"], $bddDonnees->getValeurMinMax("MAX", "max_humi")["max_humi"]));
 }
 
 // Fonction de mise en forme des dates
@@ -63,7 +63,7 @@ function formatageValeur($valeur){
 	<div>
 		<img src="img/nav/meteor.webp" alt="Logo de MeteoR"/>
 	</div>
-	<div onclick="afficheMinMax(`<?php echo $page["header"]["minMax"]["titre"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["titre"]?>">
+	<div onclick="inverserAffichageMinMax(`<?php echo $page["header"]["minMax"]["titre"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["titre"]?>">
 		<div>
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["divGauche"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divGauche"]["img"])?>"/>
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["divDroite"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divDroite"]["img"])?>"/>
@@ -87,7 +87,7 @@ function formatageValeur($valeur){
 	<section>
 		<h1><?php echo $page["commun"]["nom"]?></h1>
 		<p>
-			<?php echo formatageValeur($bddDonnees->getActu($page["commun"]["tempHumi"])) . $page["commun"]["unite"] . PHP_EOL?>
+			<?php echo formatageValeur($bddDonnees->getValeurActu($page["commun"]["tempHumi"])) . $page["commun"]["unite"] . PHP_EOL?>
 		</p>
 	</section>
 	<section>

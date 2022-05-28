@@ -1,10 +1,10 @@
 // Fonction de paramétrage et d'affichage du graphique
-function generationGraphique(x, y, type, unite)
+function generationGraphique(pointsAbscisse, pointsOrdonnee, type, unite)
 {
 	var data =
 	[{
-		x: x,
-		y: y,
+		x: pointsAbscisse,
+		y: pointsOrdonnee,
 		type: "scatter",
 		connectgaps: true,
 		line:
@@ -152,7 +152,7 @@ function generationGraphique(x, y, type, unite)
 }
 
 // Fonction d'affichage/masquage des valeurs min et max
-function afficheMinMax(message)
+function inverserAffichageMinMax(message)
 {
 	let divMinMax = document.querySelector("header > div:last-child > div:last-child");
 	let titre = document.querySelector("header > div:last-child");
@@ -165,7 +165,12 @@ function afficheMinMax(message)
 }
 
 // Lance le service worker, si disponible
-if ("serviceWorker" in navigator)
+// (désactiver sur Firefox bureau -> problème de perfs)
+if (
+	"serviceWorker" in navigator &&
+	(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
+	window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
+)
 {
 	navigator.serviceWorker.register("../service_worker.js")
 	.then({})

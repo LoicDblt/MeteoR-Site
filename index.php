@@ -47,8 +47,8 @@ function formatageValeur($valeur){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
-	<meta name="theme-color" content="#f9f9fb" media="(prefers-color-scheme: light)">
-	<meta name="theme-color" content="#010101" media="(prefers-color-scheme: dark)">
+	<meta name="theme-color" content="#f9f9fb" media="(prefers-color-scheme: light)"/>
+	<meta name="theme-color" content="#010101" media="(prefers-color-scheme: dark)"/>
 	<meta name="description" content="<?php echo $page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/icons/meteor_favicon.webp"/>
@@ -60,10 +60,10 @@ function formatageValeur($valeur){
 	<nav>
 		<a href="<?php echo $page["header"]["nav"]["href"]?>"><?php echo $page["header"]["nav"]["valeur"]?></a>
 	</nav>
-	<div>
+	<div id="boxCentre">
 		<img src="img/nav/meteor.webp" alt="Logo de MeteoR"/>
 	</div>
-	<div onclick="inverserAffichageMinMax(`<?php echo $page["header"]["minMax"]["titre"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["titre"]?>">
+	<div id="boxDroite" onclick="inverserAffichageMinMax(`<?php echo $page["header"]["minMax"]["titre"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["titre"]?>">
 		<div>
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["divGauche"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divGauche"]["img"])?>"/>
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["divDroite"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divDroite"]["img"])?>"/>

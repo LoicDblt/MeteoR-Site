@@ -21,7 +21,7 @@ class Couleurs{
 
 class CouleursClaires extends Couleurs{
 	constructor(){
-		super("#ffffff", "#eeeeee", "#000000");
+		super("#ffffff", "#eeeeee", "#404040");
 	}
 }
 
@@ -158,7 +158,7 @@ function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, uni
 }
 
 function inverserAffichageMinMax(nouveauTitre){
-	let titre = document.querySelector("header > div:last-child");
+	let titre = document.getElementById("boxDroite");
 	let divMinMax = document.getElementById("valeursMinMax");
 	$(divMinMax).slideToggle(400, () => {
 		if ($(divMinMax).css("display") === "flex")

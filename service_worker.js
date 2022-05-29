@@ -20,18 +20,15 @@ const FICHIERS_EN_CACHE = [
 	"img/icons/meteor_apple_touch.webp"
 ];
 
-self.addEventListener("install", (event) =>
-{
+self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(NOM_CACHE).then((cache) =>
-		{
+		caches.open(NOM_CACHE).then((cache) => {
 			return cache.addAll(FICHIERS_EN_CACHE);
 		})
 	);
 });
 
-self.addEventListener("activate", (event) =>
-{
+self.addEventListener("activate", (event) => {
 	event.waitUntil(
 		(async () => {
 			// Enable navigation preload if it's supported
@@ -46,19 +43,15 @@ self.addEventListener("activate", (event) =>
 	self.clients.claim();
 });
 
-self.addEventListener("fetch", (event) =>
-{
+self.addEventListener("fetch", (event) => {
 	// We only want to call event.respondWith() if this is a navigation request
 	// for an HTML page
-	if (event.request.mode === "navigate")
-	{
+	if (event.request.mode === "navigate"){
 		event.respondWith(
-			(async () =>
-			{
+			(async () => {
 				// First, try to use the navigation preload response if it's
 				// supported
-				try
-				{
+				try{
 					const precharger = await event.preloadResponse;
 					if (precharger)
 						return precharger;
@@ -66,20 +59,18 @@ self.addEventListener("fetch", (event) =>
 					const reponseReseau = await fetch(event.request);
 					return reponseReseau;
 				}
-				catch
-				{
+				catch{
 					// "Catch" is only triggered if an exception is thrown,
 					// which is likely due to a network error.
 					// If fetch() returns a valid HTTP response with a response
 					// code in the 4xx or 5xx range, the catch() will NOT be
 					// called
-					fetch(event.request).catch(() =>
-					{
+					fetch(event.request).catch(() => {
 						return caches.match(event.request);
 					});
 					const cache = await caches.open(NOM_CACHE);
 					const reponseCache = await cache
-												.match(FICHIERS_EN_CACHE[0]);
+											.match(FICHIERS_EN_CACHE[0]);
 					return reponseCache;
 				}
 			})()

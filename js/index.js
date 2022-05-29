@@ -1,14 +1,43 @@
-// Fonction de paramétrage et d'affichage du graphique
-function generationGraphique(pointsAbscisse, pointsOrdonnee, type, unite)
-{
-	var data =
-	[{
+class Couleurs{
+	constructor(bgcolor, gridcolor, color){
+		this.bgcolor = bgcolor;
+		this.gridcolor = gridcolor;
+		this.color = color;
+	}
+
+	getBgColor(){
+		return this.bgcolor;
+	}
+	getGridColor(){
+		return this.gridcolor;
+	}
+	getColor(){
+		return this.color;
+	}
+	getToutesCouleurs(){
+		return Array(this.getBgColor(), this.getGridColor(), this.getColor());
+	}
+}
+
+class CouleursClaires extends Couleurs{
+	constructor(){
+		super("#ffffff", "#eeeeee", "#000000");
+	}
+}
+
+class CouleursSombres extends Couleurs{
+	constructor(){
+		super("#232224", "#4a484c", "#bfbfbf");
+	}
+}
+
+function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, unite){
+	var data = [{
 		x: pointsAbscisse,
 		y: pointsOrdonnee,
 		type: "scatter",
 		connectgaps: true,
-		line:
-		{
+		line: {
 			color: "#32a6f5",
 			width: 2,
 			shape: "spline"
@@ -16,12 +45,10 @@ function generationGraphique(pointsAbscisse, pointsOrdonnee, type, unite)
 		hovertemplate: "<b>" + type + " :</b> %{y:.1f}" + unite +
 						"<br><b>Date :</b> %{x|%a %-d %b à %Hh%M}" +
 						"<extra></extra>",
-		hoverlabel:
-		{
+		hoverlabel: {
 			align: "left",
 			bordercolor: "#32a6f5",
-			font:
-			{
+			font:{
 				family: "Open Sans",
 				color: "#ffffff"
 			}
@@ -29,67 +56,56 @@ function generationGraphique(pointsAbscisse, pointsOrdonnee, type, unite)
 		showlegend: false
 	}]
 
-	// Configuration du graphique
-	var config =
-	{
+	var config = {
 		locale: "fr",
 		displayModeBar: false,
 		responsive: true,
 		showAxisDragHandles: false
 	}
 
-	// Paramétrage des variables du graphique
-	var t = 10;
-	var r = 10;
-	var b = 50;
-	var l = 55;
-	var bgcolor = "unset";
-	var gridcolor = "unset";
-	var color = "unset";
+	var top = 10;
+	var right = 10;
+	var bottom = 50;
+	var left = 55;
 
-	// Paramètres de l'affichage mobile
-	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches)
-	{
-		t = 0;
-		r = 5;
-		b = 35;
-		l = 40;
+	var couleurs = new CouleursClaires();
+	var bgcolor;
+	var gridcolor;
+	var color;
+	[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
+
+	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
+		top = 0;
+		right = 5;
+		bottom = 35;
+		left = 40;
 	}
 
-	// Paramètres de l'affichage sombre (si actif au chargement de la page)
-	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
-	{
-		bgcolor = "#232224";
-		gridcolor = "#4a484c";
-		color = "#bfbfbf";
+	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){
+		couleurs = new CouleursSombres();
+		[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
 	}
 
-	// Agencement du graphique
-	var layout =
-	{
+	var layout = {
 		showlegend: false,
 		separators: ".,",
-		margin:
-		{
-			t: t,
-			r: r,
-			b: b,
-			l: l,
+		margin: {
+			t: top,
+			r: right,
+			b: bottom,
+			l: left,
 			pad: 4
 		},
-		font:
-		{
+		font: {
 			family: "Open Sans",
 			color: color
 		},
 		plot_bgcolor: bgcolor,
 		paper_bgcolor: bgcolor,
-		xaxis:
-		{
+		xaxis: {
 			showgrid: false
 		},
-		yaxis:
-		{
+		yaxis: {
 			gridcolor: gridcolor,
 			gridcolorwidth: 1,
 			fixedrange: true,
@@ -99,47 +115,37 @@ function generationGraphique(pointsAbscisse, pointsOrdonnee, type, unite)
 	}
 	Plotly.newPlot("graph", data, layout, config);
 
-	// Détection dynamique du passage au thème sombre
-	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event =>
-	{
+	// Détection dynamique de changement de thème
+	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
 		var colorScheme = event.matches ? "dark" : "light";
-		if (colorScheme == "dark")
-		{
-			bgcolor = "#232224";
-			gridcolor = "#4a484c";
-			color = "#bfbfbf";
+		if (colorScheme == "dark") {
+			couleurs = new CouleursSombres();
+			[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
 		}
-		else
-		{
-			bgcolor = "unset";
-			gridcolor = "unset";
-			color = "unset";
+		else {
+			couleurs = new CouleursClaires();
+			[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
 		}
-		var layout =
-		{
+		var layout = {
 			showlegend: false,
 			separators: ".,",
-			margin:
-			{
-				t: t,
-				r: r,
-				b: b,
-				l: l,
+			margin: {
+				t: top,
+				r: right,
+				b: bottom,
+				l: left,
 				pad: 4
 			},
-			font:
-			{
+			font: {
 				family: "Open Sans",
 				color: color
 			},
 			plot_bgcolor: bgcolor,
 			paper_bgcolor: bgcolor,
-			xaxis:
-			{
+			xaxis: {
 				showgrid: false
 			},
-			yaxis:
-			{
+			yaxis: {
 				gridcolor: gridcolor,
 				gridcolorwidth: 1,
 				fixedrange: true,
@@ -151,31 +157,26 @@ function generationGraphique(pointsAbscisse, pointsOrdonnee, type, unite)
 	})
 }
 
-// Fonction d'affichage/masquage des valeurs min et max
-function inverserAffichageMinMax(message)
-{
-	let divMinMax = document.querySelector("header > div:last-child > div:last-child");
+function inverserAffichageMinMax(nouveauTitre){
 	let titre = document.querySelector("header > div:last-child");
+	let divMinMax = document.getElementById("valeursMinMax");
 	$(divMinMax).slideToggle(400, () => {
 		if ($(divMinMax).css("display") === "flex")
-			titre.title = "Masquer " + message;
+			titre.title = "Masquer " + nouveauTitre;
 		else
-			titre.title = "Afficher " + message;
+			titre.title = "Afficher " + nouveauTitre;
 	}).css("display", "flex");
 }
 
-// Lance le service worker, si disponible
-// (désactiver sur Firefox bureau -> problème de perfs)
+// N'active pas le service worker sur Firefox bureau -> problème de perfs
 if (
 	"serviceWorker" in navigator &&
 	(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
 	window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
-)
-{
+){
 	navigator.serviceWorker.register("../service_worker.js")
 	.then({})
-	.catch(function(erreur)
-	{
+	.catch(function(erreur){
 		console.log("Service worker - enregistrement echoué :", erreur);
 	})
 }

@@ -68,7 +68,7 @@ function formatageValeur($valeur){
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["divGauche"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divGauche"]["img"])?>"/>
 			<img src="img/nav/<?php echo $page["header"]["minMax"]["divDroite"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divDroite"]["img"])?>"/>
 		</div>
-		<div>
+		<div id="valeursMinMax">
 			<p title="<?php
 				echo $page["header"]["minMax"]["divGauche"]["titre"] . " ";
 				echo formatageDate($valeurs[0][0]);
@@ -103,7 +103,7 @@ function formatageValeur($valeur){
 <script>
 let x = <?php echo $bddGraph->getGraph("date_mesure")?>;
 let y = <?php echo $bddGraph->getGraph($page["commun"]["tempHumi"])?>;
-generationGraphique(x, y, "<?php echo $page["commun"]["nom"]?>", "<?php echo $page["commun"]["unite"]?>");
+parametrageAffichageGraphique(x, y, "<?php echo $page["commun"]["nom"]?>", "<?php echo $page["commun"]["unite"]?>");
 </script>
 </body>
 </html>

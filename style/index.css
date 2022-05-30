@@ -23,6 +23,9 @@ body{
 	font-family: "Open Sans", Arial, sans-serif;
 	margin: 0;
 }
+img{
+	user-select: none;
+}
 
 /* Header */
 header{

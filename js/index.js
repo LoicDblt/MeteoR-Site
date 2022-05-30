@@ -14,7 +14,7 @@ class Couleurs{
 	getColor(){
 		return this.color;
 	}
-	getToutesCouleurs(){
+	getTableauToutesCouleurs(){
 		return Array(this.getBgColor(), this.getGridColor(), this.getColor());
 	}
 }
@@ -72,7 +72,7 @@ function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, uni
 	var bgcolor;
 	var gridcolor;
 	var color;
-	[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
+	[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
 
 	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
 		top = 0;
@@ -83,7 +83,7 @@ function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, uni
 
 	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){
 		couleurs = new CouleursSombres();
-		[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
+		[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
 	}
 
 	var layout = {
@@ -120,11 +120,11 @@ function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, uni
 		var colorScheme = event.matches ? "dark" : "light";
 		if (colorScheme == "dark") {
 			couleurs = new CouleursSombres();
-			[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
+			[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
 		}
 		else {
 			couleurs = new CouleursClaires();
-			[bgcolor, gridcolor, color] = couleurs.getToutesCouleurs();
+			[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
 		}
 		var layout = {
 			showlegend: false,

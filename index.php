@@ -1,5 +1,4 @@
 <?php
-// Sécurité
 header("X-Frame-Options: DENY");
 header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
@@ -21,7 +20,6 @@ elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
 	array_push($valeurs, array($bddDonnees->getValeurMinMax("MAX", "max_humi")["date"], $bddDonnees->getValeurMinMax("MAX", "max_humi")["max_humi"]));
 }
 
-// Fonction de mise en forme des dates
 function formatageDate($date){
 	$formatter = new IntlDateFormatter("fr_FR",
 		IntlDateFormatter::FULL,
@@ -34,7 +32,6 @@ function formatageDate($date){
 	echo ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
 }
 
-// Fonction de mise en forme des valeurs de température et d'humidité
 function formatageValeur($valeur){
 	echo number_format($valeur, 1);
 }
@@ -52,7 +49,7 @@ function formatageValeur($valeur){
 	<meta name="description" content="<?php echo $page["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/icons/meteor_favicon.webp"/>
-	<link rel="apple-touch-icon" href="img/icons/meteor_apple_touch.webp">
+	<link rel="apple-touch-icon" href="img/icons/meteor_apple_touch.webp"/>
 	<link rel="stylesheet" type="text/css" href="style/index.css"/>
 </head>
 <body>
@@ -61,12 +58,12 @@ function formatageValeur($valeur){
 		<a href="<?php echo $page["header"]["nav"]["href"]?>"><?php echo $page["header"]["nav"]["valeur"]?></a>
 	</nav>
 	<div id="boxCentre">
-		<img src="img/nav/meteor.webp" alt="Logo de MeteoR"/>
+		<img draggable="false" src="img/nav/meteor.webp" alt="Logo de MeteoR"/>
 	</div>
 	<div id="boxDroite" onclick="inverserAffichageMinMax(`<?php echo $page["header"]["minMax"]["titre"]?>`)" title="Afficher <?php echo $page["header"]["minMax"]["titre"]?>">
 		<div>
-			<img src="img/nav/<?php echo $page["header"]["minMax"]["divGauche"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divGauche"]["img"])?>"/>
-			<img src="img/nav/<?php echo $page["header"]["minMax"]["divDroite"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divDroite"]["img"])?>"/>
+			<img draggable="false" src="img/nav/<?php echo $page["header"]["minMax"]["divGauche"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divGauche"]["img"])?>"/>
+			<img draggable="false" src="img/nav/<?php echo $page["header"]["minMax"]["divDroite"]["img"]?>.svg" alt="<?php echo ucwords($page["header"]["minMax"]["divDroite"]["img"])?>"/>
 		</div>
 		<div id="valeursMinMax">
 			<p title="<?php

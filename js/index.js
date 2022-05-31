@@ -31,7 +31,8 @@ class CouleursSombres extends Couleurs{
 	}
 }
 
-function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, unite){
+function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type,
+unite){
 	var data = [{
 		x: pointsAbscisse,
 		y: pointsOrdonnee,
@@ -81,7 +82,8 @@ function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, uni
 		left = 40;
 	}
 
-	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){
+	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
+	.matches){
 		couleurs = new CouleursSombres();
 		[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
 	}
@@ -113,10 +115,11 @@ function parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee, type, uni
 			ticksuffix: (unite == "%") ? unite + " " : unite
 		}
 	}
-	Plotly.newPlot("graph", data, layout, config);
+	Plotly.newPlot("graphique", data, layout, config);
 
 	// Détection dynamique de changement de thème
-	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
+	window.matchMedia("(prefers-color-scheme: dark)")
+	.addEventListener("change", event => {
 		var colorScheme = event.matches ? "dark" : "light";
 		if (colorScheme == "dark") {
 			couleurs = new CouleursSombres();

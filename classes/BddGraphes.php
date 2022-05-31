@@ -11,7 +11,9 @@ class BddGraphes{
 			date_default_timezone_set("Europe/Paris");
 			$date = new DateTime();
 			$date->modify("last day of previous month");
-			$this->calcDate = date("Y-m-d H:i:s", strtotime("-" . $date->format("d") . " days, -1 hours, -3 minutes"));
+			$this->calcDate = date("Y-m-d H:i:s", strtotime("-" .
+				$date->format("d") . " days, -1 hours, -3 minutes")
+			);
 		}
 		catch (PDOException $exception){
 			$this->error = $exception->getMessage();
@@ -20,7 +22,10 @@ class BddGraphes{
 
 	public function getGraph($axe) : string {
 		try{
-			$statement = $this->pdo->prepare("SELECT $axe FROM meteor_graphs WHERE date_mesure >= :calcDate");
+			$statement = $this->pdo->prepare(
+				"SELECT $axe FROM meteor_graphs
+				WHERE date_mesure >= :calcDate"
+			);
 			$statement->bindParam(":calcDate", $this->calcDate, PDO::PARAM_STR);
 			$statement->execute();
 			$array = array();

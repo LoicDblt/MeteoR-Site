@@ -62,8 +62,8 @@ function formatageValeur($valeur){
 	<meta name="theme-color" content="#010101" media="(prefers-color-scheme: dark)"/>
 	<meta name="description" content="<?php echo $page['head']['desc']?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
-	<link rel="icon" type="image/webp" href="img/icons/meteor_favicon.webp"/>
-	<link rel="apple-touch-icon" href="img/icons/meteor_apple_touch.webp"/>
+	<link rel="icon" type="image/webp" href="img/icons/favicon.webp"/>
+	<link rel="apple-touch-icon" href="img/icons/apple_touch.webp"/>
 	<link rel="stylesheet" type="text/css" href="style/index.css"/>
 </head>
 <body>
@@ -75,7 +75,7 @@ function formatageValeur($valeur){
 	</nav>
 	<div id="boxCentre">
 		<img draggable="false" src="<?php echo
-			$cheminDossierImgNav?>meteor.webp" alt="Logo du site MeteoR"/>
+			$cheminDossierImgNav?>meteor.svg" alt="Logo du site MeteoR"/>
 	</div>
 	<div id="boxDroite" onclick=
 	"inverserAffichageMinMax(`<?php echo $page['minMax']['titre']?>`)"

@@ -16,8 +16,8 @@ const FICHIERS_EN_CACHE = [
 	"hors_ligne.html",
 	"style/erreur.css",
 	"img/erreur.jpg",
-	"img/icons/meteor_favicon.webp",
-	"img/icons/meteor_apple_touch.webp"
+	"img/icons/favicon.webp",
+	"img/icons/apple_touch.webp"
 ];
 
 self.addEventListener("install", (event) => {

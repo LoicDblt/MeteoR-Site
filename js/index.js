@@ -156,7 +156,7 @@ unite){
 				ticksuffix: (unite == "%") ? unite + " " : unite
 			}
 		}
-		Plotly.newPlot("graph", data, layout, config);
+		Plotly.newPlot("graphique", data, layout, config);
 	})
 }
 

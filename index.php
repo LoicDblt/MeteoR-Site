@@ -63,7 +63,7 @@ function formatageValeur($valeur){
 	<meta name="description" content="<?php echo $page['head']['desc']?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/icons/favicon.webp"/>
-	<link rel="apple-touch-icon" href="img/icons/apple_touch.webp"/>
+	<link rel="apple-touch-icon" type="image/webp" href="img/icons/apple_touch.webp"/>
 	<link rel="stylesheet" type="text/css" href="style/index.css"/>
 </head>
 <body>
@@ -99,14 +99,14 @@ function formatageValeur($valeur){
 				echo formatageDate($valeursMinMax[0][0]);
 				?>">
 				<?php echo formatageValeur($valeursMinMax[0][1]) .
-				$page['commun']['unite'] . PHP_EOL?>
+					$page['commun']['unite'] . PHP_EOL?>
 			</p>
 			<p title="<?php
 				echo $page['minMax']['divDroite']['titre'] . " ";
 				echo formatageDate($valeursMinMax[1][0])
 				?>">
 				<?php echo formatageValeur($valeursMinMax[1][1]) .
-				$page['commun']['unite'] . PHP_EOL?>
+					$page['commun']['unite'] . PHP_EOL?>
 			</p>
 		</div>
 	</div>

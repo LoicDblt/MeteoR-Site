@@ -9,7 +9,7 @@ Plotly, pour l'affichage des moyennes sous forme de graphique.
 
 ## **Installation**
 ### Mise en place
-Il suffit de copier les différents fichiers sur un serveur tournant sous PHP 7/8.
+Il suffit de copier les différents fichiers sur un serveur faisant tourner PHP 7/8.  
 Il faudra également penser à noter le chemin du dossier racine afin de le fournir au programme MeteoR lors de son lancement.
 
 ---
@@ -17,5 +17,5 @@ Il faudra également penser à noter le chemin du dossier racine afin de le four
 ### SFTP
 Il est nécessaire de créer un identifiant/mot de passe SFTP vers ce même chemin racine, afin que le Raspberry Pi puisse y envoyer les bases de données.
 
-## **Remerciement**
-Je remercie particulièrement Quentin F. pour la création des différents visuels, permettant au site d'arborer une identité qui lui est propre.
+## **Crédit**
+Je remercie particulièrement Quentin F. pour le temps passé à la création des différents visuels.

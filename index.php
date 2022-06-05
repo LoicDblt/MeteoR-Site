@@ -2,7 +2,6 @@
 header("X-Frame-Options: DENY");
 header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
-// Accès à la base de données
 include_once "classes/BddDonnees.php";
 include_once "classes/BddGraphes.php";
 $bddDonnees = new BddDonnees();
@@ -12,41 +11,29 @@ $valeursMinMax = Array();
 $cheminDossierImgNav = "img/nav/";
 
 if (!$_GET){
-	include_once "assets/temp.php";
-	array_push($valeursMinMax, array(
-		$bddDonnees->getValeurMinMax("MAX", "max_temp")["date"],
-		$bddDonnees->getValeurMinMax("MAX", "max_temp")["max_temp"]
-	));
-	array_push($valeursMinMax, array(
-		$bddDonnees->getValeurMinMax("MIN", "min_temp")["date"],
-		$bddDonnees->getValeurMinMax("MIN", "min_temp")["min_temp"]
-	));
+	include_once "assets/temperature.php";
+	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
+	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
 }
 elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
-	include_once "assets/humi.php";
-	array_push($valeursMinMax, array(
-		$bddDonnees->getValeurMinMax("MIN", "min_humi")["date"],
-		$bddDonnees->getValeurMinMax("MIN", "min_humi")["min_humi"]
-	));
-	array_push($valeursMinMax, array(
-		$bddDonnees->getValeurMinMax("MAX", "max_humi")["date"],
-		$bddDonnees->getValeurMinMax("MAX", "max_humi")["max_humi"]
-	));
+	include_once "assets/humidite.php";
+	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
+	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
 }
 
-function formatageDate($date){
+function formatageDate($date) : string {
 	$formatter = new IntlDateFormatter("fr_FR",
 		IntlDateFormatter::FULL,
 		IntlDateFormatter::NONE,
 		"Europe/Paris",
 		IntlDateFormatter::GREGORIAN,
-		"EE d MMM y 'à' kk'h'mm");
+		"EE d MMMM y 'à' kk'h'mm");
 
 	// Capitalise les mots, et supprime les points
-	echo ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
+	return ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
 }
 
-function formatageValeur($valeur){
+function formatageValeur($valeur) : string {
 	return number_format($valeur, 1);
 }
 ?>
@@ -54,7 +41,7 @@ function formatageValeur($valeur){
 <html lang="fr">
 <head>
 	<meta charset="UTF-8"/>
-	<title><?php echo $page['commun']['nom']?></title>
+	<title><?php echo $page['commun']['typeDonnees']?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
@@ -113,11 +100,11 @@ function formatageValeur($valeur){
 </header>
 <section>
 	<section>
-		<h1><?php echo $page['commun']['nom']?></h1>
+		<h1><?php echo $page['commun']['typeDonnees']?></h1>
 		<p>
 			<?php echo
 				formatageValeur(
-					$bddDonnees->getValeurActu($page['commun']['tempHumi'])
+					$bddDonnees->getValeurActu($page['commun']['nomColonne'])
 				) . $page['commun']['unite'] . PHP_EOL
 			?>
 		</p>
@@ -142,12 +129,21 @@ integrity="sha512-8i4gvdC9aB88kXdoZiv8knDmCNyCyOiR5JE9lKcYObBGTAs8qCkajAYSf+GpNV
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/index.js"></script>
 <script>
-let pointsAbscisse = <?php echo $bddGraph->getGraph('date_mesure')?>;
-let pointsOrdonnee = <?php echo $bddGraph->getGraph($page['commun']['tempHumi'])?>;
-parametrageAffichageGraphique(pointsAbscisse, pointsOrdonnee <?php echo
-	", \"" . $page['commun']['nom'] . "\"" .
+const pointsAbscisse = <?php echo $bddGraph->getGraph("date_mesure")?>;
+const pointsOrdonnee = <?php echo $bddGraph->getGraph($page['commun']['nomColonne'])?>;
+
+parametrerAfficherGraphique(pointsAbscisse, pointsOrdonnee <?php echo
+	", \"" . $page['commun']['typeDonnees'] . "\"" .
 	", \"" . $page['commun']['unite'] . "\""
 ?>);
+
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
+() => {
+	parametrerAfficherGraphique(pointsAbscisse, pointsOrdonnee <?php echo
+		", \"" . $page['commun']['typeDonnees'] . "\"" .
+		", \"" . $page['commun']['unite'] . "\""
+	?>);
+});
 </script>
 </body>
 </html>

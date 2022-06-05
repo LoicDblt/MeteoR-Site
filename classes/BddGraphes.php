@@ -1,6 +1,6 @@
 <?php
 class BddGraphes{
-	protected $calcDate;
+	protected $dateCalculee;
 
 	public function __construct(){
 		try{
@@ -11,7 +11,7 @@ class BddGraphes{
 			date_default_timezone_set("Europe/Paris");
 			$date = new DateTime();
 			$date->modify("last day of previous month");
-			$this->calcDate = date("Y-m-d H:i:s", strtotime("-" .
+			$this->dateCalculee = date("Y-m-d H:i:s", strtotime("-" .
 				$date->format("d") . " days, -1 hours, -3 minutes")
 			);
 		}
@@ -20,17 +20,19 @@ class BddGraphes{
 		}
 	}
 
-	public function getGraph($axe) : string {
+	public function getGraph($nomColonne) : string {
 		try{
 			$statement = $this->pdo->prepare(
-				"SELECT $axe FROM meteor_graphs
-				WHERE date_mesure >= :calcDate"
+				"SELECT $nomColonne
+				FROM meteor_graphs
+				WHERE date_mesure >= :dateCalculee"
 			);
-			$statement->bindParam(":calcDate", $this->calcDate, PDO::PARAM_STR);
+			$statement->bindParam(":dateCalculee", $this->dateCalculee,
+				PDO::PARAM_STR);
 			$statement->execute();
 			$array = array();
-			foreach ($statement as $value)
-				array_push($array, $value[0]);
+			foreach ($statement as $valeur)
+				array_push($array, $valeur[0]);
 
 			return json_encode($array);
 		}

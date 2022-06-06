@@ -45,11 +45,12 @@ nav{
 nav > a{
 	color: #000000;
 	font-size: 20px;
-	text-transform: uppercase;
-	transition: 0.3s;
-	text-decoration: none;
-	outline: none;
 	padding: 5px;
+	transition: 0.3s;
+	text-transform: uppercase;
+	text-decoration: none;
+	user-select: none;
+	outline: none;
 }
 nav > a:hover{
 	color: #646464;
@@ -67,8 +68,8 @@ nav >  a:active{
 #boxCentre > img{
 	width: 390px;
 	height: 98px;
-	padding: 10px 0;
 	line-height: 98px;
+	padding: 10px 0;
 	text-align: center;
 }
 
@@ -218,9 +219,9 @@ div.plotly-notifier{
 		order: 2;
 	}
 	nav > a{
-		transition: 0.1s;
 		display: block;
 		padding: 20px 10px;
+		transition: 0.1s;
 	}
 
 		/* Box centrale */
@@ -240,7 +241,6 @@ div.plotly-notifier{
 		width: 55%;
 		height: 79px;
 		order: 3;
-		cursor: default;
 	}
 	#boxDroite > div:first-child > img{
 		width: 44px;
@@ -284,7 +284,7 @@ div.plotly-notifier{
 	}
 	body{
 		background-color: #333333;
-		color: #bfbfbf;
+		color: #bebebe;
 	}
 
 	/* Header */
@@ -296,7 +296,7 @@ div.plotly-notifier{
 
 		/* Box gauche */
 	nav > a{
-		color: #bfbfbf;
+		color: #bebebe;
 	}
 	nav > a:hover{
 		color: #8b8b8b;

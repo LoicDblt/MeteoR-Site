@@ -10,7 +10,7 @@ $bddGraph = new BddGraphes();
 $valeursMinMax = Array();
 $cheminDossierImgNav = "img/nav/";
 
-if (!$_GET){
+if ($_SERVER["REQUEST_URI"] == "/"){
 	include_once "assets/temperature.php";
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
@@ -56,7 +56,7 @@ function formatageValeur($valeur) : string {
 <body>
 <header>
 	<nav>
-		<a href="<?php echo $page['nav']['href']?>">
+		<a draggable="false" href="<?php echo $page['nav']['href']?>">
 			<?php echo $page['nav']['valeur'] . PHP_EOL?>
 		</a>
 	</nav>

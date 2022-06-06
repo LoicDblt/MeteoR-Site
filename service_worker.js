@@ -70,7 +70,7 @@ self.addEventListener("fetch", (event) => {
 					});
 					const cache = await caches.open(NOM_CACHE);
 					const reponseCache = await cache
-											.match(FICHIERS_EN_CACHE[0]);
+						.match(FICHIERS_EN_CACHE[0]);
 					return reponseCache;
 				}
 			})()

@@ -108,7 +108,8 @@ function parametrerAfficherGraphique(
 		plot_bgcolor: bgcolor,
 		paper_bgcolor: bgcolor,
 		xaxis: {
-			showgrid: false
+			showgrid: false,
+			tickformat: "%-d %B"
 		},
 		yaxis: {
 			gridcolor: gridcolor,

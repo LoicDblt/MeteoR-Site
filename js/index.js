@@ -109,7 +109,24 @@ function parametrerAfficherGraphique(
 		paper_bgcolor: bgcolor,
 		xaxis: {
 			showgrid: false,
-			tickformat: "%-d %B"
+			tickformatstops: [
+				{
+					"dtickrange": [null, 60000],
+					"value": "%-d %B<br>%Hh%M.%S"
+				},
+				{
+					"dtickrange": [60000, 3600000],
+					"value": "%-d %B<br>%Hh%M"
+				},
+				{
+					"dtickrange": [3600000, 86400000],
+					"value": "%-d %B<br>%Hh%M"
+				},
+				{
+					"dtickrange": [86400000, null],
+					"value": "%-d %B"
+				}
+			]
 		},
 		yaxis: {
 			gridcolor: gridcolor,

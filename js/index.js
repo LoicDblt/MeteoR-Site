@@ -109,6 +109,7 @@ function parametrerAfficherGraphique(
 		paper_bgcolor: bgcolor,
 		xaxis: {
 			showgrid: false,
+			nticks: 8,
 			tickformatstops: [
 				{
 					"dtickrange": [null, 60000],

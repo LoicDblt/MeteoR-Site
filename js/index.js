@@ -66,18 +66,20 @@ function parametrerAfficherGraphique(
 		showlegend: false
 	}]
 
-	let top, right, bottom, left;
+	let top, right, bottom, left, nticks;
 	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
 		top = 0;
 		right = 5;
 		bottom = 35;
 		left = 40;
+		nticks = 5;
 	}
 	else{
 		top = 10;
 		right = 10;
 		bottom = 50;
 		left = 55;
+		nticks = 8;
 	}
 
 	let couleurs, bgcolor, gridcolor, color;
@@ -109,7 +111,7 @@ function parametrerAfficherGraphique(
 		paper_bgcolor: bgcolor,
 		xaxis: {
 			showgrid: false,
-			nticks: 8,
+			nticks: nticks,
 			tickformatstops: [
 				{
 					"dtickrange": [null, 60000],

@@ -115,14 +115,11 @@ function formatageValeur($valeur) : string {
 		</div>
 	</section>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.16.3/plotly-basic.min.js"
-integrity="sha512-/nhOMkT7dA04Ur50hjrSgdIutCm4Lw9cNAA13OZHF67BSiBFLViqbf5qEgRerQ5WuIxJWloRCUZIKZ6JiRXmKA=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.18.0/plotly-basic.min.js" integrity="sha512-CtgVtLbeeyHYjMMJXj8GFmRVEnFDqIKLSlz0bdjwmtyKcDWEjE2GTlpTdz8mmzmoD/GifmZmGRd8mOtk3McIqw=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.16.3/plotly-locale-fr.min.js"
-integrity="sha512-8i4gvdC9aB88kXdoZiv8knDmCNyCyOiR5JE9lKcYObBGTAs8qCkajAYSf+GpNVu+8GeEwX4254aQjJ8v0cejsw=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.18.0/plotly-locale-fr.min.js" integrity="sha512-8i4gvdC9aB88kXdoZiv8knDmCNyCyOiR5JE9lKcYObBGTAs8qCkajAYSf+GpNVu+8GeEwX4254aQjJ8v0cejsw=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/index.js"></script>
 <script>

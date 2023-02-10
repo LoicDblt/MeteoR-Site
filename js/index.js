@@ -27,7 +27,7 @@ class CouleursClaires extends Couleurs{
 
 class CouleursSombres extends Couleurs{
 	constructor(){
-		super("#232224", "#4a484c", "#bfbfbf");
+		super("#000000", "#4a484c", "#bfbfbf");
 	}
 }
 

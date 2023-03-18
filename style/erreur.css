@@ -80,7 +80,7 @@ a:active{
 	}
 }
 
-/* Version sombre */
+/* Thème sombre */
 @media (prefers-color-scheme: dark){
 	/* Général */
 	*{

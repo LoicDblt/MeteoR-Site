@@ -152,7 +152,7 @@ section > section:first-child{
 	margin-top: 20px;
 }
 section > section:first-child > p{
-	font-size: 36px;
+	font-size: 30px;
 	margin: 0;
 }
 
@@ -266,9 +266,6 @@ div.plotly-notifier{
 	section > section:first-child{
 		margin-top: 15px;
 	}
-	section > section:first-child > p{
-		font-size: 36px;
-	}
 
 		/* Section graphique */
 	*:not(h1):not(a):not(p){
@@ -276,7 +273,7 @@ div.plotly-notifier{
 	}
 }
 
-/* Version sombre */
+/* Thème sombre */
 @media (prefers-color-scheme: dark){
 	/* Général */
 	*{

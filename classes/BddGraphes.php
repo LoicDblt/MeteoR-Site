@@ -4,7 +4,7 @@ class BddGraphes{
 
 	public function __construct(){
 		try{
-			$this->pdo = new PDO("sqlite:bdd/graphs.db");
+			$this->pdo = new PDO("sqlite:../bdd/graphs.db");
 
 			// Génération de la date antérieur minimale de récupération
 			// pour les graphiques
@@ -20,7 +20,7 @@ class BddGraphes{
 		}
 	}
 
-	public function getGraph($nomColonne) : string {
+	public function getValeursColonne($nomColonne) : string {
 		try{
 			$statement = $this->pdo->prepare(
 				"SELECT $nomColonne

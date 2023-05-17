@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Fichier contenant les fonctions JavaScript pour la page
+ * 				 index.php
+ */
+
+
 class Couleurs{
 	constructor(bgcolor, gridcolor, color){
 		this.bgcolor = bgcolor;
@@ -31,10 +37,79 @@ class CouleursSombres extends Couleurs{
 	}
 }
 
-function parametrerAfficherGraphique(
-	pointsAbscisse, pointsOrdonnee,
-	typeDonnees, unite
-){
+
+/**
+ * Récupère les données dans la base de données
+ * @param nomColonne des données à récupérer
+ * @returns les données, ou l'erreur rencontrée
+ */
+function recupBdd(nomColonne){
+	return new Promise((resolve, reject) => {
+		// Champ à envoyer au back (pour connaître la colonne à récupérer)
+		let champPost = new FormData();
+		champPost.append("nomColonne", nomColonne);
+
+		fetch("../classes/recupColonne.php", {
+			method: "POST",
+			body: champPost
+		})
+		.then(reponse => {
+			reponse.json()
+				.then(donnees => {
+					resolve(donnees);
+				})
+				.catch(erreur => {
+					reject(erreur);
+				})
+		})
+		.catch(erreur => {
+			reject(erreur);
+		})
+	})
+}
+
+
+/**
+ * Récupère les données de d'absisses et d'ordonnées pour le graphique
+ * @param nomColonne des données à récupérer
+ * @returns un tableau avec les données d'abscisses et d'ordonnées
+ */
+function recupAbsOrd(nomColonne) {
+	return new Promise(resolve => {
+		let pointsAbscisse, pointsOrdonnee;
+
+		// Récupère les données en abscisse
+		recupBdd("date_mesure")
+		.then(retour => {
+			pointsAbscisse = retour;
+
+			// Récupère les données en ordonnée
+			recupBdd(nomColonne)
+			.then(retour => {
+				pointsOrdonnee = retour;
+
+				// Renvoie les données
+				resolve([pointsAbscisse, pointsOrdonnee]);
+			})
+			.catch(erreur => {
+				console.log(erreur);
+			})
+		})
+		.catch(erreur => {
+			console.log(erreur);
+		})
+	})
+}
+
+
+/**
+ * Paramètre le graphique, récupère les données et affiche le tout
+ * @param nomColonne des données à récupérer
+ * @param typeDonnees à afficher dans les labels
+ * @param unite à afficher sur l'axe des ordonnées
+ */
+function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
+	// Configure le graphique
 	const config = {
 		locale: "fr",
 		displayModeBar: false,
@@ -42,30 +117,7 @@ function parametrerAfficherGraphique(
 		showAxisDragHandles: false
 	}
 
-	const data = [{
-		x: pointsAbscisse,
-		y: pointsOrdonnee,
-		type: "scatter",
-		connectgaps: true,
-		line: {
-			color: "#32a6f5",
-			width: 2,
-			shape: "spline"
-		},
-		hovertemplate: "<b>" + typeDonnees + " :</b> %{y:.1f}" + unite +
-						"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
-						"<extra></extra>",
-		hoverlabel: {
-			align: "left",
-			bordercolor: "#32a6f5",
-			font: {
-				family: "Open Sans",
-				color: "#ffffff"
-			}
-		},
-		showlegend: false
-	}]
-
+	// Configure le placement
 	let top, right, bottom, left, nticks;
 	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
 		top = 0;
@@ -82,6 +134,7 @@ function parametrerAfficherGraphique(
 		nticks = 8;
 	}
 
+	// Configure les couleurs
 	let couleurs, bgcolor, gridcolor, color;
 	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)")
 	.matches){
@@ -93,6 +146,7 @@ function parametrerAfficherGraphique(
 		[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
 	}
 
+	// Configure le style
 	const layout = {
 		showlegend: false,
 		separators: ".,",
@@ -139,9 +193,47 @@ function parametrerAfficherGraphique(
 			ticksuffix: (unite == "%") ? unite + " " : unite
 		}
 	}
-	Plotly.newPlot("graphique", data, layout, config);
+
+	// Récupère les données et affiche le graphique
+	recupAbsOrd(nomColonne)
+	.then(retour => {
+		let pointsAbscisse, pointsOrdonnee;
+		pointsAbscisse = retour[0];
+		pointsOrdonnee = retour[1];
+
+		const data = [{
+			x: pointsAbscisse,
+			y: pointsOrdonnee,
+			type: "scatter",
+			connectgaps: true,
+			line: {
+				color: "#32a6f5",
+				width: 2,
+				shape: "spline"
+			},
+			hovertemplate: "<b>" + typeDonnees + " :</b> %{y:.1f}" + unite +
+							"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
+							"<extra></extra>",
+			hoverlabel: {
+				align: "left",
+				bordercolor: "#32a6f5",
+				font: {
+					family: "Open Sans",
+					color: "#ffffff"
+				}
+			},
+			showlegend: false
+		}]
+
+		Plotly.newPlot("graphique", data, layout, config);
+	})
 }
 
+
+/**
+ * Inverse entre afficher ou masquer les valeurs min et max
+ * @param nouveauTitre à adapter en fonction de l'affichage
+ */
 function inverserAffichageMinMax(nouveauTitre){
 	const titre = document.getElementById("boxDroite");
 	const divMinMax = document.getElementById("valeursMinMax");
@@ -153,7 +245,10 @@ function inverserAffichageMinMax(nouveauTitre){
 	}).css("display", "flex");
 }
 
-// N'active pas le service worker sur Firefox bureau -> problème de perfs
+
+/**
+ * Active le service worker, sauf sur Firefox bureau
+ */
 if (
 	"serviceWorker" in navigator &&
 	(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||

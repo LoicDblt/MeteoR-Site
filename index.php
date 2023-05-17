@@ -3,9 +3,7 @@ header("X-Frame-Options: DENY");
 header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
 include_once "classes/BddDonnees.php";
-include_once "classes/BddGraphes.php";
 $bddDonnees = new BddDonnees();
-$bddGraph = new BddGraphes();
 
 $valeursMinMax = Array();
 $cheminDossierImgNav = "img/nav/";
@@ -115,30 +113,28 @@ function formatageValeur($valeur) : string {
 		</div>
 	</section>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.20.0/plotly-basic.min.js"
-integrity="sha512-qSiZ3+hIOrgEToGij8g/tZfXtMt4uTz6zuJeTdmFF3qskqIbvdc5JA0TRB74AxWWCVICDibmRg1fnX1EcmTvww=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.1/plotly-basic.min.js"
+integrity="sha512-f0oboR/rYzxj/vXcuRFpw5KOsk8kf+MogGuKnaWw9aC6dQAgEi77rHdo407YvoZ1PLhWvHCOb+zKuz7uML0azQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.20.0/plotly-locale-fr.min.js"
-integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.1/plotly-locale-fr.min.js" integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/index.js"></script>
 <script>
-const pointsAbscisse = <?php echo $bddGraph->getGraph("date_mesure")?>;
-const pointsOrdonnee = <?php echo $bddGraph->getGraph($page['commun']['nomColonne'])?>;
-
-parametrerAfficherGraphique(pointsAbscisse, pointsOrdonnee <?php echo
-	", \"" . $page['commun']['typeDonnees'] . "\"" .
-	", \"" . $page['commun']['unite'] . "\""
+parametrerAfficherGraphique(<?php echo "\"" .
+	$page['commun']['nomColonne'] . "\", \"" .
+	$page['commun']['typeDonnees'] . "\", \"" .
+	$page['commun']['unite'] . "\""
 ?>);
 
 window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 () => {
-	parametrerAfficherGraphique(pointsAbscisse, pointsOrdonnee <?php echo
-		", \"" . $page['commun']['typeDonnees'] . "\"" .
-		", \"" . $page['commun']['unite'] . "\""
+	parametrerAfficherGraphique(<?php echo "\"" .
+		$page['commun']['nomColonne'] . "\", \"" .
+		$page['commun']['typeDonnees'] . "\", \"" .
+		$page['commun']['unite'] . "\""
 	?>);
 });
 </script>

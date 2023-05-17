@@ -8,17 +8,26 @@ $bddDonnees = new BddDonnees();
 $valeursMinMax = Array();
 $cheminDossierImgNav = "img/nav/";
 
+
+// Adapte le contenu de la page en fonction de l'URL (température ou humidité)
 if ($_SERVER["REQUEST_URI"] == "/"){
 	include_once "assets/temperature.php";
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
 }
-elseif ($_SERVER["REQUEST_URI"] == "/humidite"){
+else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humidite.php";
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
 }
 
+
+/**
+ * Formate une date en chaîne de caractères, au format français
+ * @param string $date Date à formater
+ * 
+ * @return string Date formatée
+ */
 function formatageDate($date) : string {
 	$formatter = new IntlDateFormatter("fr_FR",
 		IntlDateFormatter::FULL,
@@ -31,6 +40,13 @@ function formatageDate($date) : string {
 	return ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
 }
 
+
+/**
+ * Formate une valeur numérique en chaîne de caractères
+ * @param float $valeur Valeur à formater
+ * 
+ * @return string Valeur formatée
+ */
 function formatageValeur($valeur) : string {
 	return number_format($valeur, 1);
 }

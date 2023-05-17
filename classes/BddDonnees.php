@@ -9,6 +9,13 @@ class BddDonnees{
 		}
 	}
 
+
+	/**
+	 * Récupère la valeur actuelle
+	 * @param string $nomColonne Nom de la colonne à traiter (pour le type)
+	 * 
+	 * @return float Valeur actuelle
+	 */
 	public function getValeurActu($nomColonne) : float {
 		try{
 			$statement = $this->pdo->prepare(
@@ -24,6 +31,15 @@ class BddDonnees{
 			return $exception->getMessage();
 		}
 	}
+
+	
+	/**
+	 * Récupère la valeur min et max
+	 * @param string $operationMinMax "MIN" ou "MAX"
+	 * @param string $nomColonne Nom de la colonne à traiter (pour le type)
+	 * 
+	 * @return array Tableau contenant la date et la valeur min ou max
+	 */
 	public function getValeurMinMax($operationMinMax, $nomColonne) : array {
 		try{
 			$statement = $this->pdo->prepare(

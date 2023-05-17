@@ -1,9 +1,4 @@
-/**
- * @fileoverview Fichier contenant les fonctions JavaScript pour la page
- * 				 index.php
- */
-
-
+// Classe pour les couleurs du graphique
 class Couleurs{
 	constructor(bgcolor, gridcolor, color){
 		this.bgcolor = bgcolor;

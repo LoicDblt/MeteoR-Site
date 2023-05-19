@@ -44,7 +44,8 @@ function recupBdd(nomColonne){
 		let champPost = new FormData();
 		champPost.append("nomColonne", nomColonne);
 
-		fetch("../classes/recupColonne.php", {
+		// Récupère les dates des mesures et les données de la colonne demandée
+		fetch("../classes/recupColonnes.php", {
 			method: "POST",
 			body: champPost
 		})
@@ -71,24 +72,9 @@ function recupBdd(nomColonne){
  */
 function recupAbsOrd(nomColonne) {
 	return new Promise(resolve => {
-		let pointsAbscisse, pointsOrdonnee;
-
-		// Récupère les données en abscisse
-		recupBdd("date_mesure")
+		recupBdd(nomColonne)
 		.then(retour => {
-			pointsAbscisse = retour;
-
-			// Récupère les données en ordonnée
-			recupBdd(nomColonne)
-			.then(retour => {
-				pointsOrdonnee = retour;
-
-				// Renvoie les données
-				resolve([pointsAbscisse, pointsOrdonnee]);
-			})
-			.catch(erreur => {
-				console.log(erreur);
-			})
+			resolve(retour);
 		})
 		.catch(erreur => {
 			console.log(erreur);
@@ -185,20 +171,16 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
 			gridcolorwidth: 1,
 			fixedrange: true,
 			tickformat: ".1f",
-			ticksuffix: (unite == "%") ? unite + " " : unite
+			ticksuffix: (unite === "%") ? unite + " " : unite
 		}
 	}
 
 	// Récupère les données et affiche le graphique
 	recupAbsOrd(nomColonne)
 	.then(retour => {
-		let pointsAbscisse, pointsOrdonnee;
-		pointsAbscisse = retour[0];
-		pointsOrdonnee = retour[1];
-
 		const data = [{
-			x: pointsAbscisse,
-			y: pointsOrdonnee,
+			x: JSON.parse(retour[0]),
+			y: JSON.parse(retour[1]),
 			type: "scatter",
 			connectgaps: true,
 			line: {
@@ -244,14 +226,16 @@ function inverserAffichageMinMax(nouveauTitre){
 /**
  * Active le service worker, sauf sur Firefox bureau
  */
-if (
-	"serviceWorker" in navigator &&
-	(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
-	window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
-){
-	navigator.serviceWorker.register("../service_worker.js")
-	.then({})
-	.catch(function(erreur){
-		console.log("Service worker - enregistrement echoué :", erreur);
-	})
+function lancerServiceWorker(){
+	if (
+		"serviceWorker" in navigator &&
+		(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
+		window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
+	){
+		navigator.serviceWorker.register("../service_worker.js")
+		.then({})
+		.catch(function(erreur){
+			console.log("Service worker - enregistrement echoué :", erreur);
+		})
+	}
 }

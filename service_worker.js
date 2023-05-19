@@ -44,6 +44,7 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+	console.log(event);
 	// We only want to call event.respondWith() if this is a navigation request
 	// for an HTML page
 	if (event.request.mode === "navigate"){
@@ -70,7 +71,7 @@ self.addEventListener("fetch", (event) => {
 					});
 					const cache = await caches.open(NOM_CACHE);
 					const reponseCache = await cache
-						.match(FICHIERS_EN_CACHE[0]);
+						.match(FICHIERS_EN_CACHE);
 					return reponseCache;
 				}
 			})()

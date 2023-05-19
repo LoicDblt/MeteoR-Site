@@ -153,6 +153,8 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 		$page['commun']['unite'] . "\""
 	?>);
 });
+
+lancerServiceWorker();
 </script>
 </body>
 </html>

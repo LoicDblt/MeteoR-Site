@@ -3,7 +3,8 @@ $page = [
 	"commun" => [
 		"typeDonnees" => "Température",
 		"unite" => "°C",
-		"nomColonne" => "temperature_ambiante"
+		"nomColonne" => "temperature_ambiante",
+		"titreActu" => "Température relevée le"
 	],
 	"head" => [
 		"desc" => "Données de température"

@@ -14,18 +14,20 @@ class BddDonnees{
 	 * Récupère la valeur actuelle
 	 * @param string $nomColonne Nom de la colonne à traiter (pour le type)
 	 * 
-	 * @return float Valeur actuelle
+	 * @return array Tableau de la mesure actuelle, avec la date de la prise
 	 */
-	public function getValeurActu($nomColonne) : float {
+	public function getValeurActu($nomColonne) : array {
 		try{
 			$statement = $this->pdo->prepare(
-				"SELECT $nomColonne as valeur
+				"SELECT
+					date_mesure,
+					$nomColonne as valeur
 				FROM meteor_donnees
 				WHERE $nomColonne IS NOT NULL
 				ORDER BY date_mesure DESC LIMIT 1"
 			);
 			$statement->execute();
-			return $statement->fetch(PDO::FETCH_ASSOC)["valeur"];
+			return $statement->fetch(PDO::FETCH_NUM);
 		}
 		catch (Exception $exception){
 			return $exception->getMessage();
@@ -38,7 +40,7 @@ class BddDonnees{
 	 * @param string $operationMinMax "MIN" ou "MAX"
 	 * @param string $nomColonne Nom de la colonne à traiter (pour le type)
 	 * 
-	 * @return array Tableau contenant la date et la valeur min ou max
+	 * @return array Tableau de la mesure min ou max, avec la date de la prise
 	 */
 	public function getValeurMinMax($operationMinMax, $nomColonne) : array {
 		try{

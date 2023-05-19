@@ -3,7 +3,8 @@ $page = [
 	"commun" => [
 		"typeDonnees" => "Humidité",
 		"unite" => "%",
-		"nomColonne" => "humidite_ambiante"
+		"nomColonne" => "humidite_ambiante",
+		"titreActu" => "Taux d'humidité relevé le"
 	],
 	"head" => [
 		"desc" => "Données d'humidité"

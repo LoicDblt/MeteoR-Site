@@ -6,20 +6,26 @@ include_once "classes/BddDonnees.php";
 $bddDonnees = new BddDonnees();
 
 $valeursMinMax = Array();
-$cheminDossierImgNav = "img/nav/";
-
+const CHEMIN_DOSSIER_NAV = "img/nav/";
 
 // Adapte le contenu de la page en fonction de l'URL (température ou humidité)
 if ($_SERVER["REQUEST_URI"] == "/"){
 	include_once "assets/temperature.php";
+
+	// Récupère les valeurs max puis min (température)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
 }
 else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humidite.php";
+
+	// Récupère les valeurs min puis max (humidité)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
 }
+
+// Récupère la valeur actuelle
+$valeurActu = $bddDonnees->getValeurActu($page["commun"]["nomColonne"]);
 
 
 /**
@@ -76,19 +82,19 @@ function formatageValeur($valeur) : string {
 	</nav>
 	<div id="boxCentre">
 		<img draggable="false" src="<?php echo
-			$cheminDossierImgNav?>meteor.svg" alt="Logo du site MeteoR"/>
+			CHEMIN_DOSSIER_NAV?>meteor.svg" alt="Logo du site MeteoR"/>
 	</div>
 	<div id="boxDroite" onclick=
 	"inverserAffichageMinMax(`<?php echo $page['minMax']['titre']?>`)"
 	title="Afficher <?php echo $page['minMax']['titre']?>">
 		<div>
 			<img draggable="false" src=<?php echo
-				"\"" . $cheminDossierImgNav .
+				"\"" . CHEMIN_DOSSIER_NAV .
 				$page['minMax']['divGauche']['img']?>.svg" alt=<?php echo
 				"\"" . ucwords($page['minMax']['divGauche']['img'])
 			?>"/>
 			<img draggable="false" src=<?php echo
-				"\"" . $cheminDossierImgNav .
+				"\"" . CHEMIN_DOSSIER_NAV .
 				$page['minMax']['divDroite']['img']?>.svg" alt=<?php echo
 				"\"" . ucwords($page['minMax']['divDroite']['img'])
 			?>"/>
@@ -115,11 +121,13 @@ function formatageValeur($valeur) : string {
 <section>
 	<section>
 		<h1><?php echo $page['commun']['typeDonnees']?></h1>
-		<p>
-			<?php echo
-				formatageValeur(
-					$bddDonnees->getValeurActu($page['commun']['nomColonne'])
-				) . $page['commun']['unite'] . PHP_EOL
+		<p title="<?php
+				echo $page['commun']['titreActu'] . " ";
+				echo formatageDate($valeurActu[0])
+				?>">
+				<?php echo
+				formatageValeur($valeurActu[1]) . $page['commun']['unite'] .
+				PHP_EOL
 			?>
 		</p>
 	</section>

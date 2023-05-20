@@ -25,7 +25,7 @@ else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 }
 
 // Récupère la valeur actuelle
-$valeurActu = $bddDonnees->getValeurActu($page["commun"]["nomColonne"]);
+$valeurActu = $bddDonnees->getValeurActu(CONTENU_PAGE["commun"]["nomColonne"]);
 
 
 /**
@@ -61,13 +61,13 @@ function formatageValeur($valeur) : string {
 <html lang="fr">
 <head>
 	<meta charset="UTF-8"/>
-	<title><?php echo $page['commun']['typeDonnees']?></title>
+	<title><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"/>
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)"/>
-	<meta name="description" content="<?php echo $page['head']['desc']?>"/>
+	<meta name="description" content="<?php echo CONTENU_PAGE["head"]["desc"]?>"/>
 	<link rel="manifest" href="meteor.webmanifest"/>
 	<link rel="icon" type="image/webp" href="img/icons/favicon.webp"/>
 	<link rel="apple-touch-icon" type="image/webp" href="img/icons/apple_touch.webp"/>
@@ -76,57 +76,68 @@ function formatageValeur($valeur) : string {
 <body>
 <header>
 	<nav>
-		<a draggable="false" href="<?php echo $page['nav']['href']?>">
-			<?php echo $page['nav']['valeur'] . PHP_EOL?>
+		<a draggable="false" href="<?php echo CONTENU_PAGE["nav"]["href"]?>">
+			<?php echo CONTENU_PAGE["nav"]["valeur"] . PHP_EOL?>
 		</a>
 	</nav>
 	<div id="boxCentre">
 		<img draggable="false" src="<?php echo
-			CHEMIN_DOSSIER_NAV?>meteor.svg" alt="Logo du site MeteoR"/>
+			CHEMIN_DOSSIER_NAV?>meteor.svg" alt="Logo du site MeteoR"
+		/>
 	</div>
 	<div id="boxDroite" onclick=
-	"inverserAffichageMinMax(`<?php echo $page['minMax']['titre']?>`)"
-	title="Afficher <?php echo $page['minMax']['titre']?>">
+		"inverserAffichageMinMax(
+			// Garder les apostrophes, pour la coloration syntaxique
+			`<?php echo CONTENU_PAGE['minMax']['titre']?>`
+		)"
+		title="Afficher <?php echo CONTENU_PAGE["minMax"]["titre"]
+	?>">
 		<div>
 			<img draggable="false" src=<?php echo
 				"\"" . CHEMIN_DOSSIER_NAV .
-				$page['minMax']['divGauche']['img']?>.svg" alt=<?php echo
-				"\"" . ucwords($page['minMax']['divGauche']['img'])
+				CONTENU_PAGE["minMax"]["divGauche"]["img"]?>.svg" alt=<?php echo
+				"\"" . ucwords(CONTENU_PAGE["minMax"]["divGauche"]["img"])
 			?>"/>
 			<img draggable="false" src=<?php echo
 				"\"" . CHEMIN_DOSSIER_NAV .
-				$page['minMax']['divDroite']['img']?>.svg" alt=<?php echo
-				"\"" . ucwords($page['minMax']['divDroite']['img'])
+				CONTENU_PAGE["minMax"]["divDroite"]["img"]?>.svg" alt=<?php echo
+				"\"" . ucwords(CONTENU_PAGE["minMax"]["divDroite"]["img"])
 			?>"/>
 		</div>
 		<div id="valeursMinMax">
 			<p title="<?php
 				// 2 echo séparés, sinon ordre d'affichage incorrect !
-				echo $page['minMax']['divGauche']['titre'] . " ";
+				echo CONTENU_PAGE["minMax"]["divGauche"]["titre"] . " ";
 				echo formatageDate($valeursMinMax[0][0]);
-				?>">
-				<?php echo formatageValeur($valeursMinMax[0][1]) .
-					$page['commun']['unite'] . PHP_EOL?>
+			?>">
+				<?php echo
+					formatageValeur($valeursMinMax[0][1]) .
+					CONTENU_PAGE["commun"]["unite"] .
+					PHP_EOL
+				?>
 			</p>
 			<p title="<?php
-				echo $page['minMax']['divDroite']['titre'] . " ";
+				echo CONTENU_PAGE["minMax"]["divDroite"]["titre"] . " ";
 				echo formatageDate($valeursMinMax[1][0])
-				?>">
-				<?php echo formatageValeur($valeursMinMax[1][1]) .
-					$page['commun']['unite'] . PHP_EOL?>
+			?>">
+				<?php echo
+					formatageValeur($valeursMinMax[1][1]) .
+					CONTENU_PAGE["commun"]["unite"] . PHP_EOL
+				?>
 			</p>
 		</div>
 	</div>
 </header>
 <section>
 	<section>
-		<h1><?php echo $page['commun']['typeDonnees']?></h1>
+		<h1><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></h1>
 		<p title="<?php
-				echo $page['commun']['titreActu'] . " ";
+				echo CONTENU_PAGE["commun"]["titreActu"] . " ";
 				echo formatageDate($valeurActu[0])
-				?>">
-				<?php echo
-				formatageValeur($valeurActu[1]) . $page['commun']['unite'] .
+		?>">
+			<?php echo
+				formatageValeur($valeurActu[1]) .
+				CONTENU_PAGE["commun"]["unite"] .
 				PHP_EOL
 			?>
 		</p>
@@ -148,17 +159,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/index.js"></script>
 <script>
 parametrerAfficherGraphique(<?php echo "\"" .
-	$page['commun']['nomColonne'] . "\", \"" .
-	$page['commun']['typeDonnees'] . "\", \"" .
-	$page['commun']['unite'] . "\""
+	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
+	CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
+	CONTENU_PAGE["commun"]["unite"] . "\""
 ?>);
 
 window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 () => {
 	parametrerAfficherGraphique(<?php echo "\"" .
-		$page['commun']['nomColonne'] . "\", \"" .
-		$page['commun']['typeDonnees'] . "\", \"" .
-		$page['commun']['unite'] . "\""
+		CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
+		CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
+		CONTENU_PAGE["commun"]["unite"] . "\""
 	?>);
 });
 

@@ -1,5 +1,5 @@
 <?php
-$page = [
+const CONTENU_PAGE = [
 	"commun" => [
 		"typeDonnees" => "Température",
 		"unite" => "°C",

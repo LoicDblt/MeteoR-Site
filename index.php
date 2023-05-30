@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_URI"] == "/"){
 	// Récupère les valeurs max puis min (température)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
-	$centreBarre = 20;
+	$barreMinMax = [10, 30];
 }
 else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humidite.php";
@@ -23,17 +23,25 @@ else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	// Récupère les valeurs min puis max (humidité)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
-	$centreBarre = 1;
+	$barreMinMax = [20, 80];
 }
 
 // Récupère la valeur actuelle
 $valeurActu = $bddDonnees->getValeurActu(CONTENU_PAGE["commun"]["nomColonne"]);
 
+// Adapte les valeurs min et max de la barre de progression
+// (pour qu'elles soient toujours visibles)
+if ($valeurActu[1] <= $barreMinMax[0])
+	$barreMinMax[0] = $valeurActu[1] - 1;
+
+else if ($valeurActu[1] >= $barreMinMax[1])
+	$barreMinMax[1] = $valeurActu[1];
+
 
 /**
  * Formate une date en chaîne de caractères, au format français
  * @param string $date Date à formater
- * 
+ *
  * @return string Date formatée
  */
 function formatageDate($date) : string {
@@ -52,7 +60,7 @@ function formatageDate($date) : string {
 /**
  * Formate une valeur numérique en chaîne de caractères
  * @param float $valeur Valeur à formater
- * 
+ *
  * @return string Valeur formatée
  */
 function formatageValeur($valeur) : string {
@@ -87,12 +95,10 @@ function formatageValeur($valeur) : string {
 			CHEMIN_DOSSIER_NAV?>meteor.svg" alt="Logo du site MeteoR"
 		/>
 	</div>
-	<div id="boxDroite" onclick=
-		"inverserAffichageMinMax(
-			// Garder les apostrophes, pour la coloration syntaxique
-			`<?php echo CONTENU_PAGE['minMax']['titre']?>`
-		)"
-		title="Afficher <?php echo CONTENU_PAGE["minMax"]["titre"]
+	<div id="boxDroite" onclick= "inverserAffichageMinMax(`<?php echo
+		// Garder les apostrophes sur balise php, pour la coloration syntaxique
+		CONTENU_PAGE['minMax']['titre']?>`)" title="Afficher <?php echo
+		CONTENU_PAGE["minMax"]["titre"]
 	?>">
 		<div>
 			<img draggable="false" src=<?php echo
@@ -134,13 +140,13 @@ function formatageValeur($valeur) : string {
 	<section>
 		<h1><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></h1>
 		<div title="<?php
-				echo CONTENU_PAGE["commun"]["titreActu"] . " ";
-				echo formatageDate($valeurActu[0])?>" id="container"></div>
+			echo CONTENU_PAGE["commun"]["titreActu"] . " ";
+			echo formatageDate($valeurActu[0])?>" id="container">
+		</div>
 	</section>
 	<section>
 		<h1>Évolution dans le temps</h1>
-		<div id="graphique">
-		</div>
+		<div id="graphique"></div>
 	</section>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -171,11 +177,14 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 	?>);
 });
 
-barreProgession(<?php echo
-	fmod(($valeurActu[1]/100.0) * $centreBarre, 1) . ", " .
-	$valeurActu[1] . ", \"" .
-	CONTENU_PAGE["commun"]["unite"] . "\""?>
-);
+barreProgression(<?php echo
+	(((($valeurActu[1] - $barreMinMax[0]) * 100) /
+		($barreMinMax[1] - $barreMinMax[0])) / 100) . ", " .
+	$barreMinMax[0] . ", " .
+	$barreMinMax[1] . ", \"" .
+	CONTENU_PAGE["commun"]["unite"] . "\""
+?>);
+
 lancerServiceWorker();
 </script>
 </body>

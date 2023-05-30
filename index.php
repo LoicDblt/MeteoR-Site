@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_URI"] == "/"){
 	// Récupère les valeurs max puis min (température)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
+	$centreBarre = 20;
 }
 else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humidite.php";
@@ -22,6 +23,7 @@ else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	// Récupère les valeurs min puis max (humidité)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
+	$centreBarre = 1;
 }
 
 // Récupère la valeur actuelle
@@ -131,16 +133,9 @@ function formatageValeur($valeur) : string {
 <section>
 	<section>
 		<h1><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></h1>
-		<p title="<?php
+		<div title="<?php
 				echo CONTENU_PAGE["commun"]["titreActu"] . " ";
-				echo formatageDate($valeurActu[0])
-		?>">
-			<?php echo
-				formatageValeur($valeurActu[1]) .
-				CONTENU_PAGE["commun"]["unite"] .
-				PHP_EOL
-			?>
-		</p>
+				echo formatageDate($valeurActu[0])?>" id="container"></div>
 	</section>
 	<section>
 		<h1>Évolution dans le temps</h1>
@@ -155,6 +150,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 integrity="sha512-f0oboR/rYzxj/vXcuRFpw5KOsk8kf+MogGuKnaWw9aC6dQAgEi77rHdo407YvoZ1PLhWvHCOb+zKuz7uML0azQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.1/plotly-locale-fr.min.js" integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"
+integrity="sha512-EZhmSl/hiKyEHklogkakFnSYa5mWsLmTC4ZfvVzhqYNLPbXKAXsjUYRf2O9OlzQN33H0xBVfGSEIUeqt9astHQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/index.js"></script>
 <script>
@@ -173,6 +171,11 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 	?>);
 });
 
+barreProgession(<?php echo
+	fmod(($valeurActu[1]/100.0) * $centreBarre, 1) . ", " .
+	$valeurActu[1] . ", \"" .
+	CONTENU_PAGE["commun"]["unite"] . "\""?>
+);
 lancerServiceWorker();
 </script>
 </body>

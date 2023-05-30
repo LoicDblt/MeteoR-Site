@@ -1,4 +1,9 @@
 /* Général */
+#container{
+	margin: 20px;
+	width: 200px;
+	height: 100px;
+}
 @font-face{
 	font-family: "Open Sans";
 	font-display: swap;
@@ -166,7 +171,7 @@ div.plotly-notifier{
 	visibility: hidden;
 }
 *:not(h1):not(a):not(p){
-	font-size: 14px !important;
+	font-size: 14px;
 }
 .user-select-none.svg-container{
 	position: unset !important;

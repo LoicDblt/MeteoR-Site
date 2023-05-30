@@ -239,3 +239,52 @@ function lancerServiceWorker(){
 		})
 	}
 }
+
+/**
+ * Affiche la barre de progression pour la mesure actuelle
+ * @param pourcentage de la barre à afficher
+ * @param valeur actuelle (température ou humidité) à afficher
+ * @param unite de la mesure à ajouter à la valeur
+ */
+function barreProgession(pourcentage, valeur, unite){
+	var bar = new ProgressBar.SemiCircle(container, {
+		strokeWidth: 6,
+		easing: "easeInOut",
+		duration: 1400,
+		color: "url(#gradient)",
+		trailColor: "#eeeeee",
+		trailWidth: 1,
+		svgStyle: null,
+		text: {
+			value: valeur + unite
+		}
+	});
+	bar.text.style.fontFamily = "Open Sans";
+	bar.text.style.fontSize = "30px";
+	bar.animate(pourcentage);
+
+	// Ajoute le dégradé
+	let linearGradient =`<defs>
+		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
+			<stop offset="0%" stop-color="#0074ff"/>
+			<stop offset="35%" stop-color="#00e600"/>
+			<stop offset="50%" stop-color="#b0e300"/>
+			<stop offset="65%" stop-color="#d1e600"/>
+			<stop offset="100%" stop-color="#fb4d0f"/>
+		</linearGradient>
+		</defs>`
+
+	if (unite === '%') {
+		linearGradient =`<defs>
+		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
+			<stop offset="0%" stop-color="#fb4d0f"/>
+			<stop offset="35%" stop-color="#d1e600"/>
+			<stop offset="50%" stop-color="#b0e300"/>
+			<stop offset="65%" stop-color="#00e600"/>
+			<stop offset="100%" stop-color="#0074ff"/>
+		</linearGradient>
+		</defs>`
+	}
+
+	bar.svg.insertAdjacentHTML("afterBegin", linearGradient);
+}

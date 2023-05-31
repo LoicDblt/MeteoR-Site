@@ -1,21 +1,21 @@
 /* Général */
-@font-face{
+@font-face {
 	font-family: "Open Sans";
 	font-display: swap;
 	src: url("polices/open-sans-600.woff2") format("woff2"),
 		url("polices/open-sans-600.woff") format("woff");
 }
 *:focus,
-*:active{
+*:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
-*{
+* {
 	scrollbar-color: #cdcdcd #f0f0f0;
 	scroll-behavior: smooth;
 	scrollbar-width: thin;
 }
-body{
+body {
 	display: flex;
 	flex-direction: column;
 	background-color: #f2f1f5;
@@ -23,12 +23,12 @@ body{
 	font-family: "Open Sans", Arial, sans-serif;
 	margin: 0;
 }
-img{
+img {
 	user-select: none;
 }
 
 /* Header */
-header{
+header {
 	display: flex;
 	background-color: #ffffff;
 	border-radius: 0 0 10px 10px;
@@ -36,13 +36,13 @@ header{
 }
 
 	/* Box gauche */
-nav{
+nav {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 27.5%;
 }
-nav > a{
+nav > a {
 	color: #000000;
 	font-size: 20px;
 	padding: 5px;
@@ -52,20 +52,20 @@ nav > a{
 	user-select: none;
 	outline: none;
 }
-nav > a:hover{
+nav > a:hover {
 	color: #646464;
 }
-nav >  a:active{
+nav >  a:active {
 	color: #838383;
 }
 
 	/* Box centrale */
-#boxCentre{
+#boxCentre {
 	display: flex;
 	justify-content: center;
 	width: 45%;
 }
-#boxCentre > img{
+#boxCentre > img {
 	width: 390px;
 	height: 98px;
 	line-height: 98px;
@@ -74,7 +74,7 @@ nav >  a:active{
 }
 
 	/* Box droite */
-#boxDroite{
+#boxDroite {
 	display: flex;
 	flex-direction: column;
 	width: 27.5%;
@@ -82,11 +82,11 @@ nav >  a:active{
 	justify-content: center;
 	cursor: pointer;
 }
-#boxDroite > div{
+#boxDroite > div {
 	display: flex;
 	width: 100%;
 }
-#boxDroite > div:first-child > img{
+#boxDroite > div:first-child > img {
 	display: block;
 	margin: auto;
 	width: 64px;
@@ -94,26 +94,26 @@ nav >  a:active{
 	line-height: 64px;
 	text-align: center;
 }
-#boxDroite > div:last-child{
+#boxDroite > div:last-child {
 	display: none;
 	height: 35px;
 }
-#boxDroite > div:last-child > p{
+#boxDroite > div:last-child > p {
 	width: 100%;
 	margin: 0;
 	font-size: 32px;
 	text-align: center;
 }
-#boxDroite > div:last-child > p:first-child{
+#boxDroite > div:last-child > p:first-child {
 	color: #f9700e;
 }
-#boxDroite > div:last-child > p:last-child{
+#boxDroite > div:last-child > p:last-child {
 	color: #09a4dd;
 }
 
 /* Corps */
 	/* Element parent */
-h1{
+h1 {
 	width: 70%;
 	margin-top: 0;
 	margin-bottom: 20px;
@@ -125,12 +125,12 @@ h1{
 	border-width: 0 0 4px 0;
 	border-image: radial-gradient(#000000, #ffffff) 1;
 }
-section{
+section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
-section > section{
+section > section {
 	display: flex;
 	flex-direction: column;
 	background-color: #ffffff;
@@ -141,63 +141,63 @@ section > section{
 	border-radius: 10px;
 	box-shadow: 0 15px 20px -15px #cecece;
 }
-section > div:last-child{
+section > div:last-child {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
 	/* Section donnée actuelle */
-section > section:first-child{
+section > section:first-child {
 	margin-top: 20px;
 }
-#container{
+#jauge {
 	margin: 20px;
 	width: 200px;
 	height: 100px;
 }
-#container > svg{
+#jauge > svg {
 	width: 100%;
 	height: 100%;
 }
 
 	/* Section graphique */
-section > section:last-child > div:last-child{
+section > section:last-child > div:last-child {
 	position: relative;
 	width: 100%;
 	height: 450px;
 }
-div.plotly-notifier{
+div.plotly-notifier {
 	visibility: hidden;
 }
-*:not(h1):not(a):not(p):not(#container > div){
+*:not(h1):not(a):not(p):not(#jauge > div) {
 	font-size: 14px !important;
 }
-.user-select-none.svg-container{
+.user-select-none.svg-container {
 	position: unset !important;
 }
 
 /* Version ordinateur portable */
-@media only screen and (min-width: 1081px) and (max-width: 1440px){
+@media only screen and (min-width: 1081px) and (max-width: 1440px) {
 	/* Corps */
 		/* Element parent */
-	section > section{
+	section > section {
 		width: 65vw;
 	}
 }
 
 /* Version tablette */
-@media only screen and (min-width: 800px) and (max-width: 1080px){
+@media only screen and (min-width: 800px) and (max-width: 1080px) {
 	/* Header */
 		/* Box centrale */
-	#boxCentre > img{
+	#boxCentre > img {
 		width: 350px;
 		height: 88px;
 		line-height: 88px;
 	}
 
 		/* Box droite */
-	#boxDroite > div:first-child > img{
+	#boxDroite > div:first-child > img {
 		width: 56px;
 		height: 56px;
 		line-height: 56px;
@@ -205,36 +205,36 @@ div.plotly-notifier{
 
 	/* Corps */
 		/* Element parent */
-	section > section{
+	section > section {
 		width: 90vw;
 	}
 }
 
 /* Version mobile */
-@media screen and (max-width: 799px){
+@media screen and (max-width: 799px) {
 	/* Header */
-	header{
+	header {
 		flex-wrap: wrap;
 		padding-bottom: 10px;
 	}
 
 		/* Box gauche */
-	nav{
+	nav {
 		width: 45%;
 		order: 2;
 	}
-	nav > a{
+	nav > a {
 		display: block;
 		padding: 20px 10px;
 		transition: 0.1s;
 	}
 
 		/* Box centrale */
-	#boxCentre{
+	#boxCentre {
 		width: 100%;
 		order: 1;
 	}
-	#boxCentre > img{
+	#boxCentre > img {
 		width: 320px;
 		height: 80px;
 		line-height: 80px;
@@ -242,79 +242,79 @@ div.plotly-notifier{
 	}
 
 		/* Box droite */
-	#boxDroite{
+	#boxDroite {
 		width: 55%;
 		height: 79px;
 		order: 3;
 	}
-	#boxDroite > div:first-child > img{
+	#boxDroite > div:first-child > img {
 		width: 44px;
 		height: 44px;
 		line-height: 44px;
 	}
-	#boxDroite > div:last-child > p{
+	#boxDroite > div:last-child > p {
 		font-size: 24px;
 	}
 
 	/* Corps */
 		/* Element parent */
-	h1{
+	h1 {
 		width: 80%;
 		border-width: 0 0 3px 0;
 	}
-	section > section{
+	section > section {
 		width: 98vw;
 		margin-bottom: 15px;
 	}
 
 		/* Section donnée actuelle */
-	section > section:first-child{
+	section > section:first-child {
 		margin-top: 15px;
 	}
 
 		/* Section graphique */
-	*:not(h1):not(a):not(p):not(#container > div){
+	*:not(h1):not(a):not(p):not(#jauge > div) {
 		font-size: 10px !important;
 	}
 }
 
 /* Thème sombre */
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme: dark) {
 	/* Général */
-	*{
+	* {
 		scrollbar-color: #1a1a1a #333333;
 	}
-	body{
+	body {
 		background-color: #1c1c1e;
 		color: #bebebe;
 	}
 
 	/* Header */
-	header{
+	header {
 		background-color: #000000;
 		z-index: 1;
 		box-shadow: 0 15px 20px -15px #080808;
 	}
 
 		/* Box gauche */
-	nav > a{
+	nav > a {
 		color: #bebebe;
 	}
-	nav > a:hover{
+	nav > a:hover {
 		color: #8b8b8b;
 	}
-	nav > a:active{
+	nav > a:active {
 		color: #727272;
 	}
 
 	/* Corps */
 		/* Element parent */
-	h1{
+	h1 {
 		border-image: radial-gradient(#ececec, #000000) 1;
 	}
 
 		/* Section donnée actuelle */
-	section > section{
+	section > section {
 		background-color: #000000;
 		box-shadow: 0 15px 20px -15px #080808;
 	}

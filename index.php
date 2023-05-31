@@ -141,7 +141,7 @@ function formatageValeur($valeur) : string {
 		<h1><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></h1>
 		<div title="<?php
 			echo CONTENU_PAGE["commun"]["titreActu"] . " ";
-			echo formatageDate($valeurActu[0])?>" id="container">
+			echo formatageDate($valeurActu[0])?>" id="jauge">
 		</div>
 	</section>
 	<section>
@@ -165,6 +165,16 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 parametrerAfficherGraphique(<?php echo "\"" .
 	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
 	CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
+	CONTENU_PAGE["commun"]["unite"] . "\", " .
+	$barreMinMax[0] . ", " .
+	$barreMinMax[1]
+?>);
+
+jaugeMesure(<?php echo
+	(((($valeurActu[1] - $barreMinMax[0]) * 100) /
+		($barreMinMax[1] - $barreMinMax[0])) / 100) . ", " .
+	$barreMinMax[0] . ", " .
+	$barreMinMax[1] . ", \"" .
 	CONTENU_PAGE["commun"]["unite"] . "\""
 ?>);
 
@@ -173,17 +183,19 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 	parametrerAfficherGraphique(<?php echo "\"" .
 		CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
 		CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
+		CONTENU_PAGE["commun"]["unite"] . "\", " .
+		$barreMinMax[0] . ", " .
+		$barreMinMax[1]
+	?>);
+
+	jaugeMesure(<?php echo
+		(((($valeurActu[1] - $barreMinMax[0]) * 100) /
+			($barreMinMax[1] - $barreMinMax[0])) / 100) . ", " .
+		$barreMinMax[0] . ", " .
+		$barreMinMax[1] . ", \"" .
 		CONTENU_PAGE["commun"]["unite"] . "\""
 	?>);
 });
-
-barreProgression(<?php echo
-	(((($valeurActu[1] - $barreMinMax[0]) * 100) /
-		($barreMinMax[1] - $barreMinMax[0])) / 100) . ", " .
-	$barreMinMax[0] . ", " .
-	$barreMinMax[1] . ", \"" .
-	CONTENU_PAGE["commun"]["unite"] . "\""
-?>);
 
 lancerServiceWorker();
 </script>

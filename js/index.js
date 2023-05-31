@@ -1,34 +1,82 @@
 // Classe pour les couleurs du graphique
-class Couleurs{
-	constructor(bgcolor, gridcolor, color){
+class CouleursGraph {
+	constructor(bgcolor, gridcolor, color, linecolor, bordercolor) {
 		this.bgcolor = bgcolor;
 		this.gridcolor = gridcolor;
 		this.color = color;
+		this.linecolor = linecolor;
+		this.bordercolor = bordercolor;
 	}
 
-	getBgColor(){
-		return this.bgcolor;
-	}
-	getGridColor(){
-		return this.gridcolor;
-	}
-	getColor(){
-		return this.color;
-	}
-	getTableauToutesCouleurs(){
-		return Array(this.getBgColor(), this.getGridColor(), this.getColor());
+	getCouleursTableau() {
+		return Array(this.bgcolor, this.gridcolor, this.color, this.linecolor,
+			this.bordercolor);
 	}
 }
 
-class CouleursClaires extends Couleurs{
-	constructor(){
-		super("#ffffff", "#eeeeee", "#404040");
+class CouleursClaires extends CouleursGraph {
+	constructor() {
+		super("#ffffff", "#eeeeee", "#404040", "#d3d3d3", "#ffffff");
 	}
 }
 
-class CouleursSombres extends Couleurs{
-	constructor(){
-		super("#000000", "#4a484c", "#bfbfbf");
+class CouleursSombres extends CouleursGraph {
+	constructor() {
+		super("#000000", "#4a484c", "#bfbfbf", "#565656", "#000000");
+	}
+}
+
+// Classe pour les couleurs des données
+class CouleursDonnees {
+	constructor(
+		degrade1, degrade2, degrade3, degrade4,
+		pourcentage1, pourcentage2, pourcentage3, pourcentage4
+	) {
+		this.degrade1 = degrade1;
+		this.degrade2 = degrade2;
+		this.degrade3 = degrade3;
+		this.degrade4 = degrade4;
+		this.pourcentage1 = pourcentage1;
+		this.pourcentage2 = pourcentage2;
+		this.pourcentage3 = pourcentage3;
+		this.pourcentage4 = pourcentage4;
+	}
+
+	getPourcentages() {
+		return Array(this.pourcentage1, this.pourcentage2, this.pourcentage3,
+			this.pourcentage4);
+	}
+
+	getDegrades() {
+		return Array(this.degrade1, this.degrade2, this.degrade3,
+			this.degrade4);
+	}
+
+	getPourcentagesDegrade() {
+		return Array(
+			Array(this.pourcentage1, this.degrade1),
+			Array(this.pourcentage2, this.degrade2),
+			Array(this.pourcentage3, this.degrade3),
+			Array(this.pourcentage4, this.degrade4)
+		);
+	}
+}
+
+class CouleursDonneesTemp extends CouleursDonnees {
+	constructor() {
+		super(
+			"#0074ff", "#00e600", "#d1e600", "#fb4d0f",
+			0.00, 0.40,0.65 ,1.00
+		);
+	}
+}
+
+class CouleursDonneesHum extends CouleursDonnees {
+	constructor() {
+		super(
+			"#fb4d0f", "#d1e600", "#00e600", "#0074ff",
+			0.00, 0.20, 0.45, 1.00
+		);
 	}
 }
 
@@ -38,7 +86,7 @@ class CouleursSombres extends Couleurs{
  * @param nomColonne des données à récupérer
  * @returns les données, ou l'erreur rencontrée
  */
-function recupBdd(nomColonne){
+function recupBdd(nomColonne) {
 	return new Promise((resolve, reject) => {
 		// Champ à envoyer au back (pour connaître la colonne à récupérer)
 		let champPost = new FormData();
@@ -88,26 +136,28 @@ function recupAbsOrd(nomColonne) {
  * @param nomColonne des données à récupérer
  * @param typeDonnees à afficher dans les labels
  * @param unite à afficher sur l'axe des ordonnées
+ * @min valeur minimale pour le dégradé
+ * @max valeur maximale pour le dégradé
  */
-function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
+function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 	// Configure le graphique
 	const config = {
 		locale: "fr",
-		displayModeBar: false,
 		responsive: true,
+		displayModeBar: false,
 		showAxisDragHandles: false
 	}
 
 	// Configure le placement
 	let top, right, bottom, left, nticks;
-	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches){
+	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches) {
 		top = 0;
 		right = 5;
 		bottom = 35;
 		left = 40;
 		nticks = 5;
 	}
-	else{
+	else {
 		top = 10;
 		right = 10;
 		bottom = 50;
@@ -116,18 +166,63 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
 	}
 
 	// Configure les couleurs
-	let couleurs, bgcolor, gridcolor, color;
-	if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)")
-	.matches){
-		couleurs = new CouleursClaires();
-		[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
+	let bgcolor, gridcolor, fontcolor, linecolor, bordercolor;
+	if (
+		window.matchMedia && window.matchMedia("(prefers-color-scheme: light)")
+		.matches
+	) {
+		[bgcolor, gridcolor, fontcolor, linecolor, bordercolor] =
+			(new CouleursClaires()).getCouleursTableau();
 	}
-	else{
-		couleurs = new CouleursSombres();
-		[bgcolor, gridcolor, color] = couleurs.getTableauToutesCouleurs();
+	else {
+		[bgcolor, gridcolor, fontcolor, linecolor, bordercolor] =
+			(new CouleursSombres()).getCouleursTableau();
 	}
 
-	// Configure le style
+	// Récupère les couleurs du dégradé
+	let degrade;
+	if (unite === '%')
+		degrade = (new CouleursDonneesHum()).getPourcentagesDegrade();
+	else
+		degrade = (new CouleursDonneesTemp()).getPourcentagesDegrade();
+
+	// Récupère les données et affiche le graphique
+	recupAbsOrd(nomColonne)
+	.then(retour => {
+		let abscisse = JSON.parse(retour[0]);
+		let ordonnee = JSON.parse(retour[1]);
+
+		const data = [{
+			x: abscisse,
+			y: ordonnee,
+			mode: "lines+markers",
+			marker: {
+				colorscale: degrade,
+				color: ordonnee,
+				size: 6,
+				cmin: min,
+				cmax: max
+			},
+			connectgaps: true,
+			line: {
+				color: linecolor,
+				width: 2,
+				shape: "spline"
+			},
+			hovertemplate: "<b>" + typeDonnees + " :</b> %{y:.1f}" + unite +
+							"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
+							"<extra></extra>",
+			hoverlabel: {
+				align: "left",
+				bordercolor: bordercolor,
+				font: {
+					family: "Open Sans",
+					color: "#000000"
+				}
+			}
+		}];
+
+			// Configure le style
 	const layout = {
 		showlegend: false,
 		separators: ".,",
@@ -140,7 +235,7 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
 		},
 		font: {
 			family: "Open Sans",
-			color: color
+			color: fontcolor
 		},
 		plot_bgcolor: bgcolor,
 		paper_bgcolor: bgcolor,
@@ -164,7 +259,8 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
 					"dtickrange": [86400000, null],
 					"value": "%-d %B"
 				}
-			]
+			],
+			range: [abscisse[0], abscisse[abscisse.length - 1]]
 		},
 		yaxis: {
 			gridcolor: gridcolor,
@@ -175,33 +271,6 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
 		}
 	}
 
-	// Récupère les données et affiche le graphique
-	recupAbsOrd(nomColonne)
-	.then(retour => {
-		const data = [{
-			x: JSON.parse(retour[0]),
-			y: JSON.parse(retour[1]),
-			type: "scatter",
-			connectgaps: true,
-			line: {
-				color: "#32a6f5",
-				width: 2,
-				shape: "spline"
-			},
-			hovertemplate: "<b>" + typeDonnees + " :</b> %{y:.1f}" + unite +
-							"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
-							"<extra></extra>",
-			hoverlabel: {
-				align: "left",
-				bordercolor: "#32a6f5",
-				font: {
-					family: "Open Sans",
-					color: "#ffffff"
-				}
-			},
-			showlegend: false
-		}]
-
 		Plotly.newPlot("graphique", data, layout, config);
 	})
 }
@@ -211,7 +280,7 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite) {
  * Inverse entre afficher ou masquer les valeurs min et max
  * @param nouveauTitre à adapter en fonction de l'affichage
  */
-function inverserAffichageMinMax(nouveauTitre){
+function inverserAffichageMinMax(nouveauTitre) {
 	const titre = document.getElementById("boxDroite");
 	const divMinMax = document.getElementById("valeursMinMax");
 	$(divMinMax).slideToggle(400, () => {
@@ -224,70 +293,88 @@ function inverserAffichageMinMax(nouveauTitre){
 
 
 /**
- * Active le service worker, sauf sur Firefox bureau
- */
-function lancerServiceWorker(){
-	if (
-		"serviceWorker" in navigator &&
-		(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
-		window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
-	){
-		navigator.serviceWorker.register("../service_worker.js")
-		.then({})
-		.catch(function(erreur){
-			console.log("Service worker - enregistrement echoué :", erreur);
-		})
-	}
-}
-
-/**
- * Affiche la barre de progression pour la mesure actuelle
- * @param pourcentage de la barre à afficher
- * @param min de la barre
- * @param max de la barre
+ * Affiche la jauge représentant la mesure actuelle
+ * @param pourcentage de la jauge à remplir
+ * @param min de la jauge
+ * @param max de la jauge
  * @param unite de la mesure à ajouter à la valeur
  */
-function barreProgression(pourcentage, min, max, unite){
-	// Configure la barre de progression
-	var bar = new ProgressBar.SemiCircle(container, {
+function jaugeMesure(pourcentage, min, max, unite) {
+	// Permet de recharger la jauge en cas de changement de thème
+	let element = document.getElementById("jauge");
+	while (element.firstChild)
+		element.removeChild(element.firstChild);
+
+	// Configure la couleur de fond 
+	if (
+		window.matchMedia && window.matchMedia("(prefers-color-scheme: light)")
+		.matches
+	)
+		trailcolor = "#eeeeee";
+	else
+		trailcolor = "#565656";
+
+	// Configure la jauge
+	let jaugeMesure = new ProgressBar.SemiCircle(jauge, {
 		strokeWidth: 6,
 		easing: "easeInOut",
 		duration: 900,
 		color: "url(#gradient)",
-		trailColor: "#eeeeee",
+		trailColor: trailcolor,
 		trailWidth: 1,
-		svgStyle: null,
 		step: (state, bar) => {
 			var value = ((bar.value() * (max - min)) + min).toFixed(1);
 			bar.setText(value + unite);
 		}
 	});
-	bar.text.style.fontFamily = "Open Sans";
-	bar.text.style.fontSize = "25px";
-	bar.animate(pourcentage);
+	jaugeMesure.text.style.fontFamily = "Open Sans";
+	jaugeMesure.text.style.fontSize = "25px";
+	jaugeMesure.animate(pourcentage);
 
 	// Ajoute le dégradé
+	let couleurDonnes, pourcentDegrade, degrade;
+	if (unite === '%') {
+		couleurDonnes = new CouleursDonneesHum();
+		pourcentDegrade = couleurDonnes.getPourcentages();
+		degrade = couleurDonnes.getDegrades();
+	}
+	else {
+		couleurDonnes = new CouleursDonneesTemp();
+		pourcentDegrade = couleurDonnes.getPourcentages();
+		degrade = couleurDonnes.getDegrades();
+	}
+
 	let linearGradient =`<defs>
 		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"
 			gradientUnits="userSpaceOnUse">
-				<stop offset="0%" stop-color="#0074ff"/>
-				<stop offset="40%" stop-color="#00e600"/>
-				<stop offset="65%" stop-color="#d1e600"/>
-				<stop offset="100%" stop-color="#fb4d0f"/>
+				<stop offset="` + pourcentDegrade[0] + `" stop-color="` +
+					degrade[0] + `"/>
+				<stop offset="` + pourcentDegrade[1] + `" stop-color="` +
+					degrade[1] + `"/>
+				<stop offset="` + pourcentDegrade[2] + `" stop-color="` +
+					degrade[2] + `"/>
+				<stop offset="` + pourcentDegrade[3] + `" stop-color="` +
+					degrade[3] + `"/>
 		</linearGradient>
 		</defs>`
 
-	if (unite === '%') {
-		linearGradient =`<defs>
-		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"
-			gradientUnits="userSpaceOnUse">
-				<stop offset="0%" stop-color="#fb4d0f"/>
-				<stop offset="40%" stop-color="#d1e600"/>
-				<stop offset="65%" stop-color="#00e600"/>
-				<stop offset="100%" stop-color="#0074ff"/>
-		</linearGradient>
-		</defs>`
+	jaugeMesure.svg.insertAdjacentHTML("afterBegin", linearGradient);
+}
+
+
+/**
+ * Active le service worker, sauf sur Firefox bureau
+ */
+function lancerServiceWorker() {
+	if (
+		"serviceWorker" in navigator &&
+		(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
+		window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
+	) {
+		navigator.serviceWorker.register("../service_worker.js")
+		.then({})
+		.catch(function(erreur) {
+			console.log("Service worker - enregistrement echoué :", erreur);
+		})
 	}
-
-	bar.svg.insertAdjacentHTML("afterBegin", linearGradient);
 }

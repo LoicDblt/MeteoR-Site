@@ -170,8 +170,8 @@ section > section:last-child > div:last-child{
 div.plotly-notifier{
 	visibility: hidden;
 }
-*:not(h1):not(a):not(p){
-	font-size: 14px;
+*:not(h1):not(a):not(p):not(#container > div){
+	font-size: 14px !important;
 }
 .user-select-none.svg-container{
 	position: unset !important;
@@ -273,8 +273,8 @@ div.plotly-notifier{
 	}
 
 		/* Section graphique */
-	*:not(h1):not(a):not(p){
-		font-size: 10px;
+	*:not(h1):not(a):not(p):not(#container > div){
+		font-size: 10px !important;
 	}
 }
 

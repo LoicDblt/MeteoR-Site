@@ -271,8 +271,7 @@ function barreProgression(pourcentage, min, max, unite){
 		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"
 			gradientUnits="userSpaceOnUse">
 				<stop offset="0%" stop-color="#0074ff"/>
-				<stop offset="35%" stop-color="#00e600"/>
-				<stop offset="50%" stop-color="#b0e300"/>
+				<stop offset="40%" stop-color="#00e600"/>
 				<stop offset="65%" stop-color="#d1e600"/>
 				<stop offset="100%" stop-color="#fb4d0f"/>
 		</linearGradient>
@@ -283,8 +282,7 @@ function barreProgression(pourcentage, min, max, unite){
 		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"
 			gradientUnits="userSpaceOnUse">
 				<stop offset="0%" stop-color="#fb4d0f"/>
-				<stop offset="35%" stop-color="#d1e600"/>
-				<stop offset="50%" stop-color="#b0e300"/>
+				<stop offset="40%" stop-color="#d1e600"/>
 				<stop offset="65%" stop-color="#00e600"/>
 				<stop offset="100%" stop-color="#0074ff"/>
 		</linearGradient>

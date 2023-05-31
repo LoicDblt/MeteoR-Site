@@ -6,16 +6,16 @@
 		url("polices/open-sans-600.woff") format("woff");
 }
 *:focus,
-*:active{
+*:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
-*{
+* {
 	scrollbar-color: #cdcdcd #f0f0f0;
 	scroll-behavior: smooth;
 	scrollbar-width: thin;
 }
-body{
+body {
 	background: url("../img/erreur.jpg");
 	background-size: cover;
 	background-position: center center;
@@ -24,11 +24,11 @@ body{
 }
 
 /* Corps */
-div::before{
+div::before {
 	content: "";
 	height: calc(28px + 10px);
 }
-div{
+div {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -36,12 +36,12 @@ div{
 	text-align: center;
 	height: 100vh;
 }
-p{
+p {
 	font-size: 34px;
 	color: #ffffff;
 	margin: 0;
 }
-a{
+a {
 	color: #bfbfbf;
 	font-size: 20px;
 	line-height: 28px;
@@ -51,39 +51,39 @@ a{
 	outline: none;
 	padding: 5px 10px 10px;
 }
-a:hover{
+a:hover {
 	color: #8b8b8b;
 }
-a:active{
+a:active {
 	color: #727272;
 }
 
 /* Version tablette */
-@media only screen and (min-width: 800px) and (max-width: 1080px){
+@media only screen and (min-width: 800px) and (max-width: 1080px) {
 	/* Corps */
-	p{
+	p {
 		font-size: 28px;
 	}
-	a{
+	a {
 		font-size: 16px;
 	}
 }
 
 /* Version mobile */
-@media screen and (max-width: 799px){
+@media screen and (max-width: 799px) {
 	/* Corps */
-	p{
+	p {
 		font-size: 24px;
 	}
-	a{
+	a {
 		font-size: 14px;
 	}
 }
 
 /* Thème sombre */
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme: dark) {
 	/* Général */
-	*{
+	* {
 		scrollbar-color: #1a1a1a #333333;
 	}
 }

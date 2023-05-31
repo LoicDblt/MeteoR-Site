@@ -24,7 +24,7 @@ class BddGraphes{
 	/**
 	 * Récupère les valeurs d'une colonne
 	 * @param string $nomColonne Nom de la colonne à récupérer
-	 * 
+	 *
 	 * @return string Valeurs de la colonne
 	 */
 	public function getValeursColonne($nomColonne) : string {

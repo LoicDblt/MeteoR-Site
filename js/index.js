@@ -1,16 +1,14 @@
 // Classe pour les couleurs du graphique
 class CouleursGraph {
-	constructor(bgcolor, gridcolor, color, linecolor, bordercolor) {
+	constructor(bgcolor, gridcolor, color, linecolor) {
 		this.bgcolor = bgcolor;
 		this.gridcolor = gridcolor;
 		this.color = color;
 		this.linecolor = linecolor;
-		this.bordercolor = bordercolor;
 	}
 
 	getCouleursTableau() {
-		return Array(this.bgcolor, this.gridcolor, this.color, this.linecolor,
-			this.bordercolor);
+		return Array(this.bgcolor, this.gridcolor, this.color, this.linecolor);
 	}
 }
 
@@ -83,12 +81,13 @@ class CouleursDonneesHum extends CouleursDonnees {
 
 /**
  * Récupère les données dans la base de données
- * @param nomColonne des données à récupérer
+ * @param nomColonne dans la base de données, des mesures à récupérer
+ * 
  * @returns les données, ou l'erreur rencontrée
  */
 function recupBdd(nomColonne) {
 	return new Promise((resolve, reject) => {
-		// Champ à envoyer au back (pour connaître la colonne à récupérer)
+		// Champ à envoyer au back, pour indiquer la colonne à récupérer
 		let champPost = new FormData();
 		champPost.append("nomColonne", nomColonne);
 
@@ -115,7 +114,8 @@ function recupBdd(nomColonne) {
 
 /**
  * Récupère les données de d'absisses et d'ordonnées pour le graphique
- * @param nomColonne des données à récupérer
+ * @param nomColonne dans la base de données, des mesures à récupérer
+ * 
  * @returns un tableau avec les données d'abscisses et d'ordonnées
  */
 function recupAbsOrd(nomColonne) {
@@ -132,15 +132,15 @@ function recupAbsOrd(nomColonne) {
 
 
 /**
- * Paramètre le graphique, récupère les données et affiche le tout
- * @param nomColonne des données à récupérer
- * @param typeDonnees à afficher dans les labels
- * @param unite à afficher sur l'axe des ordonnées
+ * Paramètre le graphique, récupère les données et affiche l'ensemble
+ * @param nomColonne dans la base de données, des mesures à récupérer
+ * @param typeDonnees des mesures, à afficher dans les labels
+ * @param unite des mesures, à afficher sur l'axe des ordonnées
  * @min valeur minimale pour le dégradé
  * @max valeur maximale pour le dégradé
  */
 function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
-	// Configure le graphique
+	// Configure les paramètres du graphique
 	const config = {
 		locale: "fr",
 		responsive: true,
@@ -148,9 +148,9 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 		showAxisDragHandles: false
 	}
 
-	// Configure le placement
+	// Configure le placement du graphique
 	let top, right, bottom, left, nticks;
-	if (window.matchMedia && window.matchMedia("(max-width: 769px)").matches) {
+	if (window.matchMedia("(max-width: 769px)").matches) {
 		top = 0;
 		right = 5;
 		bottom = 35;
@@ -165,26 +165,25 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 		nticks = 8;
 	}
 
-	// Configure les couleurs
-	let bgcolor, gridcolor, fontcolor, linecolor, bordercolor;
-	if (
-		window.matchMedia && window.matchMedia("(prefers-color-scheme: light)")
-		.matches
-	) {
-		[bgcolor, gridcolor, fontcolor, linecolor, bordercolor] =
+	// Récupère les couleurs en fonction du thème
+	let bgcolor, gridcolor, fontcolor, linecolor;
+	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+		[bgcolor, gridcolor, fontcolor, linecolor] =
 			(new CouleursClaires()).getCouleursTableau();
 	}
 	else {
-		[bgcolor, gridcolor, fontcolor, linecolor, bordercolor] =
+		[bgcolor, gridcolor, fontcolor, linecolor] =
 			(new CouleursSombres()).getCouleursTableau();
 	}
 
-	// Récupère les couleurs du dégradé
+	// Récupère les couleurs du dégradé en fonction du type de données
 	let degrade;
-	if (unite === '%')
+	if (unite === '%') {
 		degrade = (new CouleursDonneesHum()).getPourcentagesDegrade();
-	else
+	}
+	else {
 		degrade = (new CouleursDonneesTemp()).getPourcentagesDegrade();
+	}
 
 	// Récupère les données et affiche le graphique
 	recupAbsOrd(nomColonne)
@@ -214,7 +213,7 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 							"<extra></extra>",
 			hoverlabel: {
 				align: "left",
-				bordercolor: bordercolor,
+				bordercolor: "transparent",
 				font: {
 					family: "Open Sans",
 					color: "#000000"
@@ -222,55 +221,56 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 			}
 		}];
 
-			// Configure le style
-	const layout = {
-		showlegend: false,
-		separators: ".,",
-		margin: {
-			t: top,
-			r: right,
-			b: bottom,
-			l: left,
-			pad: 4
-		},
-		font: {
-			family: "Open Sans",
-			color: fontcolor
-		},
-		plot_bgcolor: bgcolor,
-		paper_bgcolor: bgcolor,
-		xaxis: {
-			showgrid: false,
-			nticks: nticks,
-			tickformatstops: [
-				{
-					"dtickrange": [null, 60000],
-					"value": "%-d %B<br>%Hh%M.%S"
-				},
-				{
-					"dtickrange": [60000, 3600000],
-					"value": "%-d %B<br>%Hh%M"
-				},
-				{
-					"dtickrange": [3600000, 86400000],
-					"value": "%-d %B<br>%Hh%M"
-				},
-				{
-					"dtickrange": [86400000, null],
-					"value": "%-d %B"
-				}
-			],
-			range: [abscisse[0], abscisse[abscisse.length - 1]]
-		},
-		yaxis: {
-			gridcolor: gridcolor,
-			gridcolorwidth: 1,
-			fixedrange: true,
-			tickformat: ".1f",
-			ticksuffix: (unite === "%") ? unite + " " : unite
+		// Configure le style
+		const layout = {
+			showlegend: false,
+			separators: ".,",
+			margin: {
+				t: top,
+				r: right,
+				b: bottom,
+				l: left,
+				pad: 4
+			},
+			font: {
+				family: "Open Sans",
+				color: fontcolor
+			},
+			plot_bgcolor: bgcolor,
+			paper_bgcolor: bgcolor,
+			xaxis: {
+				showgrid: false,
+				nticks: nticks,
+				tickformatstops: [
+					{
+						"dtickrange": [null, 60000],
+						"value": "%-d %B<br>%Hh%M.%S"
+					},
+					{
+						"dtickrange": [60000, 3600000],
+						"value": "%-d %B<br>%Hh%M"
+					},
+					{
+						"dtickrange": [3600000, 86400000],
+						"value": "%-d %B<br>%Hh%M"
+					},
+					{
+						"dtickrange": [86400000, null],
+						"value": "%-d %B"
+					}
+				],
+				range: [abscisse[0], abscisse[abscisse.length - 1]]
+			},
+			yaxis: {
+				gridcolor: gridcolor,
+				gridcolorwidth: 1,
+				fixedrange: true,
+				tickformat: ".1f",
+				ticksuffix: (unite === "%") ? unite + " " : unite
+			}
 		}
-	}
 
+		// Affiche le graphique
 		Plotly.newPlot("graphique", data, layout, config);
 	})
 }
@@ -278,11 +278,13 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 
 /**
  * Inverse entre afficher ou masquer les valeurs min et max
- * @param nouveauTitre à adapter en fonction de l'affichage
+ * @param nouveauTitre à afficher, en fonction de l'état
  */
 function inverserAffichageMinMax(nouveauTitre) {
 	const titre = document.getElementById("boxDroite");
 	const divMinMax = document.getElementById("valeursMinMax");
+
+	// Anime l'affichage
 	$(divMinMax).slideToggle(400, () => {
 		if ($(divMinMax).css("display") === "flex")
 			titre.title = "Masquer " + nouveauTitre;
@@ -297,22 +299,22 @@ function inverserAffichageMinMax(nouveauTitre) {
  * @param pourcentage de la jauge à remplir
  * @param min de la jauge
  * @param max de la jauge
- * @param unite de la mesure à ajouter à la valeur
+ * @param unite de la mesure, à ajouter à la valeur
  */
 function jaugeMesure(pourcentage, min, max, unite) {
 	// Permet de recharger la jauge en cas de changement de thème
 	let element = document.getElementById("jauge");
-	while (element.firstChild)
+	while (element.firstChild) {
 		element.removeChild(element.firstChild);
+	}
 
-	// Configure la couleur de fond 
-	if (
-		window.matchMedia && window.matchMedia("(prefers-color-scheme: light)")
-		.matches
-	)
+	// Configure la couleur de fond
+	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
 		trailcolor = "#eeeeee";
-	else
+	}
+	else {
 		trailcolor = "#565656";
+	}
 
 	// Configure la jauge
 	let jaugeMesure = new ProgressBar.SemiCircle(jauge, {
@@ -363,7 +365,7 @@ function jaugeMesure(pourcentage, min, max, unite) {
 
 
 /**
- * Active le service worker, sauf sur Firefox bureau
+ * Active le service worker, sauf sur Firefox bureau, car soucis de performances
  */
 function lancerServiceWorker() {
 	if (
@@ -373,7 +375,7 @@ function lancerServiceWorker() {
 	) {
 		navigator.serviceWorker.register("../service_worker.js")
 		.then({})
-		.catch(function(erreur) {
+		.catch(erreur => {
 			console.log("Service worker - enregistrement echoué :", erreur);
 		})
 	}

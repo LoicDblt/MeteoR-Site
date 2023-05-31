@@ -9,5 +9,6 @@ if ($_POST["nomColonne"] != "undefined") {
 	array_push($tab, $bddGraph->getValeursColonne($_POST["nomColonne"]));
 	echo json_encode($tab);
 }
-else
+else {
 	echo "Nom de colonne indéfini";
+}

@@ -15,7 +15,9 @@ if ($_SERVER["REQUEST_URI"] == "/"){
 	// Récupère les valeurs max puis min (température)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
-	$barreMinMax = [10, 30];
+
+	// Détermine les valeurs min et max de la jauge
+	$jaugeMinMax = [10, 30];
 }
 else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	include_once "assets/humidite.php";
@@ -23,19 +25,22 @@ else if ($_SERVER["REQUEST_URI"] == "/humidite"){
 	// Récupère les valeurs min puis max (humidité)
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
 	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
-	$barreMinMax = [20, 80];
+
+	// Détermine les valeurs min et max de la jauge
+	$jaugeMinMax = [20, 80];
 }
 
 // Récupère la valeur actuelle
 $valeurActu = $bddDonnees->getValeurActu(CONTENU_PAGE["commun"]["nomColonne"]);
 
-// Adapte les valeurs min et max de la barre de progression
-// (pour qu'elles soient toujours visibles)
-if ($valeurActu[1] <= $barreMinMax[0])
-	$barreMinMax[0] = $valeurActu[1] - 1;
-
-else if ($valeurActu[1] >= $barreMinMax[1])
-	$barreMinMax[1] = $valeurActu[1];
+// Adapte les valeurs min et max de la jauge de mesure, afin qu'elles soient
+// toujours visibles
+if ($valeurActu[1] <= $jaugeMinMax[0]) {
+	$jaugeMinMax[0] = $valeurActu[1] - 1;
+}
+else if ($valeurActu[1] >= $jaugeMinMax[1]) {
+	$jaugeMinMax[1] = $valeurActu[1];
+}
 
 
 /**
@@ -166,15 +171,15 @@ parametrerAfficherGraphique(<?php echo "\"" .
 	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
 	CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
 	CONTENU_PAGE["commun"]["unite"] . "\", " .
-	$barreMinMax[0] . ", " .
-	$barreMinMax[1]
+	$jaugeMinMax[0] . ", " .
+	$jaugeMinMax[1]
 ?>);
 
 jaugeMesure(<?php echo
-	(((($valeurActu[1] - $barreMinMax[0]) * 100) /
-		($barreMinMax[1] - $barreMinMax[0])) / 100) . ", " .
-	$barreMinMax[0] . ", " .
-	$barreMinMax[1] . ", \"" .
+	(((($valeurActu[1] - $jaugeMinMax[0]) * 100) /
+		($jaugeMinMax[1] - $jaugeMinMax[0])) / 100) . ", " .
+	$jaugeMinMax[0] . ", " .
+	$jaugeMinMax[1] . ", \"" .
 	CONTENU_PAGE["commun"]["unite"] . "\""
 ?>);
 
@@ -184,15 +189,15 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 		CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
 		CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
 		CONTENU_PAGE["commun"]["unite"] . "\", " .
-		$barreMinMax[0] . ", " .
-		$barreMinMax[1]
+		$jaugeMinMax[0] . ", " .
+		$jaugeMinMax[1]
 	?>);
 
 	jaugeMesure(<?php echo
-		(((($valeurActu[1] - $barreMinMax[0]) * 100) /
-			($barreMinMax[1] - $barreMinMax[0])) / 100) . ", " .
-		$barreMinMax[0] . ", " .
-		$barreMinMax[1] . ", \"" .
+		(((($valeurActu[1] - $jaugeMinMax[0]) * 100) /
+			($jaugeMinMax[1] - $jaugeMinMax[0])) / 100) . ", " .
+		$jaugeMinMax[0] . ", " .
+		$jaugeMinMax[1] . ", \"" .
 		CONTENU_PAGE["commun"]["unite"] . "\""
 	?>);
 });

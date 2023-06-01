@@ -157,10 +157,11 @@ function formatageValeur($valeur) : string {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
 integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.1/plotly-basic.min.js"
-integrity="sha512-f0oboR/rYzxj/vXcuRFpw5KOsk8kf+MogGuKnaWw9aC6dQAgEi77rHdo407YvoZ1PLhWvHCOb+zKuz7uML0azQ=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.2/plotly-basic.min.js"
+integrity="sha512-zrsz397IzKAxwgudUVSIX83J02+Pd66KkPVr1uwOrWg84gj1xho3kV7QTNVkTB+R+x4lpKrk6F5DpjW6BGTqvA=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.1/plotly-locale-fr.min.js" integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.2/plotly-locale-fr.min.js"
+integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"
 integrity="sha512-EZhmSl/hiKyEHklogkakFnSYa5mWsLmTC4ZfvVzhqYNLPbXKAXsjUYRf2O9OlzQN33H0xBVfGSEIUeqt9astHQ=="

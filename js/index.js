@@ -1,10 +1,14 @@
-// Classe pour les couleurs du graphique
+/*** Classe pour les couleurs du graphique ***/
 class CouleursGraph {
 	constructor(bgcolor, gridcolor, color, linecolor) {
 		this.bgcolor = bgcolor;
 		this.gridcolor = gridcolor;
 		this.color = color;
 		this.linecolor = linecolor;
+	}
+
+	getGridcolor() {
+		return this.gridcolor;
 	}
 
 	getCouleursTableau() {
@@ -14,17 +18,17 @@ class CouleursGraph {
 
 class CouleursClaires extends CouleursGraph {
 	constructor() {
-		super("#ffffff", "#eeeeee", "#404040", "#d3d3d3", "#ffffff");
+		super("#ffffff", "#eeeeee", "#404040", "#e7e7e7");
 	}
 }
 
 class CouleursSombres extends CouleursGraph {
 	constructor() {
-		super("#000000", "#4a484c", "#bfbfbf", "#565656", "#000000");
+		super("#000000", "#494949", "#bfbfbf", "#4f4f4f");
 	}
 }
 
-// Classe pour les couleurs des données
+/*** Classe pour les couleurs des données ***/
 class CouleursDonnees {
 	constructor(
 		degrade1, degrade2, degrade3, degrade4,
@@ -34,6 +38,7 @@ class CouleursDonnees {
 		this.degrade2 = degrade2;
 		this.degrade3 = degrade3;
 		this.degrade4 = degrade4;
+
 		this.pourcentage1 = pourcentage1;
 		this.pourcentage2 = pourcentage2;
 		this.pourcentage3 = pourcentage3;
@@ -41,13 +46,16 @@ class CouleursDonnees {
 	}
 
 	getPourcentages() {
-		return Array(this.pourcentage1, this.pourcentage2, this.pourcentage3,
-			this.pourcentage4);
+		return Array(
+			this.pourcentage1, this.pourcentage2,
+			this.pourcentage3, this.pourcentage4
+		);
 	}
 
 	getDegrades() {
-		return Array(this.degrade1, this.degrade2, this.degrade3,
-			this.degrade4);
+		return Array(
+			this.degrade1, this.degrade2, this.degrade3, this.degrade4
+		);
 	}
 
 	getPourcentagesDegrade() {
@@ -64,7 +72,7 @@ class CouleursDonneesTemp extends CouleursDonnees {
 	constructor() {
 		super(
 			"#0074ff", "#00e600", "#d1e600", "#fb4d0f",
-			0.00, 0.40,0.65 ,1.00
+			0.00, 0.40, 0.65 , 1.00
 		);
 	}
 }
@@ -73,7 +81,7 @@ class CouleursDonneesHum extends CouleursDonnees {
 	constructor() {
 		super(
 			"#fb4d0f", "#d1e600", "#00e600", "#0074ff",
-			0.00, 0.20, 0.45, 1.00
+			0.00, 0.25, 0.50, 1.00
 		);
 	}
 }
@@ -125,7 +133,7 @@ function recupAbsOrd(nomColonne) {
 			resolve(retour);
 		})
 		.catch(erreur => {
-			console.log(erreur);
+			console.log("Erreur récupération données :", erreur);
 		})
 	})
 }
@@ -175,6 +183,7 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 		[bgcolor, gridcolor, fontcolor, linecolor] =
 			(new CouleursSombres()).getCouleursTableau();
 	}
+	console.log(linecolor);
 
 	// Récupère les couleurs du dégradé en fonction du type de données
 	let degrade;
@@ -286,10 +295,12 @@ function inverserAffichageMinMax(nouveauTitre) {
 
 	// Anime l'affichage
 	$(divMinMax).slideToggle(400, () => {
-		if ($(divMinMax).css("display") === "flex")
+		if ($(divMinMax).css("display") === "flex") {
 			titre.title = "Masquer " + nouveauTitre;
-		else
+		}
+		else {
 			titre.title = "Afficher " + nouveauTitre;
+		}
 	}).css("display", "flex");
 }
 
@@ -308,12 +319,13 @@ function jaugeMesure(pourcentage, min, max, unite) {
 		element.removeChild(element.firstChild);
 	}
 
-	// Configure la couleur de fond
+	// Configure la couleur de l'arc en fond de jauge
+	let trailcolor;
 	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		trailcolor = "#eeeeee";
+		trailcolor = (new CouleursClaires()).getGridcolor();
 	}
 	else {
-		trailcolor = "#565656";
+		trailcolor = (new CouleursSombres()).getGridcolor();
 	}
 
 	// Configure la jauge

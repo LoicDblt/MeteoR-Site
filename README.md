@@ -8,20 +8,13 @@ graphiques.
 
 ## **Sommaire**
 - [Installation](#installation)
-  - [Mise en place](#mise-en-place)
-  - [SFTP](#sftp)
 - [Crédit](#crédit)
 
 ## **Installation**
-### Mise en place
 Il suffit de copier les différents fichiers sur un serveur faisant tourner
 PHP 7/8.  
 Il faudra également penser à noter le chemin du dossier côté serveur, afin de le
-fournir au programme client MeteoR lors de son lancement.
-
-### SFTP
-Il est nécessaire de créer un identifiant/mot de passe SFTP, permettant l'envoi
-des bases de données par le programme côté client.
+fournir au programme client, lors de son lancement.
 
 ## **Crédit**
 Je remercie particulièrement Quentin F. pour le temps passé à la création des

@@ -45,20 +45,20 @@ class CouleursDonnees {
 		this.pourcentage4 = pourcentage4;
 	}
 
-	getPourcentages() {
+	getPourcentagesDegrade() {
 		return Array(
 			this.pourcentage1, this.pourcentage2,
 			this.pourcentage3, this.pourcentage4
 		);
 	}
 
-	getDegrades() {
+	getCouleursDegrade() {
 		return Array(
 			this.degrade1, this.degrade2, this.degrade3, this.degrade4
 		);
 	}
 
-	getPourcentagesDegrade() {
+	getPairesPourcentCouleur() {
 		return Array(
 			Array(this.pourcentage1, this.degrade1),
 			Array(this.pourcentage2, this.degrade2),
@@ -90,7 +90,7 @@ class CouleursDonneesHum extends CouleursDonnees {
 /**
  * Récupère les données dans la base de données
  * @param nomColonne dans la base de données, des mesures à récupérer
- * 
+ *
  * @returns les données, ou l'erreur rencontrée
  */
 function recupBdd(nomColonne) {
@@ -109,12 +109,12 @@ function recupBdd(nomColonne) {
 				.then(donnees => {
 					resolve(donnees);
 				})
-				.catch(erreur => {
-					reject(erreur);
+				.catch(err => {
+					reject(err);
 				})
 		})
-		.catch(erreur => {
-			reject(erreur);
+		.catch(err => {
+			reject(err);
 		})
 	})
 }
@@ -123,7 +123,7 @@ function recupBdd(nomColonne) {
 /**
  * Récupère les données de d'absisses et d'ordonnées pour le graphique
  * @param nomColonne dans la base de données, des mesures à récupérer
- * 
+ *
  * @returns un tableau avec les données d'abscisses et d'ordonnées
  */
 function recupAbsOrd(nomColonne) {
@@ -132,8 +132,8 @@ function recupAbsOrd(nomColonne) {
 		.then(retour => {
 			resolve(retour);
 		})
-		.catch(erreur => {
-			console.log("Erreur récupération données :", erreur);
+		.catch(err => {
+			console.log("recupAbsOrd - Erreur récupération données :", err);
 		})
 	})
 }
@@ -183,15 +183,14 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 		[bgcolor, gridcolor, fontcolor, linecolor] =
 			(new CouleursSombres()).getCouleursTableau();
 	}
-	console.log(linecolor);
 
 	// Récupère les couleurs du dégradé en fonction du type de données
 	let degrade;
 	if (unite === '%') {
-		degrade = (new CouleursDonneesHum()).getPourcentagesDegrade();
+		degrade = (new CouleursDonneesHum()).getPairesPourcentCouleur();
 	}
 	else {
-		degrade = (new CouleursDonneesTemp()).getPourcentagesDegrade();
+		degrade = (new CouleursDonneesTemp()).getPairesPourcentCouleur();
 	}
 
 	// Récupère les données et affiche le graphique
@@ -286,26 +285,6 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 
 
 /**
- * Inverse entre afficher ou masquer les valeurs min et max
- * @param nouveauTitre à afficher, en fonction de l'état
- */
-function inverserAffichageMinMax(nouveauTitre) {
-	const titre = document.getElementById("boxDroite");
-	const divMinMax = document.getElementById("valeursMinMax");
-
-	// Anime l'affichage
-	$(divMinMax).slideToggle(400, () => {
-		if ($(divMinMax).css("display") === "flex") {
-			titre.title = "Masquer " + nouveauTitre;
-		}
-		else {
-			titre.title = "Afficher " + nouveauTitre;
-		}
-	}).css("display", "flex");
-}
-
-
-/**
  * Affiche la jauge représentant la mesure actuelle
  * @param pourcentage de la jauge à remplir
  * @param min de la jauge
@@ -349,13 +328,13 @@ function jaugeMesure(pourcentage, min, max, unite) {
 	let couleurDonnes, pourcentDegrade, degrade;
 	if (unite === '%') {
 		couleurDonnes = new CouleursDonneesHum();
-		pourcentDegrade = couleurDonnes.getPourcentages();
-		degrade = couleurDonnes.getDegrades();
+		pourcentDegrade = couleurDonnes.getPourcentagesDegrade();
+		degrade = couleurDonnes.getCouleursDegrade();
 	}
 	else {
 		couleurDonnes = new CouleursDonneesTemp();
-		pourcentDegrade = couleurDonnes.getPourcentages();
-		degrade = couleurDonnes.getDegrades();
+		pourcentDegrade = couleurDonnes.getPourcentagesDegrade();
+		degrade = couleurDonnes.getCouleursDegrade();
 	}
 
 	let linearGradient =`<defs>
@@ -377,6 +356,26 @@ function jaugeMesure(pourcentage, min, max, unite) {
 
 
 /**
+ * Inverse entre afficher ou masquer les valeurs min et max
+ * @param complementTitre à ajouter, en fonction du type de données
+ */
+function inverserAffichageMinMax(complementTitre) {
+	const boxValMinMax = document.getElementById("valeursMinMax");
+	const boxDroite = document.getElementById("boxDroite");
+
+	// Anime l'affichage
+	$(boxValMinMax).slideToggle(400, () => {
+		if ($(boxValMinMax).css("display") === "flex") {
+			boxDroite.title = "Masquer " + complementTitre;
+		}
+		else {
+			boxDroite.title = "Afficher " + complementTitre;
+		}
+	}).css("display", "flex");
+}
+
+
+/**
  * Active le service worker, sauf sur Firefox bureau, car soucis de performances
  */
 function lancerServiceWorker() {
@@ -387,8 +386,8 @@ function lancerServiceWorker() {
 	) {
 		navigator.serviceWorker.register("../service_worker.js")
 		.then({})
-		.catch(erreur => {
-			console.log("Service worker - enregistrement echoué :", erreur);
+		.catch(err => {
+			console.log("lancerServiceWorker - Enregistrement échoué :", err);
 		})
 	}
 }

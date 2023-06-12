@@ -50,15 +50,17 @@ else if ($valeurActu[1] >= $jaugeMinMax[1]) {
  * @return string Date formatée
  */
 function formatageDate($date) : string {
-	$formatter = new IntlDateFormatter("fr_FR",
+	$formatage = new IntlDateFormatter(
+		"fr_FR",
 		IntlDateFormatter::FULL,
 		IntlDateFormatter::NONE,
 		"Europe/Paris",
 		IntlDateFormatter::GREGORIAN,
-		"EE d MMMM y 'à' kk'h'mm");
+		"EEEE d MMMM y 'à' HH'h'mm"
+	);
 
 	// Capitalise les mots, et supprime les points
-	return ucwords(str_replace(".", "", $formatter->format(strtotime($date))));
+	return ucwords(str_replace('.', '', $formatage->format(strtotime($date))));
 }
 
 

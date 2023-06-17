@@ -1,10 +1,12 @@
 <?php
 class BddDonnees{
-	public function __construct(){
-		try{
+	private $pdo;
+
+	public function __construct() {
+		try {
 			$this->pdo = new PDO("sqlite:bdd/donnees.db");
 		}
-		catch (PDOException $exception){
+		catch (PDOException $exception) {
 			$this->error = $exception->getMessage();
 		}
 	}
@@ -17,7 +19,7 @@ class BddDonnees{
 	 * @return array Tableau de la mesure actuelle, avec la date de la prise
 	 */
 	public function getValeurActu($nomColonne) : array {
-		try{
+		try {
 			$statement = $this->pdo->prepare(
 				"SELECT
 					date_mesure,
@@ -29,7 +31,7 @@ class BddDonnees{
 			$statement->execute();
 			return $statement->fetch(PDO::FETCH_NUM);
 		}
-		catch (Exception $exception){
+		catch (Exception $exception) {
 			return $exception->getMessage();
 		}
 	}
@@ -43,7 +45,7 @@ class BddDonnees{
 	 * @return array Tableau de la mesure min ou max, avec la date de la prise
 	 */
 	public function getValeurMinMax($operationMinMax, $nomColonne) : array {
-		try{
+		try {
 			$statement = $this->pdo->prepare(
 				"SELECT
 					date_mesure,
@@ -53,7 +55,7 @@ class BddDonnees{
 			$statement->execute();
 			return $statement->fetch(PDO::FETCH_NUM);
 		}
-		catch (Exception $exception){
+		catch (Exception $exception) {
 			return $exception->getMessage();
 		}
 	}

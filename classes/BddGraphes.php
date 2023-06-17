@@ -1,9 +1,10 @@
 <?php
 class BddGraphes{
-	protected $dateCalculee;
+	private $pdo;
+	private $dateCalculee;
 
-	public function __construct(){
-		try{
+	public function __construct() {
+		try {
 			$this->pdo = new PDO("sqlite:../bdd/graphs.db");
 
 			// Génération de la date antérieur minimale de récupération
@@ -15,7 +16,7 @@ class BddGraphes{
 				$date->format("d") . " days, -1 hours, -3 minutes")
 			);
 		}
-		catch (PDOException $exception){
+		catch (PDOException $exception) {
 			$this->error = $exception->getMessage();
 		}
 	}
@@ -28,7 +29,7 @@ class BddGraphes{
 	 * @return string Valeurs de la colonne
 	 */
 	public function getValeursColonne($nomColonne) : string {
-		try{
+		try {
 			$statement = $this->pdo->prepare(
 				"SELECT $nomColonne
 				FROM meteor_graphs
@@ -43,7 +44,7 @@ class BddGraphes{
 
 			return json_encode($array);
 		}
-		catch (Exception $exception){
+		catch (Exception $exception) {
 			return $exception->getMessage();
 		}
 	}

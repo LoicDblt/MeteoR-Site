@@ -9,7 +9,7 @@ $valeursMinMax = Array();
 const CHEMIN_DOSSIER_NAV = "img/nav/";
 
 // Adapte le contenu de la page en fonction de l'URL (température ou humidité)
-if ($_SERVER["REQUEST_URI"] === "/"){
+if ($_SERVER["REQUEST_URI"] === "/") {
 	include_once "assets/temperature.php";
 
 	// Récupère les valeurs max puis min (température)
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_URI"] === "/"){
 	// Détermine les valeurs min et max de la jauge
 	$jaugeMinMax = [10, 30];
 }
-else if ($_SERVER["REQUEST_URI"] === "/humidite"){
+else if ($_SERVER["REQUEST_URI"] === "/humidite") {
 	include_once "assets/humidite.php";
 
 	// Récupère les valeurs min puis max (humidité)

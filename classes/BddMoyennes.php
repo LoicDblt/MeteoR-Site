@@ -1,11 +1,11 @@
 <?php
-class BddGraphes{
+class BddMoyennes{
 	private $pdo;
 	private $dateCalculee;
 
 	public function __construct() {
 		try {
-			$this->pdo = new PDO("sqlite:../bdd/graphs.db");
+			$this->pdo = new PDO("sqlite:../bdd/moyennes.db");
 
 			// Génération de la date antérieur minimale de récupération
 			// pour les graphiques
@@ -32,7 +32,7 @@ class BddGraphes{
 		try {
 			$statement = $this->pdo->prepare(
 				"SELECT $nomColonne
-				FROM meteor_graphs
+				FROM meteor_moyennes
 				WHERE date_mesure >= :dateCalculee"
 			);
 			$statement->bindParam(":dateCalculee", $this->dateCalculee,

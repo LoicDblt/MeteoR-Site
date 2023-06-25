@@ -1,12 +1,12 @@
 <?php
-include_once "BddGraphes.php";
+include_once "BddMoyennes.php";
 
-$bddGraph = new BddGraphes();
+$bddMoyennes = new BddMoyennes();
 $tab = array();
 
 if ($_POST["nomColonne"] != "undefined") {
-	array_push($tab, $bddGraph->getValeursColonne("date_mesure"));
-	array_push($tab, $bddGraph->getValeursColonne($_POST["nomColonne"]));
+	array_push($tab, $bddMoyennes->getValeursColonne("date_mesure"));
+	array_push($tab, $bddMoyennes->getValeursColonne($_POST["nomColonne"]));
 	echo json_encode($tab);
 }
 else {

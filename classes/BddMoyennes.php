@@ -32,8 +32,8 @@ class BddMoyennes{
 		try {
 			$statement = $this->pdo->prepare(
 				"SELECT $nomColonne
-				FROM meteor_moyennes
-				WHERE date_mesure >= :dateCalculee"
+				FROM moyennes
+				WHERE date >= :dateCalculee"
 			);
 			$statement->bindParam(":dateCalculee", $this->dateCalculee,
 				PDO::PARAM_STR);

@@ -3,7 +3,7 @@ const CONTENU_PAGE = [
 	"commun" => [
 		"typeDonnees" => "Température",
 		"unite" => "°C",
-		"nomColonne" => "temperature_ambiante",
+		"nomColonne" => "temp",
 		"titreActu" => "Température relevée le"
 	],
 	"head" => [

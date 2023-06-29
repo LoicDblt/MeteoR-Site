@@ -3,7 +3,7 @@ const CONTENU_PAGE = [
 	"commun" => [
 		"typeDonnees" => "Humidité",
 		"unite" => "%",
-		"nomColonne" => "humidite_ambiante",
+		"nomColonne" => "humi",
 		"titreActu" => "Taux d'humidité relevé le"
 	],
 	"head" => [

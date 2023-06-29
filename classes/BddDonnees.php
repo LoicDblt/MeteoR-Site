@@ -4,7 +4,7 @@ class BddDonnees{
 
 	public function __construct() {
 		try {
-			$this->pdo = new PDO("sqlite:bdd/donnees.db");
+			$this->pdo = new PDO("sqlite:bdd/mesures.db");
 		}
 		catch (PDOException $exception) {
 			$this->error = $exception->getMessage();
@@ -22,11 +22,11 @@ class BddDonnees{
 		try {
 			$statement = $this->pdo->prepare(
 				"SELECT
-					date_mesure,
+					date,
 					$nomColonne as valeur
-				FROM meteor_donnees
+				FROM mesures
 				WHERE $nomColonne IS NOT NULL
-				ORDER BY date_mesure DESC LIMIT 1"
+				ORDER BY date DESC LIMIT 1"
 			);
 			$statement->execute();
 			return $statement->fetch(PDO::FETCH_NUM);
@@ -48,9 +48,9 @@ class BddDonnees{
 		try {
 			$statement = $this->pdo->prepare(
 				"SELECT
-					date_mesure,
+					date,
 					$operationMinMax($nomColonne) AS $nomColonne
-				FROM meteor_donnees"
+				FROM bornes"
 			);
 			$statement->execute();
 			return $statement->fetch(PDO::FETCH_NUM);

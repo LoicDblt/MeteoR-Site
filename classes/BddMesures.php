@@ -1,5 +1,5 @@
 <?php
-class BddDonnees{
+class BddMesures{
 	private $pdo;
 
 	public function __construct() {

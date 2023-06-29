@@ -142,12 +142,12 @@ function recupAbsOrd(nomColonne) {
 /**
  * Paramètre le graphique, récupère les données et affiche l'ensemble
  * @param nomColonne dans la base de données, des mesures à récupérer
- * @param typeDonnees des mesures, à afficher dans les labels
+ * @param typeMesures des mesures, à afficher dans les labels
  * @param unite des mesures, à afficher sur l'axe des ordonnées
  * @min valeur minimale pour le dégradé
  * @max valeur maximale pour le dégradé
  */
-function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
+function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 	// Configure les paramètres du graphique
 	const config = {
 		locale: "fr",
@@ -216,7 +216,7 @@ function parametrerAfficherGraphique(nomColonne, typeDonnees, unite, min, max) {
 				width: 2,
 				shape: "spline"
 			},
-			hovertemplate: "<b>" + typeDonnees + " :</b> %{y:.1f}" + unite +
+			hovertemplate: "<b>" + typeMesures + " :</b> %{y:.1f}" + unite +
 							"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
 							"<extra></extra>",
 			hoverlabel: {

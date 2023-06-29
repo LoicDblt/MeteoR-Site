@@ -2,8 +2,8 @@
 header("X-Frame-Options: DENY");
 header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
-include_once "classes/BddDonnees.php";
-$bddDonnees = new BddDonnees();
+include_once "classes/BddMesures.php";
+$bddMesures = new BddMesures();
 
 $valeursMinMax = Array();
 const CHEMIN_DOSSIER_NAV = "img/nav/";
@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_URI"] === "/") {
 	include_once "assets/temperature.php";
 
 	// Récupère les valeurs max puis min (température)
-	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_temp"));
-	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_temp"));
+	array_push($valeursMinMax, $bddMesures->getValeurMinMax("MAX", "max_temp"));
+	array_push($valeursMinMax, $bddMesures->getValeurMinMax("MIN", "min_temp"));
 
 	// Détermine les valeurs min et max de la jauge
 	$jaugeMinMax = [10, 30];
@@ -23,8 +23,8 @@ else if ($_SERVER["REQUEST_URI"] === "/humidite") {
 	include_once "assets/humidite.php";
 
 	// Récupère les valeurs min puis max (humidité)
-	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MIN", "min_humi"));
-	array_push($valeursMinMax, $bddDonnees->getValeurMinMax("MAX", "max_humi"));
+	array_push($valeursMinMax, $bddMesures->getValeurMinMax("MIN", "min_humi"));
+	array_push($valeursMinMax, $bddMesures->getValeurMinMax("MAX", "max_humi"));
 
 	// Détermine les valeurs min et max de la jauge
 	$jaugeMinMax = [20, 80];
@@ -37,7 +37,7 @@ else {
 }
 
 // Récupère la valeur actuelle
-$valeurActu = $bddDonnees->getValeurActu(CONTENU_PAGE["commun"]["nomColonne"]);
+$valeurActu = $bddMesures->getValeurActu(CONTENU_PAGE["commun"]["nomColonne"]);
 
 // Adapte les valeurs min et max de la jauge de mesure, afin qu'elles soient
 // toujours visibles
@@ -84,7 +84,7 @@ function formatageValeur($valeur) : string {
 <html lang="fr">
 <head>
 	<meta charset="UTF-8"/>
-	<title><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></title>
+	<title><?php echo CONTENU_PAGE["commun"]["typeMesures"]?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="robots" content="noindex, nofollow"/>
 	<meta name="color-scheme" content="light dark"/>
@@ -151,7 +151,7 @@ function formatageValeur($valeur) : string {
 </header>
 <section>
 	<section>
-		<h1><?php echo CONTENU_PAGE["commun"]["typeDonnees"]?></h1>
+		<h1><?php echo CONTENU_PAGE["commun"]["typeMesures"]?></h1>
 		<div title="<?php
 			echo CONTENU_PAGE["commun"]["titreActu"] . " ";
 			echo formatageDate($valeurActu[0])?>" id="jauge">
@@ -178,7 +178,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 parametrerAfficherGraphique(<?php echo "\"" .
 	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
-	CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
+	CONTENU_PAGE["commun"]["typeMesures"] . "\", \"" .
 	CONTENU_PAGE["commun"]["unite"] . "\", " .
 	$jaugeMinMax[0] . ", " .
 	$jaugeMinMax[1]
@@ -196,7 +196,7 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 () => {
 	parametrerAfficherGraphique(<?php echo "\"" .
 		CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
-		CONTENU_PAGE["commun"]["typeDonnees"] . "\", \"" .
+		CONTENU_PAGE["commun"]["typeMesures"] . "\", \"" .
 		CONTENU_PAGE["commun"]["unite"] . "\", " .
 		$jaugeMinMax[0] . ", " .
 		$jaugeMinMax[1]

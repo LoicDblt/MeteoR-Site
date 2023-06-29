@@ -1,7 +1,7 @@
 <?php
 const CONTENU_PAGE = [
 	"commun" => [
-		"typeDonnees" => "Température",
+		"typeMesures" => "Température",
 		"unite" => "°C",
 		"nomColonne" => "temp",
 		"titreActu" => "Température relevée le"

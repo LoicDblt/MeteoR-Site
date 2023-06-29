@@ -1,7 +1,7 @@
 <?php
 const CONTENU_PAGE = [
 	"commun" => [
-		"typeDonnees" => "Humidité",
+		"typeMesures" => "Humidité",
 		"unite" => "%",
 		"nomColonne" => "humi",
 		"titreActu" => "Taux d'humidité relevé le"

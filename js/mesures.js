@@ -72,48 +72,24 @@ function jaugeMesure(pourcentage, min, max, unite) {
 
 /**
  * Fonction permettant de basculer l'affichage d'une div
- * 
- * @param identifiantDiv de la div à afficher ou masquer
  *
- * @credit https://stackoverflow.com/a/29950973 ("Samurai", 06/06/2019 à 00:01)
+ * @param identifiantDiv de la div à afficher ou masquer
  */
 var ouvert = false;
-var hauteurDiv = 35;
-var identifiantInterval = null;
-var delaiMs = 8;
 
 function basculerAffichage(identifiantDiv) {
-	window.clearInterval(identifiantInterval);
 	const div = document.getElementById(identifiantDiv);
 
 	if (ouvert) {
-		let hauteur = hauteurDiv;
 		ouvert = false;
-		identifiantInterval = setInterval(() => {
-			hauteur--;
-			div.style.height = hauteur + "px";
-
-			if (hauteur <= 0) {
-				window.clearInterval(identifiantInterval);
-				div.style.display = "none";
-			}
-		}, delaiMs);
+		div.style.height = "0px";
+		div.style.visibility = "hidden";
 	}
 
 	else {
-		let hauteur = 0;
 		ouvert = true;
-		identifiantInterval = setInterval(() => {
-			hauteur++;
-			div.style.height = hauteur + "px";
-
-			if (hauteur >= hauteurDiv) {
-				window.clearInterval(identifiantInterval);
-			}
-			else if (hauteur === 1) {
-				div.style.display = "flex";
-			}
-		}, delaiMs);
+		div.style.visibility = "visible";
+		div.style.height = "35px";
 	}
 }
 
@@ -127,13 +103,12 @@ function basculerAffichageMinMax(complementTitre) {
 	basculerAffichage("valeursMinMax");
 
 	// Modifie le titre de la box
-	const boxValMinMax = document.getElementById("valeursMinMax");
 	const boxDroite = document.getElementById("boxDroite");
 
-	if (boxValMinMax.style.display === "flex") {
-		boxDroite.title = "Afficher " + complementTitre;
+	if (ouvert) {
+		boxDroite.title = "Masquer " + complementTitre;
 	}
 	else {
-		boxDroite.title = "Masquer " + complementTitre;
+		boxDroite.title = "Afficher " + complementTitre;
 	}
 }

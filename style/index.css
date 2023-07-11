@@ -95,9 +95,10 @@ nav > a:active {
 	text-align: center;
 }
 #valeursMinMax {
-	display: none;
+	visibility: hidden;
 	height: 0px;
 	overflow-y: hidden;
+	transition: all 0.4s ease-in-out;
 }
 #valeursMinMax > p {
 	width: 100%;

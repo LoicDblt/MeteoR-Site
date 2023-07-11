@@ -13,7 +13,7 @@ class BddMoyennes{
 			$date = new DateTime();
 			$date->modify("last day of previous month");
 			$this->dateCalculee = date("Y-m-d H:i:s", strtotime("-" .
-				$date->format("d") . " days, -1 hours, -3 minutes")
+				$date->format("d") . " days, -1 hours")
 			);
 		}
 		catch (PDOException $exception) {

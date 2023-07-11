@@ -24,6 +24,7 @@ class BddMoyennes{
 
 	/**
 	 * Récupère les valeurs d'une colonne
+	 * 
 	 * @param string $nomColonne Nom de la colonne à récupérer
 	 *
 	 * @return string Valeurs de la colonne

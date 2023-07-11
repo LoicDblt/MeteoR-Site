@@ -51,6 +51,7 @@ else if ($valeurActu[1] >= $jaugeMinMax[1]) {
 
 /**
  * Formate une date en chaîne de caractères, au format français
+ * 
  * @param string $date Date à formater
  *
  * @return string Date formatée
@@ -72,6 +73,7 @@ function formatageDate($date) : string {
 
 /**
  * Formate une valeur numérique en chaîne de caractères
+ * 
  * @param float $valeur Valeur à formater
  *
  * @return string Valeur formatée
@@ -108,7 +110,7 @@ function formatageValeur($valeur) : string {
 			CHEMIN_DOSSIER_NAV?>meteor.svg" alt="Logo du site MeteoR"
 		/>
 	</div>
-	<div id="boxDroite" onclick= "inverserAffichageMinMax(`<?php echo
+	<div id="boxDroite" onclick= "basculerAffichageMinMax(`<?php echo
 		// Garder les apostrophes sur balise php, pour la coloration syntaxique
 		CONTENU_PAGE['minMax']['titre']?>`)" title="Afficher <?php echo
 		CONTENU_PAGE["minMax"]["titre"]
@@ -162,9 +164,6 @@ function formatageValeur($valeur) : string {
 		<div id="graphique"></div>
 	</section>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.2/plotly-basic.min.js"
 integrity="sha512-zrsz397IzKAxwgudUVSIX83J02+Pd66KkPVr1uwOrWg84gj1xho3kV7QTNVkTB+R+x4lpKrk6F5DpjW6BGTqvA=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -174,7 +173,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"
 integrity="sha512-EZhmSl/hiKyEHklogkakFnSYa5mWsLmTC4ZfvVzhqYNLPbXKAXsjUYRf2O9OlzQN33H0xBVfGSEIUeqt9astHQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/index.js"></script>
+<script src="js/accesDonnees.js"></script>
+<script src="js/couleurs.js"></script>
+<script src="js/graphique.js"></script>
+<script src="js/mesures.js"></script>
+<script src="js/fonctionnalites.js"></script>
 <script>
 parametrerAfficherGraphique(<?php echo "\"" .
 	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .

@@ -14,6 +14,7 @@ class BddMesures{
 
 	/**
 	 * Récupère la valeur actuelle
+	 * 
 	 * @param string $nomColonne Nom de la colonne à traiter (pour le type)
 	 *
 	 * @return array Tableau de la mesure actuelle, avec la date de la prise
@@ -39,6 +40,7 @@ class BddMesures{
 
 	/**
 	 * Récupère la valeur min et max
+	 * 
 	 * @param string $operationMinMax "MIN" ou "MAX"
 	 * @param string $nomColonne Nom de la colonne à traiter (pour le type)
 	 *

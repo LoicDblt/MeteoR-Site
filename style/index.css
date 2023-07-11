@@ -94,20 +94,21 @@ nav > a:active {
 	line-height: 64px;
 	text-align: center;
 }
-#boxDroite > div:last-child {
+#valeursMinMax {
 	display: none;
-	height: 35px;
+	height: 0px;
+	overflow-y: hidden;
 }
-#boxDroite > div:last-child > p {
+#valeursMinMax > p {
 	width: 100%;
 	margin: 0;
 	font-size: 32px;
 	text-align: center;
 }
-#boxDroite > div:last-child > p:first-child {
+#valeursMinMax > p:first-child {
 	color: #f9700e;
 }
-#boxDroite > div:last-child > p:last-child {
+#valeursMinMax > p:last-child {
 	color: #09a4dd;
 }
 
@@ -252,7 +253,7 @@ div.plotly-notifier {
 		height: 44px;
 		line-height: 44px;
 	}
-	#boxDroite > div:last-child > p {
+	#valeursMinMax > p {
 		font-size: 24px;
 	}
 

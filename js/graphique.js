@@ -132,6 +132,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			yaxis: {
 				gridcolor: gridcolor,
 				gridcolorwidth: 1,
+				nticks: nticks,
 				fixedrange: true,
 				tickformat: ".1f",
 				ticksuffix: (unite === "%") ? unite + " " : unite

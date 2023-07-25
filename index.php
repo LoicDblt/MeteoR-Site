@@ -27,7 +27,7 @@ else if ($_SERVER["REQUEST_URI"] === "/humidite") {
 	array_push($valeursMinMax, $bddMesures->getValeurMinMax("MAX", "max_humi"));
 
 	// Détermine les valeurs min et max de la jauge
-	$jaugeMinMax = [20, 80];
+	$jaugeMinMax = [25, 75];
 }
 else {
 	// En cas de paramètre d'URL invalide, renvoie une erreur 404

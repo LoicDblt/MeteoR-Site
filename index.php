@@ -51,7 +51,7 @@ else if ($valeurActu[1] >= $jaugeMinMax[1]) {
 
 /**
  * Formate une date en chaîne de caractères, au format français
- * 
+ *
  * @param string $date Date à formater
  *
  * @return string Date formatée
@@ -73,7 +73,7 @@ function formatageDate($date) : string {
 
 /**
  * Formate une valeur numérique en chaîne de caractères
- * 
+ *
  * @param float $valeur Valeur à formater
  *
  * @return string Valeur formatée
@@ -100,7 +100,7 @@ function formatageValeur($valeur) : string {
 </head>
 <body>
 <header>
-	<nav>
+	<nav id="boxGauche">
 		<a draggable="false" href="<?php echo CONTENU_PAGE["nav"]["href"]?>">
 			<?php echo CONTENU_PAGE["nav"]["valeur"] . PHP_EOL?>
 		</a>
@@ -110,7 +110,7 @@ function formatageValeur($valeur) : string {
 			CHEMIN_DOSSIER_NAV?>meteor.svg" alt="Logo du site MeteoR"
 		/>
 	</div>
-	<div id="boxDroite" onclick= "basculerAffichageMinMax(`<?php echo
+	<div id="boxDroite" onclick="basculerAffichageMinMax(`<?php echo
 		// Garder les apostrophes sur balise php, pour la coloration syntaxique
 		CONTENU_PAGE['minMax']['titre']?>`)" title="Afficher <?php echo
 		CONTENU_PAGE["minMax"]["titre"]
@@ -215,6 +215,9 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 });
 
 lancerServiceWorker();
+
+window.onload = function() {retracterScroll()};
+window.onscroll = function() {retracterScroll()};
 </script>
 </body>
 </html>

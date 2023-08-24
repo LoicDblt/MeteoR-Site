@@ -22,6 +22,7 @@ body {
 	color: #000000;
 	font-family: "Open Sans", Arial, sans-serif;
 	margin: 0;
+	padding-top: 118px;
 }
 img {
 	user-select: none;
@@ -30,32 +31,39 @@ img {
 /* Header */
 header {
 	display: flex;
-	background-color: #ffffff;
+	position: fixed;
+	width: 100vw;
+	z-index: 1;
+	top: 0;
 	border-radius: 0 0 10px 10px;
 	box-shadow: 0px 15px 20px -15px #cecece;
+	background-color: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 }
 
 	/* Box gauche */
-nav {
+#boxGauche {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 27.5%;
 }
-nav > a {
+#boxGauche > a {
 	color: #000000;
 	font-size: 20px;
 	padding: 5px;
-	transition: 0.3s;
 	text-transform: uppercase;
 	text-decoration: none;
 	user-select: none;
 	outline: none;
+	opacity: 1;
+	transition: all 0.2s;
 }
-nav > a:hover {
+#boxGauche > a:hover {
 	color: #646464;
 }
-nav > a:active {
+#boxGauche > a:active {
 	color: #838383;
 }
 
@@ -71,6 +79,7 @@ nav > a:active {
 	line-height: 98px;
 	padding: 10px 0;
 	text-align: center;
+	transition: all 0.2s ease-out;
 }
 
 	/* Box droite */
@@ -93,6 +102,7 @@ nav > a:active {
 	height: 64px;
 	line-height: 64px;
 	text-align: center;
+	transition: all 0.2s ease-out;
 }
 #valeursMinMax {
 	visibility: hidden;
@@ -214,6 +224,11 @@ div.plotly-notifier {
 
 /* Version mobile */
 @media screen and (max-width: 799px) {
+	/* Général */
+	body {
+		padding-top: 197px;
+	}
+
 	/* Header */
 	header {
 		flex-wrap: wrap;
@@ -221,13 +236,13 @@ div.plotly-notifier {
 	}
 
 		/* Box gauche */
-	nav {
+	#boxGauche {
 		width: 45%;
+		height: 79px;
 		order: 2;
+		transition: all 0.2s ease-out;
 	}
-	nav > a {
-		display: block;
-		padding: 20px 10px;
+	#boxGauche > a {
 		transition: 0.1s;
 	}
 
@@ -248,6 +263,8 @@ div.plotly-notifier {
 		width: 55%;
 		height: 79px;
 		order: 3;
+		z-index: 10;
+		transition: all 0.2s ease-out;
 	}
 	#boxDroite > div:first-child > img {
 		width: 44px;
@@ -299,13 +316,13 @@ div.plotly-notifier {
 	}
 
 		/* Box gauche */
-	nav > a {
+	#boxGauche > a {
 		color: #bebebe;
 	}
-	nav > a:hover {
+	#boxGauche > a:hover {
 		color: #8b8b8b;
 	}
-	nav > a:active {
+	#boxGauche > a:active {
 		color: #727272;
 	}
 

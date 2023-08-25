@@ -9,10 +9,6 @@ class CouleursGraph {
 		this.linecolor = linecolor;
 	}
 
-	getGridcolor() {
-		return this.gridcolor;
-	}
-
 	getCouleursTableau() {
 		return Array(this.bgcolor, this.gridcolor, this.color, this.linecolor);
 	}

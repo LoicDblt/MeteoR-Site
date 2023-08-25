@@ -16,10 +16,10 @@ function jaugeMesure(pourcentage, min, max, unite) {
 	// Configure la couleur de l'arc en fond de jauge
 	let trailcolor;
 	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		trailcolor = (new CouleursClaires()).getGridcolor();
+		trailcolor = (new CouleursClaires()).gridColor;
 	}
 	else {
-		trailcolor = (new CouleursSombres()).getGridcolor();
+		trailcolor = (new CouleursSombres()).gridColor;
 	}
 
 	// Configure la jauge

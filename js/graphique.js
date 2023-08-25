@@ -23,7 +23,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		right = 5;
 		bottom = 35;
 		left = 40;
-		nticks = 5;
+		nticks = 6;
 	}
 	else {
 		top = 10;

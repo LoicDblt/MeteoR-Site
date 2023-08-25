@@ -80,6 +80,7 @@ header {
 	padding: 10px 0;
 	text-align: center;
 	transition: all 0.2s ease-out;
+	cursor: pointer;
 }
 
 	/* Box droite */

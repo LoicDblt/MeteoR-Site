@@ -1,22 +1,4 @@
 /**
- * Active le service worker, sauf sur Firefox bureau, car soucis de performances
- */
-function lancerServiceWorker() {
-	if (
-		"serviceWorker" in navigator &&
-		(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
-		window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
-	) {
-		navigator.serviceWorker.register("../service_worker.js")
-		.then({})
-		.catch(err => {
-			console.log("lancerServiceWorker - Enregistrement échoué :", err);
-		})
-	}
-}
-
-
-/**
  * Classe pour les dimensions du header
  */
 class dimensions {
@@ -25,7 +7,7 @@ class dimensions {
 		logoWR, logoHR,
 		icone, iconeR,
 		headerH, headerHR,
-		scrollH
+		paddingB, scrollH
 	) {
 		this.logoW = logoW;
 		this.logoH = logoH;
@@ -35,35 +17,8 @@ class dimensions {
 		this.iconeR = iconeR;
 		this.headerH = headerH;
 		this.headerHR = headerHR;
+		this.paddingB = paddingB;
 		this.scrollH = scrollH;
-	}
-
-	getLogoW() {
-		return this.logoW;
-	}
-	getLogoH() {
-		return this.logoH;
-	}
-	getLogoWR() {
-		return this.logoWR;
-	}
-	getLogoHR() {
-		return this.logoHR;
-	}
-	getIcone() {
-		return this.icone;
-	}
-	getIconeR() {
-		return this.iconeR;
-	}
-	getHeaderH() {
-		return this.headerH;
-	}
-	getHeaderHR() {
-		return this.headerHR;
-	}
-	getScrollH() {
-		return this.scrollH;
 	}
 }
 
@@ -74,7 +29,7 @@ class dimensionsBureau extends dimensions {
 			"239px", "60px",
 			"64px", "42px",
 			"unset", "unset",
-			38
+			"unset", 37
 		);
 	}
 }
@@ -86,7 +41,7 @@ class dimensionsMobile extends dimensions {
 			"200px", "50px",
 			"44px", "0px",
 			"79px", "0px",
-			83
+			"10px", 117
 		);
 	}
 }
@@ -119,70 +74,86 @@ function retracterScroll() {
 	}
 
 	// Réduit le header en fonction de la distance de défilement
-	if (document.documentElement.scrollTop > dimensions.getScrollH()) {
+	if (document.documentElement.scrollTop > dimensions.scrollH) {
 		// Logo
 		document.querySelector("#boxCentre > img").style.width =
-			dimensions.getLogoWR();
+			dimensions.logoWR;
 		document.querySelector("#boxCentre > img").style.height =
-			dimensions.getLogoHR();
+			dimensions.logoHR;
 
-		// Images min et max
-		document.querySelector("#boxDroite").style.height =
-			dimensions.getHeaderHR();
+		// Division min et max
+		document.querySelector("header").style.paddingBottom = "0px";
+		document.querySelector("#boxDroite").style.height = dimensions.headerHR;
 
 		document.querySelector("#boxDroite > div > img:first-child")
-			.style.width = dimensions.getIconeR();
+			.style.width = dimensions.iconeR;
 		document.querySelector("#boxDroite > div > img:first-child")
-			.style.height = dimensions.getIconeR();
+			.style.height = dimensions.iconeR;
 		document.querySelector("#boxDroite > div > img:first-child")
 			.style.opacity = 0;
 
 		document.querySelector("#boxDroite > div > img:last-child")
-			.style.width = dimensions.getIconeR();
+			.style.width = dimensions.iconeR;
 		document.querySelector("#boxDroite > div > img:last-child")
-			.style.height = dimensions.getIconeR();
+			.style.height = dimensions.iconeR;
 		document.querySelector("#boxDroite > div > img:last-child")
 			.style.opacity = 0;
 
 		document.getElementById("boxDroite").style.visibility = "hidden";
 
 		// Lien vers l'autre page
-		document.querySelector("#boxGauche").style.height =
-			dimensions.getHeaderHR();
+		document.querySelector("#boxGauche").style.height = dimensions.headerHR;
 		document.querySelector("#boxGauche").style.visibility = "hidden";
 		document.querySelector("#boxGauche > a").style.opacity = 0;
 	}
 	else {
 		// Logo
 		document.querySelector("#boxCentre > img").style.width =
-			dimensions.getLogoW();
+			dimensions.logoW;
 		document.querySelector("#boxCentre > img").style.height =
-			dimensions.getLogoH();
+			dimensions.logoH;
 
-		// Images min et max
-		document.querySelector("#boxDroite").style.height =
-			dimensions.getHeaderH();
-
+		// Division min et max
+		document.querySelector("header").style.paddingBottom =
+			dimensions.paddingB;
 		document.getElementById("boxDroite").style.visibility = "visible";
+		document.querySelector("#boxDroite").style.height = dimensions.headerH;
 
 		document.querySelector("#boxDroite > div > img:first-child")
-			.style.width = dimensions.getIcone();
+			.style.width = dimensions.icone;
 		document.querySelector("#boxDroite > div > img:first-child")
-			.style.height = dimensions.getIcone();
+			.style.height = dimensions.icone;
 		document.querySelector("#boxDroite > div > img:first-child")
 			.style.opacity = 1;
 
 		document.querySelector("#boxDroite > div > img:last-child")
-			.style.width = dimensions.getIcone();
+			.style.width = dimensions.icone;
 		document.querySelector("#boxDroite > div > img:last-child")
-			.style.height = dimensions.getIcone();
+			.style.height = dimensions.icone;
 		document.querySelector("#boxDroite > div > img:last-child")
 			.style.opacity = 1;
 
 		// Lien vers l'autre page
 		document.querySelector("#boxGauche").style.visibility = "visible";
-		document.querySelector("#boxGauche").style.height =
-			dimensions.getHeaderH();
+		document.querySelector("#boxGauche").style.height = dimensions.headerH;
 		document.querySelector("#boxGauche > a").style.opacity = 1;
+	}
+}
+
+
+/**
+ * Active le service worker, sauf sur Firefox bureau, car soucis de performances
+ */
+function lancerServiceWorker() {
+	if (
+		"serviceWorker" in navigator &&
+		(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||
+		window.navigator.userAgent.toLowerCase().indexOf("mobile") > -1)
+	) {
+		navigator.serviceWorker.register("../service_worker.js")
+		.then({})
+		.catch(err => {
+			console.log("lancerServiceWorker - Enregistrement échoué :", err);
+		})
 	}
 }

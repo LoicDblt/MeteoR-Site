@@ -310,7 +310,7 @@ div.plotly-notifier {
 
 	/* Header */
 	header {
-		background-color: #000000;
+		background-color: rgba(0, 0, 0, 0.7);
 		z-index: 1;
 		box-shadow: 0 15px 20px -15px #080808;
 	}

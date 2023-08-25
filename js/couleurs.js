@@ -30,6 +30,7 @@ class CouleursSombres extends CouleursGraph {
 	}
 }
 
+
 /**
  * Classe pour les couleurs des données
  */

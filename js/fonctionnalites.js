@@ -60,10 +60,6 @@ function activerHeaderReduit() {
  * Rétracte le header au scroll
  */
 function retracterScroll() {
-	// Fermer les min/max
-	ouvert = true;
-	basculerAffichage("valeursMinMax");
-
 	// Récupère les dimensions en fonction de la taille de l'écran
 	let dimensions;
 	if (window.matchMedia("(max-width: 769px)").matches) {
@@ -75,6 +71,10 @@ function retracterScroll() {
 
 	// Réduit le header en fonction de la distance de défilement
 	if (document.documentElement.scrollTop > dimensions.scrollH) {
+		// Fermer les min/max
+		ouvert = true;
+		basculerAffichage("valeursMinMax");
+
 		// Logo
 		document.querySelector("#boxCentre > img").style.width =
 			dimensions.logoWR;
@@ -83,7 +83,7 @@ function retracterScroll() {
 
 		// Division min et max
 		document.querySelector("header").style.paddingBottom = "0px";
-		document.querySelector("#boxDroite").style.height = dimensions.headerHR;
+		document.getElementById("boxDroite").style.height = dimensions.headerHR;
 
 		document.querySelector("#boxDroite > div > img:first-child")
 			.style.width = dimensions.iconeR;
@@ -102,8 +102,8 @@ function retracterScroll() {
 		document.getElementById("boxDroite").style.visibility = "hidden";
 
 		// Lien vers l'autre page
-		document.querySelector("#boxGauche").style.height = dimensions.headerHR;
-		document.querySelector("#boxGauche").style.visibility = "hidden";
+		document.getElementById("boxGauche").style.height = dimensions.headerHR;
+		document.getElementById("boxGauche").style.visibility = "hidden";
 		document.querySelector("#boxGauche > a").style.opacity = 0;
 	}
 	else {
@@ -134,8 +134,8 @@ function retracterScroll() {
 			.style.opacity = 1;
 
 		// Lien vers l'autre page
-		document.querySelector("#boxGauche").style.visibility = "visible";
-		document.querySelector("#boxGauche").style.height = dimensions.headerH;
+		document.getElementById("boxGauche").style.visibility = "visible";
+		document.getElementById("boxGauche").style.height = dimensions.headerH;
 		document.querySelector("#boxGauche > a").style.opacity = 1;
 	}
 }

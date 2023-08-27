@@ -39,7 +39,7 @@ class dimensionsMobile extends dimensions {
 		super(
 			"320px", "80px",
 			"200px", "50px",
-			"44px", "0px",
+			"44px", "30px",
 			"79px", "0px",
 			"10px", 117
 		);
@@ -75,16 +75,18 @@ function retracterScroll() {
 		ouvert = true;
 		basculerAffichage("valeursMinMax");
 
-		// Logo
+		// Header
+		document.querySelector("header").style.paddingBottom = "0px";
+
+		// Box centrale
 		document.querySelector("#boxCentre > img").style.width =
 			dimensions.logoWR;
 		document.querySelector("#boxCentre > img").style.height =
 			dimensions.logoHR;
 
-		// Division min et max
+		// Box droite
 		document.getElementById("valeursMinMax").style.transitionDuration =
 			"0.2s";
-		document.querySelector("header").style.paddingBottom = "0px";
 		document.getElementById("boxDroite").style.height = dimensions.headerHR;
 
 		document.querySelector("#boxDroite > div > img:first-child")
@@ -103,23 +105,25 @@ function retracterScroll() {
 
 		document.getElementById("boxDroite").style.visibility = "hidden";
 
-		// Lien vers l'autre page
+		// Box gauche
 		document.getElementById("boxGauche").style.height = dimensions.headerHR;
 		document.getElementById("boxGauche").style.visibility = "hidden";
 		document.querySelector("#boxGauche > a").style.opacity = 0;
 	}
 	else {
-		// Logo
+		// Header
+		document.querySelector("header").style.paddingBottom =
+			dimensions.paddingB;
+
+		// Box centrale
 		document.querySelector("#boxCentre > img").style.width =
 			dimensions.logoW;
 		document.querySelector("#boxCentre > img").style.height =
 			dimensions.logoH;
 
-		// Division min et max
+		// Box droite
 		document.getElementById("valeursMinMax").style.transitionDuration =
 			"0.4s";
-		document.querySelector("header").style.paddingBottom =
-			dimensions.paddingB;
 		document.getElementById("boxDroite").style.visibility = "visible";
 		document.querySelector("#boxDroite").style.height = dimensions.headerH;
 
@@ -137,7 +141,7 @@ function retracterScroll() {
 		document.querySelector("#boxDroite > div > img:last-child")
 			.style.opacity = 1;
 
-		// Lien vers l'autre page
+		// Box gauche
 		document.getElementById("boxGauche").style.visibility = "visible";
 		document.getElementById("boxGauche").style.height = dimensions.headerH;
 		document.querySelector("#boxGauche > a").style.opacity = 1;
@@ -148,7 +152,7 @@ function retracterScroll() {
 /**
  * Active le service worker, sauf sur Firefox bureau, car soucis de performances
  */
-function lancerServiceWorker() {
+function activerServiceWorker() {
 	if (
 		"serviceWorker" in navigator &&
 		(window.navigator.userAgent.toLowerCase().indexOf("firefox") === -1 ||

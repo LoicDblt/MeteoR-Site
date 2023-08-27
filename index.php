@@ -165,10 +165,10 @@ function formatageValeur($valeur) : string {
 		<div id="graphique"></div>
 	</section>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.2/plotly-basic.min.js"
-integrity="sha512-zrsz397IzKAxwgudUVSIX83J02+Pd66KkPVr1uwOrWg84gj1xho3kV7QTNVkTB+R+x4lpKrk6F5DpjW6BGTqvA=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly-basic.min.js"
+integrity="sha512-bsEo0AkGyf5peN2R7u2RtcbU4f0qH604l0+4OOHNA0lzLOmxDjLJYlyfg1AuhDkewl5swoDm/jU6EzKTKTZL0w=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.23.2/plotly-locale-fr.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly-locale-fr.min.js"
 integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"
@@ -215,7 +215,7 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 	?>);
 });
 
-lancerServiceWorker();
+activerServiceWorker();
 
 activerHeaderReduit();
 </script>

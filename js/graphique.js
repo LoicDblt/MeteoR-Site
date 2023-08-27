@@ -17,30 +17,30 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 	}
 
 	// Configure le placement du graphique
-	let top, right, bottom, left, nticks;
+	let top, right, bottom, left, nTicks;
 	if (window.matchMedia("(max-width: 769px)").matches) {
 		top = 0;
 		right = 5;
 		bottom = 35;
 		left = 40;
-		nticks = 6;
+		nTicks = 6;
 	}
 	else {
 		top = 10;
 		right = 10;
 		bottom = 50;
 		left = 55;
-		nticks = 8;
+		nTicks = 8;
 	}
 
 	// Récupère les couleurs en fonction du thème
-	let bgcolor, gridcolor, fontcolor, linecolor;
+	let bgColor, gridColor, fontColor, lineColor;
 	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		[bgcolor, gridcolor, fontcolor, linecolor] =
+		[bgColor, gridColor, fontColor, lineColor] =
 			(new CouleursClaires()).getCouleursTableau();
 	}
 	else {
-		[bgcolor, gridcolor, fontcolor, linecolor] =
+		[bgColor, gridColor, fontColor, lineColor] =
 			(new CouleursSombres()).getCouleursTableau();
 	}
 
@@ -72,7 +72,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			},
 			connectgaps: true,
 			line: {
-				color: linecolor,
+				color: lineColor,
 				width: 2,
 				shape: "spline"
 			},
@@ -102,13 +102,13 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			},
 			font: {
 				family: "Open Sans",
-				color: fontcolor
+				color: fontColor
 			},
-			plot_bgcolor: bgcolor,
-			paper_bgcolor: bgcolor,
+			plot_bgcolor: bgColor,
+			paper_bgcolor: bgColor,
 			xaxis: {
 				showgrid: false,
-				nticks: nticks,
+				nticks: nTicks,
 				tickformatstops: [
 					{
 						"dtickrange": [null, 60000],
@@ -130,9 +130,9 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				range: [abscisse[0], abscisse[abscisse.length - 1]]
 			},
 			yaxis: {
-				gridcolor: gridcolor,
+				gridcolor: gridColor,
 				gridcolorwidth: 1,
-				nticks: nticks,
+				nticks: nTicks,
 				fixedrange: true,
 				tickformat: ".1f",
 				ticksuffix: (unite === "%") ? unite + " " : unite

@@ -2,15 +2,15 @@
  *  Classe pour les couleurs du graphique
  */
 class CouleursGraph {
-	constructor(bgcolor, gridcolor, color, linecolor) {
-		this.bgcolor = bgcolor;
-		this.gridcolor = gridcolor;
+	constructor(bgColor, gridColor, color, lineColor) {
+		this.bgColor = bgColor;
+		this.gridColor = gridColor;
 		this.color = color;
-		this.linecolor = linecolor;
+		this.lineColor = lineColor;
 	}
 
 	getCouleursTableau() {
-		return Array(this.bgcolor, this.gridcolor, this.color, this.linecolor);
+		return Array(this.bgColor, this.gridColor, this.color, this.lineColor);
 	}
 }
 

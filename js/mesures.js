@@ -14,12 +14,12 @@ function jaugeMesure(pourcentage, min, max, unite) {
 	}
 
 	// Configure la couleur de l'arc en fond de jauge
-	let trailcolor;
+	let trailColor;
 	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		trailcolor = (new CouleursClaires()).gridColor;
+		trailColor = (new CouleursClaires()).gridColor;
 	}
 	else {
-		trailcolor = (new CouleursSombres()).gridColor;
+		trailColor = (new CouleursSombres()).gridColor;
 	}
 
 	// Configure la jauge
@@ -28,9 +28,9 @@ function jaugeMesure(pourcentage, min, max, unite) {
 		easing: "easeInOut",
 		duration: 900,
 		color: "url(#gradient)",
-		trailColor: trailcolor,
+		trailColor: trailColor,
 		trailWidth: 1,
-		step: (state, bar) => {
+		step: (_, bar) => {
 			var value = ((bar.value() * (max - min)) + min).toFixed(1);
 			bar.setText(value + unite);
 		}

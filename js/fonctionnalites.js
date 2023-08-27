@@ -82,6 +82,8 @@ function retracterScroll() {
 			dimensions.logoHR;
 
 		// Division min et max
+		document.getElementById("valeursMinMax").style.transitionDuration =
+			"0.2s";
 		document.querySelector("header").style.paddingBottom = "0px";
 		document.getElementById("boxDroite").style.height = dimensions.headerHR;
 
@@ -114,6 +116,8 @@ function retracterScroll() {
 			dimensions.logoH;
 
 		// Division min et max
+		document.getElementById("valeursMinMax").style.transitionDuration =
+			"0.4s";
 		document.querySelector("header").style.paddingBottom =
 			dimensions.paddingB;
 		document.getElementById("boxDroite").style.visibility = "visible";

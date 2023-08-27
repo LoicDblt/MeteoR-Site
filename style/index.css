@@ -244,7 +244,7 @@ div.plotly-notifier {
 		transition: all 0.2s ease-out;
 	}
 	#boxGauche > a {
-		transition: 0.1s;
+		transition-duration: 0.1s;
 	}
 
 		/* Box centrale */

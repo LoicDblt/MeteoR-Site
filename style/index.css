@@ -5,8 +5,7 @@
 	src: url("polices/open-sans-600.woff2") format("woff2"),
 		url("polices/open-sans-600.woff") format("woff");
 }
-*:focus,
-*:active {
+html {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }

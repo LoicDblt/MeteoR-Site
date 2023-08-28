@@ -1,67 +1,8 @@
 /**
- * Classe pour les dimensions du header
- */
-class dimensions {
-	constructor(
-		logoW, logoH,
-		logoWR, logoHR,
-		icone, iconeR,
-		headerH, headerHR,
-		paddingB, scrollH
-	) {
-		this.logoW = logoW;
-		this.logoH = logoH;
-		this.logoWR = logoWR;
-		this.logoHR = logoHR;
-		this.icone = icone;
-		this.iconeR = iconeR;
-		this.headerH = headerH;
-		this.headerHR = headerHR;
-		this.paddingB = paddingB;
-		this.scrollH = scrollH;
-	}
-}
-
-class dimensionsBureau extends dimensions {
-	constructor() {
-		super(
-			"390px", "98px",
-			"239px", "60px",
-			"64px", "42px",
-			"unset", "unset",
-			"unset", 37
-		);
-	}
-}
-
-class dimensionsMobile extends dimensions {
-	constructor() {
-		super(
-			"320px", "80px",
-			"200px", "50px",
-			"44px", "30px",
-			"79px", "0px",
-			"10px", 117
-		);
-	}
-}
-
-
-/**
  * Active la gestion du header réduit en fonction de la distance de défilement
  */
 function activerHeaderReduit() {
-	window.onload = function() {retracterScroll()};
-	window.onscroll = function() {retracterScroll()};
-}
-
-
-/**
- * Rétracte le header au scroll
- */
-function retracterScroll() {
 	// Récupère les dimensions en fonction de la taille de l'écran
-	let dimensions;
 	if (window.matchMedia("(max-width: 769px)").matches) {
 		dimensions = new dimensionsMobile();
 	}
@@ -69,7 +10,15 @@ function retracterScroll() {
 		dimensions = new dimensionsBureau();
 	}
 
-	// Réduit le header en fonction de la distance de défilement
+	window.onload = function() {retracterScroll()};
+	window.onscroll = function() {retracterScroll()};
+}
+
+
+/**
+ * Rétracte le header en fonction de la distance de défilement
+ */
+function retracterScroll() {
 	if (document.documentElement.scrollTop > dimensions.scrollH) {
 		// Fermer les min/max
 		ouvert = true;

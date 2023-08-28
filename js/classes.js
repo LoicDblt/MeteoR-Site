@@ -2,27 +2,28 @@
  *  Classe pour les couleurs du graphique
  */
 class CouleursGraph {
-	constructor(bgColor, gridColor, color, lineColor) {
+	constructor(bgColor, gridColor, color, lineColor, fillColor) {
 		this.bgColor = bgColor;
 		this.gridColor = gridColor;
 		this.color = color;
 		this.lineColor = lineColor;
+		this.fillColor = fillColor;
 	}
 
 	getCouleursTableau() {
-		return Array(this.bgColor, this.gridColor, this.color, this.lineColor);
+		return Array(this.bgColor, this.gridColor, this.color, this.lineColor, this.fillColor);
 	}
 }
 
 class CouleursClaires extends CouleursGraph {
 	constructor() {
-		super("#ffffff", "#eeeeee", "#404040", "#e7e7e7");
+		super("#ffffff", "#eeeeee", "#404040", "#e7e7e7", "rgba(205, 205, 205, 0.2)");
 	}
 }
 
 class CouleursSombres extends CouleursGraph {
 	constructor() {
-		super("#000000", "#494949", "#bfbfbf", "#4f4f4f");
+		super("#000000", "#494949", "#bfbfbf", "#4f4f4f", "rgba(25, 25, 25, 0.8)");
 	}
 }
 

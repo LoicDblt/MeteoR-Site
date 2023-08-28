@@ -34,13 +34,13 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 	}
 
 	// Récupère les couleurs en fonction du thème
-	let bgColor, gridColor, fontColor, lineColor;
+	let bgColor, gridColor, fontColor, lineColor, fillColor;
 	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		[bgColor, gridColor, fontColor, lineColor] =
+		[bgColor, gridColor, fontColor, lineColor, fillColor] =
 			(new CouleursClaires()).getCouleursTableau();
 	}
 	else {
-		[bgColor, gridColor, fontColor, lineColor] =
+		[bgColor, gridColor, fontColor, lineColor, fillColor] =
 			(new CouleursSombres()).getCouleursTableau();
 	}
 
@@ -59,9 +59,14 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		let abscisse = JSON.parse(retour[0]);
 		let ordonnee = JSON.parse(retour[1]);
 
+		let maxOrd = Math.max.apply(Math, ordonnee) + 5;
+		let minOrd = Math.min.apply(Math, ordonnee) - 5;
+
 		const data = [{
 			x: abscisse,
 			y: ordonnee,
+			fill: "tozeroy",
+			fillcolor: fillColor,
 			mode: "lines+markers",
 			marker: {
 				colorscale: degrade,
@@ -130,9 +135,11 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				range: [abscisse[0], abscisse[abscisse.length - 1]]
 			},
 			yaxis: {
+				zeroline: false,
 				gridcolor: gridColor,
 				gridcolorwidth: 1,
 				nticks: nTicks,
+				range: [minOrd, maxOrd],
 				fixedrange: true,
 				tickformat: ".1f",
 				ticksuffix: (unite === "%") ? unite + " " : unite

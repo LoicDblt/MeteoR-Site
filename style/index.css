@@ -40,6 +40,18 @@ header {
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 }
+.retractDiv {
+	opacity: 0;
+	visibility: hidden;
+}
+.retractImg {
+	-webkit-transform: scale(0.8) !important;
+	transform: scale(0.8) !important;
+}
+.retractTxt {
+	-webkit-transform: scale(0.9) !important;
+	transform: scale(0.9) !important;
+}
 
 	/* Box gauche */
 #boxGauche {
@@ -47,6 +59,12 @@ header {
 	align-items: center;
 	justify-content: center;
 	width: 27.5%;
+	-webkit-transition-property: opacity, visibility;
+	-webkit-transition-duration: 0.2s;
+	-webkit-transition-delay: ease-out;
+	transition-property: opacity, visibility;
+	transition-duration: 0.2s;
+	transition-delay: ease-out;
 }
 #boxGauche > a {
 	color: #000000;
@@ -57,7 +75,12 @@ header {
 	user-select: none;
 	outline: none;
 	opacity: 1;
-	transition: all 0.2s;
+	-webkit-transform: scale(1);
+	-webkit-transition-property: color, transform;
+	-webkit-transition-duration: 0.2s;
+	transform: scale(1);
+	transition-property: color, transform;
+	transition-duration: 0.2s;
 }
 #boxGauche > a:hover {
 	color: #646464;
@@ -78,8 +101,19 @@ header {
 	line-height: 98px;
 	padding: 10px 0;
 	text-align: center;
-	transition: all 0.2s ease-out;
 	cursor: pointer;
+	-webkit-transition-property: width, height;
+	-webkit-transition-duration: 0.2s;
+	-webkit-transition-delay: ease-out;
+	transition-property: width, height;
+	transition-duration: 0.2s;
+	transition-delay: ease-out;
+	will-change: width, height;
+}
+.retractLogo {
+	width: 239px !important;
+	height: 60px !important;
+	will-change: width, height;
 }
 
 	/* Box droite */
@@ -90,6 +124,12 @@ header {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	-webkit-transition-property: opacity, visibility;
+	-webkit-transition-duration: 0.2s;
+	-webkit-transition-delay: ease-out;
+	transition-property: opacity, visibility;
+	transition-duration: 0.2s;
+	transition-delay: ease-out;
 }
 #boxDroite > div {
 	display: flex;
@@ -102,19 +142,31 @@ header {
 	height: 64px;
 	line-height: 64px;
 	text-align: center;
-	transition: all 0.2s ease-out;
+	-webkit-transform: scale(1);
+	-webkit-transition: transform 0.2s ease-out;
+	transform: scale(1);
+	transition: transform 0.2s ease-out;
 }
 #valeursMinMax {
 	visibility: hidden;
 	height: 0px;
 	overflow-y: hidden;
-	transition: all 0.4s ease-in-out;
+	-webkit-transition-property: visibility, height;
+	-webkit-transition-duration: 0.4s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-property: visibility, height;
+	transition-duration: 0.4s;
+	transition-timing-function: ease-in-out;
 }
 #valeursMinMax > p {
 	width: 100%;
 	margin: 0;
 	font-size: 32px;
 	text-align: center;
+	-webkit-transform: scale(1);
+	-webkit-transition: transform 0.2s;
+	transform: scale(1);
+	transition: transform 0.2s;
 }
 #valeursMinMax > p:first-child {
 	color: #f9700e;
@@ -234,15 +286,22 @@ div.plotly-notifier {
 		flex-wrap: wrap;
 		padding-bottom: 10px;
 	}
+	.retractDiv {
+		height: 0px !important;
+		will-change: height;
+	}
 
 		/* Box gauche */
 	#boxGauche {
 		width: 45%;
 		height: 79px;
 		order: 2;
-		transition: all 0.2s ease-out;
+		-webkit-transition-property: height, opacity, visibility;
+		transition-property: height, opacity, visibility;
+		will-change: height;
 	}
 	#boxGauche > a {
+		-webkit-transition-duration: 0.1s;
 		transition-duration: 0.1s;
 	}
 
@@ -257,6 +316,10 @@ div.plotly-notifier {
 		line-height: 80px;
 		padding: 15px 0 13px;
 	}
+	.retractLogo {
+		width: 200px !important;
+		height: 50px !important;
+	}
 
 		/* Box droite */
 	#boxDroite {
@@ -264,7 +327,9 @@ div.plotly-notifier {
 		height: 79px;
 		order: 3;
 		z-index: 10;
-		transition: all 0.2s ease-out;
+		-webkit-transition-property: height, opacity, visibility;
+		transition-property: height, opacity, visibility;
+		will-change: height;
 	}
 	#boxDroite > div:first-child > img {
 		width: 44px;

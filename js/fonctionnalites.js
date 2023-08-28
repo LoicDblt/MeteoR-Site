@@ -2,12 +2,14 @@
  * Active la gestion du header réduit en fonction de la distance de défilement
  */
 function activerHeaderReduit() {
-	// Récupère les dimensions en fonction de la taille de l'écran
+	// Détermine la distance de défilement avant rétractation du header
 	if (window.matchMedia("(max-width: 769px)").matches) {
-		dimensions = new dimensionsMobile();
+		distanceScroll = 117;
+		paddingHeader = "10px";
 	}
 	else {
-		dimensions = new dimensionsBureau();
+		distanceScroll = 37;
+		paddingHeader = "0px";
 	}
 
 	window.onload = function() {retracterScroll()};
@@ -19,7 +21,7 @@ function activerHeaderReduit() {
  * Rétracte le header en fonction de la distance de défilement
  */
 function retracterScroll() {
-	if (document.documentElement.scrollTop > dimensions.scrollH) {
+	if (document.documentElement.scrollTop > distanceScroll) {
 		// Fermer les min/max
 		ouvert = true;
 		basculerAffichage("valeursMinMax");
@@ -27,73 +29,47 @@ function retracterScroll() {
 		// Header
 		document.querySelector("header").style.paddingBottom = "0px";
 
+		// Box gauche
+		document.getElementById("boxGauche").classList.add("retractDiv");
+		document.querySelector("#boxGauche > a").classList.add("retractTxt");
+
 		// Box centrale
-		document.querySelector("#boxCentre > img").style.width =
-			dimensions.logoWR;
-		document.querySelector("#boxCentre > img").style.height =
-			dimensions.logoHR;
+		document.querySelector("#boxCentre > img").classList.add("retractLogo");
 
 		// Box droite
-		document.getElementById("valeursMinMax").style.transitionDuration =
-			"0.2s";
-		document.getElementById("boxDroite").style.height = dimensions.headerHR;
-
-		document.querySelector("#boxDroite > div > img:first-child")
-			.style.width = dimensions.iconeR;
-		document.querySelector("#boxDroite > div > img:first-child")
-			.style.height = dimensions.iconeR;
-		document.querySelector("#boxDroite > div > img:first-child")
-			.style.opacity = 0;
-
-		document.querySelector("#boxDroite > div > img:last-child")
-			.style.width = dimensions.iconeR;
-		document.querySelector("#boxDroite > div > img:last-child")
-			.style.height = dimensions.iconeR;
-		document.querySelector("#boxDroite > div > img:last-child")
-			.style.opacity = 0;
-
-		document.getElementById("boxDroite").style.visibility = "hidden";
-
-		// Box gauche
-		document.getElementById("boxGauche").style.height = dimensions.headerHR;
-		document.getElementById("boxGauche").style.visibility = "hidden";
-		document.querySelector("#boxGauche > a").style.opacity = 0;
+		document.getElementById("boxDroite").classList.add("retractDiv");
+		document.querySelector("#boxDroite > div > img:first-child").classList
+			.add("retractImg");
+		document.querySelector("#boxDroite > div > img:last-child").classList
+			.add("retractImg");
+		document.querySelector("#valeursMinMax > p:first-child").classList
+			.add("retractTxt");
+		document.querySelector("#valeursMinMax > p:last-child").classList
+			.add("retractTxt");
 	}
 	else {
 		// Header
 		document.querySelector("header").style.paddingBottom =
-			dimensions.paddingB;
-
-		// Box centrale
-		document.querySelector("#boxCentre > img").style.width =
-			dimensions.logoW;
-		document.querySelector("#boxCentre > img").style.height =
-			dimensions.logoH;
-
-		// Box droite
-		document.getElementById("valeursMinMax").style.transitionDuration =
-			"0.4s";
-		document.getElementById("boxDroite").style.visibility = "visible";
-		document.querySelector("#boxDroite").style.height = dimensions.headerH;
-
-		document.querySelector("#boxDroite > div > img:first-child")
-			.style.width = dimensions.icone;
-		document.querySelector("#boxDroite > div > img:first-child")
-			.style.height = dimensions.icone;
-		document.querySelector("#boxDroite > div > img:first-child")
-			.style.opacity = 1;
-
-		document.querySelector("#boxDroite > div > img:last-child")
-			.style.width = dimensions.icone;
-		document.querySelector("#boxDroite > div > img:last-child")
-			.style.height = dimensions.icone;
-		document.querySelector("#boxDroite > div > img:last-child")
-			.style.opacity = 1;
+		paddingHeader;
 
 		// Box gauche
-		document.getElementById("boxGauche").style.visibility = "visible";
-		document.getElementById("boxGauche").style.height = dimensions.headerH;
-		document.querySelector("#boxGauche > a").style.opacity = 1;
+		document.getElementById("boxGauche").classList.remove("retractDiv");
+		document.querySelector("#boxGauche > a").classList.remove("retractTxt");
+
+		// Box centrale
+		document.querySelector("#boxCentre > img").classList
+			.remove("retractLogo");
+
+		// Box droite
+		document.getElementById("boxDroite").classList.remove("retractDiv");
+		document.querySelector("#boxDroite > div > img:first-child").classList
+			.remove("retractImg");
+		document.querySelector("#boxDroite > div > img:last-child").classList
+			.remove("retractImg");
+		document.querySelector("#valeursMinMax > p:first-child").classList
+			.remove("retractTxt");
+		document.querySelector("#valeursMinMax > p:last-child").classList
+			.remove("retractTxt");
 	}
 }
 

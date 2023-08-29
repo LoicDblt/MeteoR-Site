@@ -11,19 +11,31 @@ class CouleursGraph {
 	}
 
 	getCouleursTableau() {
-		return Array(this.bgColor, this.gridColor, this.color, this.lineColor, this.fillColor);
+		return Array(
+			this.bgColor, this.gridColor,
+			this.color, this.lineColor,
+			this.fillColor
+		);
 	}
 }
 
 class CouleursClaires extends CouleursGraph {
 	constructor() {
-		super("#ffffff", "#eeeeee", "#404040", "#e7e7e7", "rgba(205, 205, 205, 0.2)");
+		super(
+			"#ffffff", "#eeeeee",
+			"#404040", "#e7e7e7",
+			"rgba(205, 205, 205, 0.2)"
+		);
 	}
 }
 
 class CouleursSombres extends CouleursGraph {
 	constructor() {
-		super("#000000", "#494949", "#bfbfbf", "#4f4f4f", "rgba(25, 25, 25, 0.8)");
+		super(
+			"#000000", "#494949",
+			"#bfbfbf", "#4f4f4f",
+			"rgba(25, 25, 25, 0.8)"
+		);
 	}
 }
 

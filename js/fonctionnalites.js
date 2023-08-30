@@ -4,11 +4,11 @@
 function activerHeaderReduit() {
 	// Détermine la distance de défilement avant rétractation du header
 	if (window.matchMedia("(max-width: 769px)").matches) {
-		distanceScroll = 119;
+		distanceScroll = 120;
 		paddingHeader = "10px";
 	}
 	else {
-		distanceScroll = 34;
+		distanceScroll = 35;
 		paddingHeader = "0px";
 	}
 

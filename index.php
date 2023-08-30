@@ -113,7 +113,8 @@ function formatageValeur($valeur) : string {
 		/>
 	</div>
 	<div id="boxDroite" onclick="basculerAffichageMinMax()"
-		title="Afficher <?php echo CONTENU_PAGE["minMax"]["titre"]?>">
+		title="Afficher <?php echo CONTENU_PAGE["minMax"]["titre"]
+	?>">
 		<div>
 			<img draggable="false" src=<?php echo
 				"\"" . CHEMIN_DOSSIER_NAV .
@@ -155,7 +156,8 @@ function formatageValeur($valeur) : string {
 		<h1><?php echo CONTENU_PAGE["commun"]["typeMesures"]?></h1>
 		<div title="<?php
 			echo CONTENU_PAGE["commun"]["titreActu"] . " ";
-			echo formatageDate($valeurActu[0])?>" id="jauge">
+			echo formatageDate($valeurActu[0])?>" id="jauge"
+		>
 		</div>
 	</section>
 	<section>

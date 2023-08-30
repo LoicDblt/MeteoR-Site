@@ -1,6 +1,6 @@
 /**
  * Paramètre le graphique, récupère les données et affiche l'ensemble
- * 
+ *
  * @param nomColonne dans la base de données, des mesures à récupérer
  * @param typeMesures des mesures, à afficher dans les labels
  * @param unite des mesures, à afficher sur l'axe des ordonnées
@@ -20,17 +20,19 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 	let top, right, bottom, left, nTicks;
 	if (window.matchMedia("(max-width: 769px)").matches) {
 		top = 0;
-		right = 5;
+		right = 7;
 		bottom = 35;
-		left = 46;
+		left = 23;
 		nTicks = 6;
+		tickAngle = -90;
 	}
 	else {
 		top = 10;
 		right = 10;
-		bottom = 50;
+		bottom = 40;
 		left = 55;
 		nTicks = 8;
+		tickAngle = 0;
 	}
 
 	// Récupère les couleurs en fonction du thème
@@ -135,6 +137,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				range: [abscisse[0], abscisse[abscisse.length - 1]]
 			},
 			yaxis: {
+				tickangle: tickAngle,
 				zeroline: false,
 				gridcolor: gridColor,
 				gridcolorwidth: 1,

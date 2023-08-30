@@ -22,7 +22,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		top = 0;
 		right = 5;
 		bottom = 35;
-		left = 40;
+		left = 46;
 		nTicks = 6;
 	}
 	else {
@@ -68,6 +68,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			fill: "tozeroy",
 			fillcolor: fillColor,
 			mode: "lines+markers",
+			connectgaps: true,
 			marker: {
 				colorscale: degrade,
 				color: ordonnee,
@@ -75,7 +76,6 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				cmin: min,
 				cmax: max
 			},
-			connectgaps: true,
 			line: {
 				color: lineColor,
 				width: 2,
@@ -138,8 +138,8 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				zeroline: false,
 				gridcolor: gridColor,
 				gridcolorwidth: 1,
-				nticks: nTicks,
 				range: [minOrd, maxOrd],
+				nticks: nTicks,
 				fixedrange: true,
 				tickformat: ".1f",
 				ticksuffix: (unite === "%") ? unite + " " : unite

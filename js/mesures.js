@@ -73,7 +73,7 @@ function jaugeMesure(pourcentage, min, max, unite) {
 /**
  * Fonction permettant de basculer l'affichage d'une div
  *
- * @param identifiantDiv de la div à afficher ou masquer
+ * @param identifiantDiv de la div à développer ou réduire
  */
 var ouvert = false;
 
@@ -82,33 +82,32 @@ function basculerAffichage(identifiantDiv) {
 
 	if (ouvert) {
 		ouvert = false;
-		div.style.height = "0px";
-		div.style.visibility = "hidden";
+		div.classList.remove("developperDiv");
 	}
 
 	else {
 		ouvert = true;
-		div.style.visibility = "visible";
-		div.style.height = "35px";
+		div.classList.add("developperDiv");
 	}
 }
 
 
 /**
- * Inverse entre afficher ou masquer les valeurs min et max
- *
- * @param complementTitre à ajouter, en fonction du type de données
+ * Inverse entre afficher ou masquer les valeurs min et max, en développant ou
+ * réduisant la div
  */
-function basculerAffichageMinMax(complementTitre) {
+function basculerAffichageMinMax() {
 	basculerAffichage("valeursMinMax");
 
 	// Modifie le titre de la box
 	const boxDroite = document.getElementById("boxDroite");
+	titre = boxDroite.getAttribute("title");
+	tronque = titre.substring(titre.indexOf(" ") + 1);
 
 	if (ouvert) {
-		boxDroite.title = "Masquer " + complementTitre;
+		boxDroite.title = "Masquer " + tronque;
 	}
 	else {
-		boxDroite.title = "Afficher " + complementTitre;
+		boxDroite.title = "Afficher " + tronque;
 	}
 }

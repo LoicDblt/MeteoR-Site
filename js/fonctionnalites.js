@@ -4,11 +4,11 @@
 function activerHeaderReduit() {
 	// Détermine la distance de défilement avant rétractation du header
 	if (window.matchMedia("(max-width: 769px)").matches) {
-		distanceScroll = 117;
+		distanceScroll = 119;
 		paddingHeader = "10px";
 	}
 	else {
-		distanceScroll = 37;
+		distanceScroll = 34;
 		paddingHeader = "0px";
 	}
 
@@ -24,10 +24,11 @@ function retracterScroll() {
 	if (document.documentElement.scrollTop > distanceScroll) {
 		// Fermer les min/max
 		ouvert = true;
-		basculerAffichage("valeursMinMax");
+		basculerAffichageMinMax();
 
 		// Header
 		document.querySelector("header").style.paddingBottom = "0px";
+		document.querySelector("header").classList.add("retractHeader");
 
 		// Box gauche
 		document.getElementById("boxGauche").classList.add("retractDiv");
@@ -51,6 +52,7 @@ function retracterScroll() {
 		// Header
 		document.querySelector("header").style.paddingBottom =
 		paddingHeader;
+		document.querySelector("header").classList.remove("retractHeader");
 
 		// Box gauche
 		document.getElementById("boxGauche").classList.remove("retractDiv");

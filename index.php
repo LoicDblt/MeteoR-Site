@@ -112,11 +112,8 @@ function formatageValeur($valeur) : string {
 			alt="Logo du site MeteoR" title="Recharger la page"
 		/>
 	</div>
-	<div id="boxDroite" onclick="basculerAffichageMinMax(`<?php echo
-		// Garder les apostrophes sur balise php, pour la coloration syntaxique
-		CONTENU_PAGE['minMax']['titre']?>`)" title="Afficher <?php echo
-		CONTENU_PAGE["minMax"]["titre"]
-	?>">
+	<div id="boxDroite" onclick="basculerAffichageMinMax()"
+		title="Afficher <?php echo CONTENU_PAGE["minMax"]["titre"]?>">
 		<div>
 			<img draggable="false" src=<?php echo
 				"\"" . CHEMIN_DOSSIER_NAV .

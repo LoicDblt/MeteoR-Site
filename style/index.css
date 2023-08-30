@@ -219,13 +219,13 @@ section > section:last-child > div:last-child {
 div.plotly-notifier {
 	visibility: hidden;
 }
+.user-select-none.svg-container {
+	position: unset !important;
+}
 .xtick > text,
 .ytick > text,
 .hovertext > text {
 	font-size: 14px !important;
-}
-.user-select-none.svg-container {
-	position: unset !important;
 }
 
 /* Version ordinateur portable */

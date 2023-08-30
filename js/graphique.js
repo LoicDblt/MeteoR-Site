@@ -61,8 +61,17 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		let abscisse = JSON.parse(retour[0]);
 		let ordonnee = JSON.parse(retour[1]);
 
+		// Détermine la valeur minimale de l'axe des ordonnées
 		let maxOrd = Math.max.apply(Math, ordonnee) + 5;
 		let minOrd = Math.min.apply(Math, ordonnee) - 5;
+
+		// Zoom sur 1 semaine pour la version mobile
+		if (window.matchMedia("(max-width: 769px)").matches) {
+			rangeMin = abscisse[abscisse.length - (7 * 24) - 1];
+		}
+		else {
+			rangeMin = abscisse[0];
+		}
 
 		const data = [{
 			x: abscisse,
@@ -100,6 +109,8 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		const layout = {
 			showlegend: false,
 			separators: ".,",
+			plot_bgcolor: bgColor,
+			paper_bgcolor: bgColor,
 			margin: {
 				t: top,
 				r: right,
@@ -111,11 +122,10 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				family: "Open Sans",
 				color: fontColor
 			},
-			plot_bgcolor: bgColor,
-			paper_bgcolor: bgColor,
 			xaxis: {
 				showgrid: false,
 				nticks: nTicks,
+				range: [rangeMin, abscisse[abscisse.length - 1]],
 				tickformatstops: [
 					{
 						"dtickrange": [null, 60000],
@@ -133,16 +143,15 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 						"dtickrange": [86400000, null],
 						"value": "%-d %B"
 					}
-				],
-				range: [abscisse[0], abscisse[abscisse.length - 1]]
+				]
 			},
 			yaxis: {
-				tickangle: tickAngle,
-				zeroline: false,
 				gridcolor: gridColor,
 				gridcolorwidth: 1,
 				range: [minOrd, maxOrd],
 				nticks: nTicks,
+				tickangle: tickAngle,
+				zeroline: false,
 				fixedrange: true,
 				tickformat: ".1f",
 				ticksuffix: (unite === "%") ? unite + " " : unite

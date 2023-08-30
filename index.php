@@ -215,9 +215,8 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 	?>);
 });
 
-activerServiceWorker();
-
 activerHeaderReduit();
+activerServiceWorker();
 </script>
 </body>
 </html>

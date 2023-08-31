@@ -17,11 +17,11 @@ html {
 body {
 	display: flex;
 	flex-direction: column;
-	background-color: #f2f1f5;
-	color: #000000;
-	font-family: "Open Sans", Arial, sans-serif;
 	margin: 0;
 	padding-top: 118px;
+	color: #000000;
+	background-color: #f2f1f5;
+	font-family: "Open Sans", Arial, sans-serif;
 }
 img {
 	user-select: none;

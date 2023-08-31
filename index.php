@@ -178,7 +178,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/classes.js"></script>
 <script src="js/graphique.js"></script>
 <script src="js/mesures.js"></script>
-<script src="js/fonctionnalites.js"></script>
+<script src="js/entete.js"></script>
 <script>
 parametrerAfficherGraphique(<?php echo "\"" .
 	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
@@ -216,7 +216,6 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 });
 
 activerHeaderReduit();
-activerServiceWorker();
 </script>
 </body>
 </html>

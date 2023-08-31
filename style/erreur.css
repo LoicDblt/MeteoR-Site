@@ -5,8 +5,7 @@
 	src: url("polices/open-sans-600.woff2") format("woff2"),
 		url("polices/open-sans-600.woff") format("woff");
 }
-*:focus,
-*:active {
+html {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -16,7 +15,7 @@
 	scrollbar-width: thin;
 }
 body {
-	background: url("../img/erreur.jpg");
+	background: url("../img/fond/erreur.jpg");
 	background-size: cover;
 	background-position: center center;
 	font-family: "Open Sans", Arial, sans-serif;
@@ -42,14 +41,15 @@ p {
 	margin: 0;
 }
 a {
+	outline: none;
 	color: #bfbfbf;
 	font-size: 20px;
 	line-height: 28px;
-	text-transform: uppercase;
-	transition: 0.3s;
-	text-decoration: none;
-	outline: none;
 	padding: 5px 10px 10px;
+	text-transform: uppercase;
+	text-decoration: none;
+	user-select: none;
+	transition: color 0.3s;
 }
 a:hover {
 	color: #8b8b8b;
@@ -72,6 +72,9 @@ a:active {
 /* Version mobile */
 @media screen and (max-width: 799px) {
 	/* Corps */
+	div {
+		justify-content: space-evenly;
+	}
 	p {
 		font-size: 24px;
 	}

@@ -24,7 +24,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		bottom = 35;
 		left = 23;
 		nTicks = 6;
-		tickAngle = -90;
+		tickAngle = -70;
 	}
 	else {
 		top = 10;

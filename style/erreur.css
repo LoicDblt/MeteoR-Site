@@ -24,7 +24,7 @@ body {
 
 /* Corps */
 div::before {
-	content: "";
+	content: '';
 	height: calc(28px + 10px);
 }
 div {
@@ -36,9 +36,10 @@ div {
 	height: 100vh;
 }
 p {
+	margin: 0;
 	font-size: 34px;
 	color: #ffffff;
-	margin: 0;
+	user-select: none;
 }
 a {
 	outline: none;

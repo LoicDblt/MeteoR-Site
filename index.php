@@ -48,6 +48,10 @@ else if ($valeurActu[1] >= $jaugeMinMax[1]) {
 	$jaugeMinMax[1] = $valeurActu[1];
 }
 
+// Détermine le remplissage de la jauge de mesure
+$remplissageJauge = (($valeurActu[1] - $jaugeMinMax[0]) * 100 /
+		($jaugeMinMax[1] - $jaugeMinMax[0])) / 100;
+
 
 /**
  * Formate une date en chaîne de caractères, au format français
@@ -188,9 +192,7 @@ parametrerAfficherGraphique(<?php echo "\"" .
 	$jaugeMinMax[1]
 ?>);
 
-jaugeMesure(<?php echo
-	(((($valeurActu[1] - $jaugeMinMax[0]) * 100) /
-		($jaugeMinMax[1] - $jaugeMinMax[0])) / 100) . ", " .
+jaugeMesure(<?php echo $remplissageJauge . ", " .
 	$jaugeMinMax[0] . ", " .
 	$jaugeMinMax[1] . ", \"" .
 	CONTENU_PAGE["commun"]["unite"] . "\""
@@ -206,9 +208,7 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 		$jaugeMinMax[1]
 	?>);
 
-	jaugeMesure(<?php echo
-		(((($valeurActu[1] - $jaugeMinMax[0]) * 100) /
-			($jaugeMinMax[1] - $jaugeMinMax[0])) / 100) . ", " .
+	jaugeMesure(<?php echo $remplissageJauge . ", " .
 		$jaugeMinMax[0] . ", " .
 		$jaugeMinMax[1] . ", \"" .
 		CONTENU_PAGE["commun"]["unite"] . "\""

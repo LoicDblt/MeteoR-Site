@@ -16,7 +16,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		showAxisDragHandles: false
 	}
 
-	// Configure le placement du graphique
+	// Configure les paramètres du graphique en fonction de la taille de l'écran
 	let top, right, bottom, left, nTicks;
 	if (window.matchMedia("(max-width: 769px)").matches) {
 		top = 0;
@@ -25,6 +25,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		left = 23;
 		nTicks = 6;
 		tickAngle = -70;
+		formatMois = "%b";
 	}
 	else {
 		top = 10;
@@ -33,6 +34,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		left = 55;
 		nTicks = 8;
 		tickAngle = 0;
+		formatMois = "%B";
 	}
 
 	// Récupère les couleurs en fonction du thème
@@ -125,23 +127,24 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			xaxis: {
 				showgrid: false,
 				nticks: nTicks,
+				tickangle: 0,
 				range: [rangeMin, abscisse[abscisse.length - 1]],
 				tickformatstops: [
 					{
 						"dtickrange": [null, 60000],
-						"value": "%-d %B<br>%Hh%M.%S"
+						"value": "%-d " + formatMois + "<br>%Hh%M.%S"
 					},
 					{
 						"dtickrange": [60000, 3600000],
-						"value": "%-d %B<br>%Hh%M"
+						"value": "%-d " + formatMois + "<br>%Hh%M"
 					},
 					{
 						"dtickrange": [3600000, 86400000],
-						"value": "%-d %B<br>%Hh%M"
+						"value": "%-d " + formatMois + "<br>%Hh%M"
 					},
 					{
 						"dtickrange": [86400000, null],
-						"value": "%-d %B"
+						"value": "%-d " + formatMois
 					}
 				]
 			},

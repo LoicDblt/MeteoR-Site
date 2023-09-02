@@ -3,10 +3,10 @@ header("X-Frame-Options: DENY");
 header("Content-Security-Policy: base-uri 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com");
 
 include_once "classes/BddMesures.php";
-$bddMesures = new BddMesures();
-
-$valeursMinMax = Array();
 const CHEMIN_DOSSIER_NAV = "img/nav/";
+
+$bddMesures = new BddMesures();
+$valeursMinMax = Array();
 
 // Adapte le contenu de la page en fonction de l'URL (température ou humidité)
 if ($_SERVER["REQUEST_URI"] === "/") {
@@ -50,7 +50,7 @@ else if ($valeurActu[1] >= $jaugeMinMax[1]) {
 
 // Détermine le remplissage de la jauge de mesure
 $remplissageJauge = (($valeurActu[1] - $jaugeMinMax[0]) * 100 /
-		($jaugeMinMax[1] - $jaugeMinMax[0])) / 100;
+	($jaugeMinMax[1] - $jaugeMinMax[0])) / 100;
 
 
 /**

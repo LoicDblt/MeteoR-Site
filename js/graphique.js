@@ -4,8 +4,8 @@
  * @param nomColonne dans la base de données, des mesures à récupérer
  * @param typeMesures des mesures, à afficher dans les labels
  * @param unite des mesures, à afficher sur l'axe des ordonnées
- * @param min valeur minimale pour le dégradé
- * @param max valeur maximale pour le dégradé
+ * @param min du dégradé
+ * @param max du dégradé
  */
 function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 	// Configure les paramètres du graphique
@@ -16,46 +16,21 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		showAxisDragHandles: false
 	}
 
-	// Configure les paramètres du graphique en fonction de la taille de l'écran
-	let top, right, bottom, left, nTicks;
-	if (window.matchMedia("(max-width: 769px)").matches) {
-		top = 0;
-		right = 7;
-		bottom = 35;
-		left = 23;
-		nTicks = 6;
-		tickAngle = -70;
-		formatMois = "%b";
-	}
-	else {
-		top = 10;
-		right = 10;
-		bottom = 40;
-		left = 55;
-		nTicks = 8;
-		tickAngle = 0;
-		formatMois = "%B";
-	}
+	// Configure le graphique en fonction de la taille de l'écran
+	let [top, right, bottom, left, nTicks, tickAngle, formatMois] =
+		(window.matchMedia("(max-width: 769px)").matches) ?
+		[0, 7, 35, 23, 6, -70, "%b"] : [10, 10, 40, 55, 8, 0, "%B"];
 
 	// Récupère les couleurs en fonction du thème
-	let bgColor, gridColor, fontColor, lineColor, fillColor;
-	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		[bgColor, gridColor, fontColor, lineColor, fillColor] =
-			(new CouleursClaires()).getCouleursTableau();
-	}
-	else {
-		[bgColor, gridColor, fontColor, lineColor, fillColor] =
-			(new CouleursSombres()).getCouleursTableau();
-	}
+	let couleursGraph =
+		(window.matchMedia("(prefers-color-scheme: light)").matches) ?
+		new CouleursClaires() : new CouleursSombres();
+	let [bgColor, gridColor, fontColor, lineColor, fillColor] =
+		couleursGraph.getCouleursTableau();
 
 	// Récupère les couleurs du dégradé en fonction du type de données
-	let degrade;
-	if (unite === '%') {
-		degrade = (new CouleursDonneesHum()).getPairesPourcentCouleur();
-	}
-	else {
-		degrade = (new CouleursDonneesTemp()).getPairesPourcentCouleur();
-	}
+	let degrade = (unite === '%') ?
+		(new CouleursDonneesHum()) : (new CouleursDonneesTemp());
 
 	// Récupère les données et affiche le graphique
 	recupAbsOrd(nomColonne)
@@ -67,13 +42,9 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		let maxOrd = Math.max.apply(Math, ordonnee) + 5;
 		let minOrd = Math.min.apply(Math, ordonnee) - 5;
 
-		// Zoom sur 1 semaine pour la version mobile
-		if (window.matchMedia("(max-width: 769px)").matches) {
-			rangeMin = abscisse[abscisse.length - (7 * 24) - 1];
-		}
-		else {
-			rangeMin = abscisse[0];
-		}
+		// Zoom par défaut sur la dernière semaine pour la version mobile
+		let rangeMin = window.matchMedia("(max-width: 769px)").matches ?
+			abscisse[abscisse.length - (7 * 24) - 1] : abscisse[0];
 
 		const data = [{
 			x: abscisse,
@@ -83,7 +54,7 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			mode: "lines+markers",
 			connectgaps: true,
 			marker: {
-				colorscale: degrade,
+				colorscale: degrade.getPairesPourcentCouleur(),
 				color: ordonnee,
 				size: 6,
 				cmin: min,

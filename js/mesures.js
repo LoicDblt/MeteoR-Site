@@ -4,7 +4,7 @@
  * @param pourcentage de la jauge à remplir
  * @param min de la jauge
  * @param max de la jauge
- * @param unite de la mesure, à ajouter à la valeur
+ * @param unite de la mesure, à concaténer à la valeur
  */
 function jaugeMesure(pourcentage, min, max, unite) {
 	// Permet de recharger la jauge en cas de changement de thème
@@ -15,12 +15,8 @@ function jaugeMesure(pourcentage, min, max, unite) {
 
 	// Configure la couleur de l'arc en fond de jauge
 	let trailColor;
-	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-		trailColor = (new CouleursClaires()).gridColor;
-	}
-	else {
-		trailColor = (new CouleursSombres()).gridColor;
-	}
+	trailColor = (window.matchMedia("(prefers-color-scheme: light)").matches) ?
+		(new CouleursClaires()).gridColor : (new CouleursSombres()).gridColor;
 
 	// Configure la jauge
 	let jaugeMesure = new ProgressBar.SemiCircle(jauge, {
@@ -41,16 +37,10 @@ function jaugeMesure(pourcentage, min, max, unite) {
 
 	// Ajoute le dégradé
 	let couleurDonnes, pourcentDegrade, degrade;
-	if (unite === '%') {
-		couleurDonnes = new CouleursDonneesHum();
-		pourcentDegrade = couleurDonnes.getPourcentagesDegrade();
-		degrade = couleurDonnes.getCouleursDegrade();
-	}
-	else {
-		couleurDonnes = new CouleursDonneesTemp();
-		pourcentDegrade = couleurDonnes.getPourcentagesDegrade();
-		degrade = couleurDonnes.getCouleursDegrade();
-	}
+	couleurDonnes = (unite === '%') ?
+		new CouleursDonneesHum() : new CouleursDonneesTemp();
+	pourcentDegrade = couleurDonnes.getPourcentagesDegrade();
+	degrade = couleurDonnes.getCouleursDegrade();
 
 	let linearGradient =`<defs>
 		<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"
@@ -73,7 +63,10 @@ function jaugeMesure(pourcentage, min, max, unite) {
 /**
  * Fonction permettant de basculer l'affichage d'une div
  *
- * @param identifiantDiv de la div à développer ou réduire
+ * @param identifiantDiv de la div à développer ou réduir
+ *
+ * @remark "ouvert" est une variable globale permettant de sauvegarder l'état de
+ * 		   la div, afin de pouvoir effectuer l'action inverse au prochain appel
  */
 var ouvert = false;
 
@@ -84,7 +77,6 @@ function basculerAffichage(identifiantDiv) {
 		ouvert = false;
 		div.classList.remove("developperDiv");
 	}
-
 	else {
 		ouvert = true;
 		div.classList.add("developperDiv");
@@ -104,10 +96,6 @@ function basculerAffichageMinMax() {
 	titre = boxDroite.getAttribute("title");
 	tronque = titre.substring(titre.indexOf(" ") + 1);
 
-	if (ouvert) {
-		boxDroite.title = "Masquer " + tronque;
-	}
-	else {
-		boxDroite.title = "Afficher " + tronque;
-	}
+	let etat = ouvert ? "Masquer " : "Afficher ";
+	boxDroite.title = etat + tronque;
 }

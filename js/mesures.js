@@ -66,7 +66,7 @@ function jaugeMesure(pourcentage, min, max, unite) {
  * @param identifiantDiv de la div à développer ou réduir
  *
  * @remark "ouvert" est une variable globale permettant de sauvegarder l'état de
- * 		   la div, afin de pouvoir effectuer l'action inverse au prochain appel
+ * 			la div, afin de pouvoir effectuer l'action inverse au prochain appel
  */
 var ouvert = false;
 

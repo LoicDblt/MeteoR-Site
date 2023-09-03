@@ -66,8 +66,8 @@ function parametrerAfficherGraphique(nomColonne, typeMesures, unite, min, max) {
 				shape: "spline"
 			},
 			hovertemplate: "<b>" + typeMesures + " :</b> %{y:.1f}" + unite +
-							"<br><b>Date :</b> %{x|%a %-d %B à %Hh%M}" +
-							"<extra></extra>",
+							"<br><b>Date :</b> %{x|%a %-d " + formatMois +
+							" à %Hh%M}<extra></extra>",
 			hoverlabel: {
 				align: "left",
 				bordercolor: "transparent",

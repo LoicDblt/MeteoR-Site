@@ -113,7 +113,7 @@ function formatageValeur($valeur) : string {
 		<img draggable="false"
 			onClick="window.scrollTo(0,0);"
 			src="<?php echo CHEMIN_DOSSIER_NAV?>meteor.svg"
-			alt="Logo du site MeteoR" title="Recharger la page"
+			alt="Logo du site MeteoR" title="Revenir en haut de la page"
 		/>
 	</div>
 	<div id="boxDroite" onclick="basculerAffichageMinMax()"

@@ -6,7 +6,7 @@
  * @param max de la jauge
  * @param unite de la mesure, à concaténer à la valeur
  */
-function jaugeMesure(pourcentage, min, max, unite) {
+function afficherJauge(pourcentage, min, max, unite) {
 	// Permet de recharger la jauge en cas de changement de thème
 	let element = document.getElementById("jauge");
 	while (element.firstChild) {

@@ -39,8 +39,7 @@ else {
 // Récupère la valeur actuelle
 $valeurActu = $bddMesures->getValeurActu(CONTENU_PAGE["commun"]["nomColonne"]);
 
-// Adapte les valeurs min et max de la jauge de mesure, afin qu'elles soient
-// toujours visibles
+// Adapte les valeurs min et max de la jauge de mesure, pour ne pas les dépasser
 if ($valeurActu[1] <= $jaugeMinMax[0]) {
 	$jaugeMinMax[0] = $valeurActu[1] - 1;
 }
@@ -51,6 +50,20 @@ else if ($valeurActu[1] >= $jaugeMinMax[1]) {
 // Détermine le remplissage de la jauge de mesure
 $remplissageJauge = (($valeurActu[1] - $jaugeMinMax[0]) * 100 /
 	($jaugeMinMax[1] - $jaugeMinMax[0])) / 100;
+
+// Créé les appels de fonction JavaScript à récupérer plus tard dans le code
+$foncGraph  = "afficherGraphique(\"" .
+	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
+	CONTENU_PAGE["commun"]["typeMesures"] . "\", \"" .
+	CONTENU_PAGE["commun"]["unite"] . "\", " .
+	$jaugeMinMax[0] . ", " .
+	$jaugeMinMax[1] . ')';
+
+$foncJauge = "afficherJauge(" .
+	$remplissageJauge . ", " .
+	$jaugeMinMax[0] . ", " .
+	$jaugeMinMax[1] . ", \"" .
+	CONTENU_PAGE["commun"]["unite"] . "\")";
 
 
 /**
@@ -184,35 +197,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/mesures.js"></script>
 <script src="js/entete.js"></script>
 <script>
-parametrerAfficherGraphique(<?php echo "\"" .
-	CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
-	CONTENU_PAGE["commun"]["typeMesures"] . "\", \"" .
-	CONTENU_PAGE["commun"]["unite"] . "\", " .
-	$jaugeMinMax[0] . ", " .
-	$jaugeMinMax[1]
-?>);
-
-jaugeMesure(<?php echo $remplissageJauge . ", " .
-	$jaugeMinMax[0] . ", " .
-	$jaugeMinMax[1] . ", \"" .
-	CONTENU_PAGE["commun"]["unite"] . "\""
-?>);
+<?php echo $foncGraph?>;
+<?php echo $foncJauge?>;
 
 window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",
 () => {
-	parametrerAfficherGraphique(<?php echo "\"" .
-		CONTENU_PAGE["commun"]["nomColonne"] . "\", \"" .
-		CONTENU_PAGE["commun"]["typeMesures"] . "\", \"" .
-		CONTENU_PAGE["commun"]["unite"] . "\", " .
-		$jaugeMinMax[0] . ", " .
-		$jaugeMinMax[1]
-	?>);
-
-	jaugeMesure(<?php echo $remplissageJauge . ", " .
-		$jaugeMinMax[0] . ", " .
-		$jaugeMinMax[1] . ", \"" .
-		CONTENU_PAGE["commun"]["unite"] . "\""
-	?>);
+	<?php echo $foncGraph?>;
+	<?php echo $foncJauge?>;
+});
+window.matchMedia("(max-width: 769px)").addEventListener("change",
+() => {
+	<?php echo $foncGraph?>;
 });
 
 activerHeaderReduit();

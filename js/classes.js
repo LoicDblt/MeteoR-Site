@@ -1,5 +1,5 @@
 /**
- *  Classe pour les couleurs du graphique
+ * Classe pour les couleurs du graphique
  */
 class CouleursGraph {
 	constructor(bgColor, gridColor, color, lineColor, fillColor) {

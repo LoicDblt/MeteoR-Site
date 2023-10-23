@@ -48,7 +48,7 @@ function afficherGraphique(nomColonne, typeMesures, unite, min, max) {
 		if (window.matchMedia("(max-width: 769px)").matches) {
 			rangeMin = abscisse[abscisse.length - (7 * 24) - 1];
 			[top, right, bottom, left, nTicks, tickAngle, formatMois] =
-				[0, 7, 35, 23, 6, -70, "%b"];
+				[0, 7, 70, 23, 6, -70, "%b"];
 		}
 
 		// Configure les données
@@ -104,7 +104,7 @@ function afficherGraphique(nomColonne, typeMesures, unite, min, max) {
 			xaxis: {
 				showgrid: false,
 				nticks: nTicks,
-				tickangle: 0,
+				tickangle: tickAngle,
 				range: [rangeMin, abscisse[abscisse.length - 1]],
 				tickformatstops: [
 					{

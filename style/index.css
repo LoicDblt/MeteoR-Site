@@ -340,6 +340,9 @@ div.plotly-notifier {
 	}
 
 		/* Section graphique */
+	section > section:last-child {
+		padding-bottom: 10px;
+	}
 	.xtick > text,
 	.ytick > text {
 		font-size: 12.5px !important;

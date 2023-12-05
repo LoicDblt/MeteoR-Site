@@ -1,4 +1,21 @@
 /**
+ * Activer le défilement jusqu'en haut de la page, lors d'un clic sur le header
+ * (sur les espaces vides de contenus)
+ */
+function activerDefilementHautPage() {
+	document.querySelectorAll("header").forEach(function(element) {
+		element.addEventListener("click", function(event) {
+			if (event.target !== this) {
+				return;
+			}
+
+			window.scrollTo(0, 0);
+		});
+	});
+}
+
+
+/**
  * Active la gestion du header réduit en fonction de la distance de défilement
  */
 function activerHeaderReduit() {
@@ -27,8 +44,13 @@ function retracterScroll() {
 		basculerAffichageMinMax();
 
 		// Header
-		document.querySelector("header").style.paddingBottom = "0px";
-		document.querySelector("header").classList.add("retractHeader");
+		let header = document.querySelector("header");
+		header.style.paddingBottom = "0px";
+		header.classList.add("retractHeader");
+		header.style.cursor = "pointer";
+		header.onclick = _ => {
+			window.scrollTo(0, 0);
+		};
 
 		// Box gauche
 		document.getElementById("boxGauche").classList.add("retractDiv");
@@ -50,9 +72,11 @@ function retracterScroll() {
 	}
 	else {
 		// Header
-		document.querySelector("header").style.paddingBottom =
-		paddingHeader;
-		document.querySelector("header").classList.remove("retractHeader");
+		let header = document.querySelector("header");
+		header.style.paddingBottom = paddingHeader;
+		header.classList.remove("retractHeader");
+		header.style.cursor = "default";
+		header.onclick = null;
 
 		// Box gauche
 		document.getElementById("boxGauche").classList.remove("retractDiv");

@@ -124,7 +124,6 @@ function formatageValeur($valeur) : string {
 	</nav>
 	<div id="boxCentre">
 		<img draggable="false"
-			onClick="window.scrollTo(0,0);"
 			src="<?php echo CHEMIN_DOSSIER_NAV?>meteor.svg"
 			alt="Logo du site MeteoR" title="Revenir en haut de la page"
 		/>
@@ -188,11 +187,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly-locale-fr.min.js"
 integrity="sha512-nyAFXuhmcYPFCAawwaZOW22viMZW5Aw1jB7w84GbnbPqIz1SDHWGdQw17DB2BfU1jv4nnEdJgvolNINTjdSKMA=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"
-integrity="sha512-EZhmSl/hiKyEHklogkakFnSYa5mWsLmTC4ZfvVzhqYNLPbXKAXsjUYRf2O9OlzQN33H0xBVfGSEIUeqt9astHQ=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.1/progressbar.min.js"
+integrity="sha512-8RAwsP5DBXxOKowV9rc4TwxbW0Z+YG856FOh4ymLgoAQlfhCmkYm8G46FaFAZYsG/J8jcAlI/22q0PSLHz4HAQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/accesDonnees.js"></script>
-<script src="js/classes.js"></script>
+<script src="js/couleurs.js"></script>
 <script src="js/graphique.js"></script>
 <script src="js/mesures.js"></script>
 <script src="js/entete.js"></script>
@@ -210,6 +209,7 @@ window.matchMedia("(max-width: 769px)").addEventListener("change",
 	<?php echo $foncGraph?>;
 });
 
+activerDefilementHautPage();
 activerHeaderReduit();
 </script>
 </body>

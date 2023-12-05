@@ -99,7 +99,6 @@ header {
 	line-height: 98px;
 	padding: 10px 0;
 	text-align: center;
-	cursor: pointer;
 	transform: scale(1, 1);
 	transition: transform 0.2s ease-out;
 }

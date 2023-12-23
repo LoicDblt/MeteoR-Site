@@ -1,7 +1,7 @@
 /**
  * Récupère les données dans la base de données
- * @param nomColonne dans la base de données, des mesures à récupérer
  *
+ * @param nomColonne dans la base de données, des mesures à récupérer
  * @returns les données, ou l'erreur rencontrée
  */
 function recupBdd(nomColonne) {
@@ -33,8 +33,8 @@ function recupBdd(nomColonne) {
 
 /**
  * Récupère les données de d'absisses et d'ordonnées pour le graphique
- * @param nomColonne dans la base de données, des mesures à récupérer
  *
+ * @param nomColonne dans la base de données, des mesures à récupérer
  * @returns un tableau avec les données d'abscisses et d'ordonnées
  */
 function recupAbsOrd(nomColonne) {

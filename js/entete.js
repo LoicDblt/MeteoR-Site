@@ -39,25 +39,30 @@ function activerHeaderReduit() {
  */
 function retracterScroll() {
 	if (document.documentElement.scrollTop > distanceScroll) {
+		let titre = "Revenir en haut de la page";
+
 		// Fermer les min/max
 		ouvert = true;
 		basculerAffichageMinMax();
 
 		// Header
-		let header = document.querySelector("header");
+		const header = document.querySelector("header");
 		header.style.paddingBottom = "0px";
 		header.classList.add("retractHeader");
 		header.style.cursor = "pointer";
 		header.onclick = _ => {
 			window.scrollTo(0, 0);
 		};
+		header.title = titre;
 
 		// Box gauche
 		document.getElementById("boxGauche").classList.add("retractDiv");
 		document.querySelector("#boxGauche > a").classList.add("retractTxt");
 
 		// Box centrale
-		document.querySelector("#boxCentre > img").classList.add("retractLogo");
+		const logo = document.querySelector("#boxCentre > img");
+		logo.classList.add("retractLogo");
+		logo.title = titre;
 
 		// Box droite
 		document.getElementById("boxDroite").classList.add("retractDiv");
@@ -71,20 +76,24 @@ function retracterScroll() {
 			.add("retractTxt");
 	}
 	else {
+		let titre = '';
+	
 		// Header
-		let header = document.querySelector("header");
+		const header = document.querySelector("header");
 		header.style.paddingBottom = paddingHeader;
 		header.classList.remove("retractHeader");
 		header.style.cursor = "default";
 		header.onclick = null;
+		header.title = titre;
 
 		// Box gauche
 		document.getElementById("boxGauche").classList.remove("retractDiv");
 		document.querySelector("#boxGauche > a").classList.remove("retractTxt");
 
 		// Box centrale
-		document.querySelector("#boxCentre > img").classList
-			.remove("retractLogo");
+		const logo = document.querySelector("#boxCentre > img");
+		logo.classList.remove("retractLogo");
+		logo.title = titre;
 
 		// Box droite
 		document.getElementById("boxDroite").classList.remove("retractDiv");
